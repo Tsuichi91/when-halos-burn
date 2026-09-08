@@ -6,6 +6,7 @@ import './styles/prologue-player.css'
 import './styles/track-handoff.css'
 import './styles/second-look.css'
 import './styles/second-look-ending.css'
+import './styles/audio-player.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -16,6 +17,140 @@ const revealItems = [...document.querySelectorAll('[data-reveal]')]
 const artLayers = [...document.querySelectorAll('.scene-art img, .first-contact__art img, .second-look__art img')]
 const firstContact = document.querySelector('.first-contact')
 const secondLook = document.querySelector('.second-look')
+
+const trackLibrary = {
+  '01A': {
+    title: 'PROLOGUE: THE LINE',
+    src: './audio/tracks/01a-prologue-the-line.mp3'
+  },
+  '01B': {
+    title: 'FIRST CONTACT',
+    src: './audio/tracks/01b-first-contact.mp3'
+  },
+  '01C': {
+    title: 'SECOND LOOK',
+    src: './audio/tracks/01c-second-look.mp3'
+  }
+}
+
+const activeAudioPlayers = []
+
+const formatTime = (seconds) => {
+  if (!Number.isFinite(seconds) || seconds < 0) return '--:--'
+  const minutes = Math.floor(seconds / 60)
+  const remainder = Math.floor(seconds % 60)
+  return `${minutes}:${String(remainder).padStart(2, '0')}`
+}
+
+const setSeekVisual = (seek, value) => {
+  const clamped = Math.min(Math.max(value, 0), 1000)
+  seek.value = String(clamped)
+  seek.style.setProperty('--audio-progress', `${clamped / 10}%`)
+}
+
+const initAudioPlayers = () => {
+  document.querySelectorAll('.track-console').forEach((consoleEl) => {
+    const code = consoleEl.querySelector('.track-console__meta span')?.textContent?.trim().toUpperCase()
+    const track = code ? trackLibrary[code] : null
+    const player = consoleEl.querySelector('.track-console__player')
+
+    if (!track || !player) return
+
+    player.setAttribute('aria-label', `${track.title} audio player`)
+    player.innerHTML = `
+      <button class="track-console__play" type="button" aria-label="Play ${track.title}">▶</button>
+      <div class="track-console__transport">
+        <input class="track-console__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek through ${track.title}" />
+        <div class="track-console__times" aria-live="off">
+          <span class="track-console__current">0:00</span>
+          <span class="track-console__duration">--:--</span>
+        </div>
+      </div>
+      <span class="track-console__state">MASTER / READY</span>
+      <audio class="track-console__audio" preload="metadata" src="${track.src}"></audio>
+    `
+
+    const audio = player.querySelector('.track-console__audio')
+    const playButton = player.querySelector('.track-console__play')
+    const seek = player.querySelector('.track-console__seek')
+    const currentTime = player.querySelector('.track-console__current')
+    const duration = player.querySelector('.track-console__duration')
+    const state = player.querySelector('.track-console__state')
+    const note = consoleEl.querySelector(':scope > p')
+
+    if (!audio || !playButton || !seek || !currentTime || !duration || !state) return
+
+    consoleEl.classList.add('is-audio-ready')
+    if (note) note.textContent = `${track.title} / FINAL MASTER — listen within the Story Mode experience.`
+
+    const syncDuration = () => {
+      duration.textContent = formatTime(audio.duration)
+    }
+
+    const syncProgress = () => {
+      const progress = audio.duration > 0 ? (audio.currentTime / audio.duration) * 1000 : 0
+      setSeekVisual(seek, progress)
+      currentTime.textContent = formatTime(audio.currentTime)
+    }
+
+    const setPlayingState = (isPlaying) => {
+      consoleEl.classList.toggle('is-playing', isPlaying)
+      playButton.textContent = isPlaying ? 'Ⅱ' : '▶'
+      playButton.setAttribute('aria-label', `${isPlaying ? 'Pause' : 'Play'} ${track.title}`)
+      state.textContent = isPlaying ? 'MASTER / PLAYING' : 'MASTER / READY'
+    }
+
+    playButton.addEventListener('click', async () => {
+      if (!audio.paused) {
+        audio.pause()
+        return
+      }
+
+      activeAudioPlayers.forEach((entry) => {
+        if (entry.audio !== audio && !entry.audio.paused) entry.audio.pause()
+      })
+
+      try {
+        await audio.play()
+      } catch (error) {
+        consoleEl.classList.add('is-audio-error')
+        state.textContent = 'AUDIO / UNAVAILABLE'
+        playButton.disabled = true
+        console.error(`Could not play ${track.title}`, error)
+      }
+    })
+
+    seek.addEventListener('input', () => {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return
+      audio.currentTime = (Number(seek.value) / 1000) * audio.duration
+      syncProgress()
+    })
+
+    audio.addEventListener('loadedmetadata', () => {
+      syncDuration()
+      syncProgress()
+    })
+    audio.addEventListener('durationchange', syncDuration)
+    audio.addEventListener('timeupdate', syncProgress)
+    audio.addEventListener('play', () => setPlayingState(true))
+    audio.addEventListener('pause', () => setPlayingState(false))
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0
+      setSeekVisual(seek, 0)
+      currentTime.textContent = '0:00'
+      setPlayingState(false)
+    })
+    audio.addEventListener('error', () => {
+      consoleEl.classList.add('is-audio-error')
+      state.textContent = 'AUDIO / UNAVAILABLE'
+      playButton.disabled = true
+    })
+
+    activeAudioPlayers.push({ audio, consoleEl })
+  })
+}
+
+initAudioPlayers()
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
