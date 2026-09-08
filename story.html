@@ -3,26 +3,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#070b10" />
+    <meta name="theme-color" content="#05080c" />
+    <meta name="description" content="WHEN HALOS BURN — Story Mode. Enter Vesper and follow the album in sequence." />
     <title>Story Mode — WHEN HALOS BURN</title>
   </head>
-  <body class="page page--story">
-    <header class="topbar">
-      <a class="brand" href="./index.html">WHB</a>
-      <nav class="topbar__nav" aria-label="Primary navigation">
-        <a class="is-active" href="./story.html">Story</a>
-        <a href="./archive.html">Archive</a>
+  <body class="page page--story-experience">
+    <header class="story-chrome" aria-label="Story navigation">
+      <a class="story-chrome__brand" href="./index.html" aria-label="Return to WHEN HALOS BURN">WHB</a>
+      <div class="story-chrome__chapter" aria-live="polite">
+        <span id="scene-number">00</span>
+        <i></i>
+        <span id="scene-label">VESPER CITY</span>
+      </div>
+      <nav class="story-chrome__nav" aria-label="Experience navigation">
+        <a href="./archive.html">ARCHIVE</a>
+        <a href="./index.html">EXIT</a>
       </nav>
     </header>
 
-    <main>
-      <section class="story-intro section-shell">
-        <p class="eyebrow">STORY MODE</p>
-        <h1>THE STORY WE ARE TOLD</h1>
-        <p class="lede">Follow the album chronologically from the first line drawn across Vesper to the morning after it breaks.</p>
+    <div class="story-progress" aria-hidden="true"><span></span></div>
+
+    <main class="story-experience">
+      <section class="story-scene story-scene--vesper" id="vesper" data-scene="00" data-label="VESPER CITY">
+        <div class="scene-art scene-art--vesper" aria-hidden="true">
+          <img src="./images/landing/vesper-city.png" alt="" />
+        </div>
+        <div class="scene-shade" aria-hidden="true"></div>
+        <div class="scene-line" aria-hidden="true"></div>
+
+        <div class="scene-copy scene-copy--center" data-reveal>
+          <p class="scene-kicker">STORY MODE / ENTERING VESPER</p>
+          <h1>VESPER <span>CITY</span></h1>
+          <p class="scene-lede">A city built on the promise that enough certainty can keep everyone safe.</p>
+        </div>
+
+        <div class="scroll-cue" aria-hidden="true">
+          <span>DESCEND</span><i></i>
+        </div>
       </section>
 
-      <div id="story-root" class="story-root section-shell" aria-live="polite"></div>
+      <section class="story-scene story-scene--halo" id="halo" data-scene="01" data-label="HALO">
+        <div class="scene-art scene-art--halo" aria-hidden="true">
+          <img src="./images/landing/vesper-city.png" alt="" />
+        </div>
+        <div class="scene-shade scene-shade--halo" aria-hidden="true"></div>
+        <div class="halo-orbit" aria-hidden="true"><span></span></div>
+
+        <div class="world-copy world-copy--halo" data-reveal>
+          <p class="scene-kicker">01 / THE SYSTEM</p>
+          <h2>HALO</h2>
+          <p class="world-copy__promise">SAFETY THROUGH CERTAINTY.</p>
+          <p>Vesper's security architecture watches, predicts and classifies in the name of protection. Beautiful. Precise. Almost impossible to question from inside it.</p>
+          <dl class="world-facts">
+            <div><dt>AUTHORITY</dt><dd>HALO Council</dd></div>
+            <div><dt>PROTOCOL</dt><dd>Integrated surveillance</dd></div>
+            <div><dt>PUBLIC IDEAL</dt><dd>Order</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="story-scene story-scene--eclipse" id="eclipse" data-scene="02" data-label="ECLIPSE">
+        <div class="scene-art scene-art--eclipse" aria-hidden="true">
+          <img src="./images/landing/vesper-city.png" alt="" />
+        </div>
+        <div class="scene-shade scene-shade--eclipse" aria-hidden="true"></div>
+        <div class="eclipse-mark" aria-hidden="true"><i></i><i></i></div>
+
+        <div class="world-copy world-copy--eclipse" data-reveal>
+          <p class="scene-kicker">02 / THE RESISTANCE</p>
+          <h2>ECLIPSE</h2>
+          <p class="world-copy__promise">QUESTION. DISRUPT. RECLAIM.</p>
+          <p>A decentralized resistance moving through Vesper's older infrastructure and blind spots. They oppose HALO's control without pretending resistance is clean.</p>
+          <dl class="world-facts">
+            <div><dt>STRUCTURE</dt><dd>Decentralized</dd></div>
+            <div><dt>TERRITORY</dt><dd>Shadow Grid</dd></div>
+            <div><dt>PUBLIC LABEL</dt><dd>Threat</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="act-opening" id="opening" data-scene="03" data-label="OPENING">
+        <div class="act-opening__line" aria-hidden="true"></div>
+        <div class="act-opening__content" data-reveal>
+          <p>OPENING</p>
+          <span>THE STORY WE ARE TOLD</span>
+          <h2>The city defines them<br />before they ever define each other.</h2>
+        </div>
+        <div class="binary-labels" aria-hidden="true">
+          <span>HERO</span><span>VILLAIN</span><span>PROTECTOR</span><span>THREAT</span>
+        </div>
+      </section>
+
+      <section class="prologue" id="prologue" data-scene="01A" data-label="PROLOGUE: THE LINE">
+        <div class="prologue__city" aria-hidden="true">
+          <img src="./images/landing/vesper-city.png" alt="" />
+        </div>
+        <div class="prologue__veil" aria-hidden="true"></div>
+        <div class="prologue__line" aria-hidden="true"></div>
+
+        <div class="prologue__intro" data-reveal>
+          <p class="scene-kicker">01A / NARRATOR</p>
+          <h2>PROLOGUE:<br /><span>THE LINE</span></h2>
+          <p>Before Jiwon meets Taeyun, Vesper has already decided what each man is supposed to be.</p>
+        </div>
+
+        <div class="prologue__sequence" aria-label="Prologue story fragments">
+          <p data-reveal>In Vesper, safety has a shape.</p>
+          <p data-reveal>Order has a name.</p>
+          <p class="prologue__word" data-reveal>HALO.</p>
+          <p data-reveal>Everything beyond the approved line becomes easier to name than to understand.</p>
+          <div class="role-grid" data-reveal>
+            <span>HERO.</span><span>VILLAIN.</span><span>PROTECTOR.</span><span>THREAT.</span>
+          </div>
+        </div>
+
+        <blockquote class="prologue__signature" data-reveal>
+          “No line stays simple once you know the face on the other side.”
+        </blockquote>
+
+        <a class="next-track" href="#first-contact-tease" data-reveal>
+          <span>NEXT / 01B</span>
+          <strong>FIRST CONTACT</strong>
+          <i>↓</i>
+        </a>
+      </section>
+
+      <section class="next-tease" id="first-contact-tease" data-scene="01B" data-label="FIRST CONTACT">
+        <div class="next-tease__line" aria-hidden="true"></div>
+        <div data-reveal>
+          <p>01B / TAEYUN</p>
+          <h2>FIRST CONTACT</h2>
+          <span>THE FILE MEETS THE MAN.</span>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="/src/story.js"></script>
