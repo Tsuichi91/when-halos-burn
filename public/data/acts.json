@@ -1,0 +1,52 @@
+[
+  {
+    "id": "opening",
+    "order": 1,
+    "title": "OPENING",
+    "subtitle": "THE STORY WE ARE TOLD",
+    "theme": "opening",
+    "statement": "The city defines them before they ever define each other."
+  },
+  {
+    "id": "act-1",
+    "order": 2,
+    "title": "ACT I",
+    "subtitle": "ENEMIES",
+    "theme": "enemy"
+  },
+  {
+    "id": "act-2",
+    "order": 3,
+    "title": "ACT II",
+    "subtitle": "TEMPTATION",
+    "theme": "temptation"
+  },
+  {
+    "id": "act-3",
+    "order": 4,
+    "title": "ACT III",
+    "subtitle": "WHAT BECAME REAL",
+    "theme": "intimacy"
+  },
+  {
+    "id": "act-4",
+    "order": 5,
+    "title": "ACT IV",
+    "subtitle": "THE FRACTURE",
+    "theme": "fracture"
+  },
+  {
+    "id": "act-5",
+    "order": 6,
+    "title": "ACT V",
+    "subtitle": "THE CHOICE",
+    "theme": "choice"
+  },
+  {
+    "id": "epilogue",
+    "order": 7,
+    "title": "EPILOGUE",
+    "subtitle": "THE STORY WE CHOOSE",
+    "theme": "afterlight"
+  }
+]
