@@ -1,0 +1,14 @@
+{
+  "title": "WHEN HALOS BURN",
+  "subtitle": "A CINEMATIC CONCEPT ALBUM",
+  "navigation": {
+    "enter": "ENTER VESPER",
+    "storyMode": "STORY MODE",
+    "archiveMode": "ARCHIVE MODE"
+  },
+  "ending": {
+    "question": "You sure?",
+    "answer": "I'm still here.",
+    "finalStatement": "THE LINE BECAME A HORIZON."
+  }
+}
