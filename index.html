@@ -3,33 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#070b10" />
+    <meta name="theme-color" content="#05080c" />
     <meta name="description" content="WHEN HALOS BURN — a cinematic concept album visual experience." />
     <title>WHEN HALOS BURN</title>
   </head>
   <body class="page page--landing">
     <main class="landing" aria-labelledby="album-title">
-      <div class="landing__ambient" aria-hidden="true"></div>
-      <div class="landing__line" aria-hidden="true"></div>
-      <div class="landing__halo" aria-hidden="true">
-        <span class="landing__halo-break"></span>
+      <div class="landing__sky" aria-hidden="true"></div>
+      <div class="landing__haze" aria-hidden="true"></div>
+
+      <div class="vesper-city" aria-hidden="true">
+        <span class="tower tower--01"></span>
+        <span class="tower tower--02"></span>
+        <span class="tower tower--03"></span>
+        <span class="tower tower--04"></span>
+        <span class="tower tower--05"></span>
+        <span class="tower tower--06"></span>
+        <span class="tower tower--07"></span>
+        <span class="tower tower--08"></span>
+        <span class="tower tower--09"></span>
+        <span class="tower tower--10"></span>
+        <span class="tower tower--11"></span>
+        <span class="tower tower--12"></span>
+        <span class="tower tower--core"></span>
+        <span class="vesper-city__water"></span>
       </div>
 
-      <section class="landing__content">
-        <p class="eyebrow">A CINEMATIC CONCEPT ALBUM</p>
-        <h1 id="album-title">WHEN HALOS BURN</h1>
-        <p class="landing__premise">Two men. Two sides of Vesper. One line that was never as simple as they were told.</p>
+      <div class="landing__halo" aria-hidden="true">
+        <span class="landing__halo-inner"></span>
+        <span class="landing__halo-break"></span>
+      </div>
+      <div class="landing__line" aria-hidden="true"></div>
+      <div class="landing__grain" aria-hidden="true"></div>
 
-        <nav class="landing__actions" aria-label="Enter the experience">
-          <a class="button button--primary" href="./story.html">ENTER VESPER</a>
-          <a class="button button--ghost" href="./archive.html">OPEN ARCHIVE</a>
-        </nav>
+      <header class="landing__chrome">
+        <div class="landing__brand">WHB</div>
+        <div class="landing__location">VESPER CITY <span>37.5665° N</span></div>
+      </header>
+
+      <section class="landing__intro" data-stage="intro">
+        <p class="eyebrow landing__eyebrow">A CINEMATIC CONCEPT ALBUM</p>
+        <h1 id="album-title">
+          <span>WHEN</span>
+          <span>HALOS</span>
+          <span>BURN</span>
+        </h1>
+        <p class="landing__premise">Two men. Two sides of Vesper. One line that was never as simple as they were told.</p>
+        <button class="enter-button" id="enter-vesper" type="button" aria-controls="mode-selection" aria-expanded="false">
+          <span>ENTER VESPER</span>
+          <i aria-hidden="true"></i>
+        </button>
       </section>
 
-      <div class="landing__meta" aria-hidden="true">
-        <span>VESPER CITY</span>
+      <section class="mode-selection" id="mode-selection" aria-labelledby="mode-title" aria-hidden="true">
+        <p class="eyebrow">ACCESS GRANTED / VESPER NETWORK</p>
+        <h2 id="mode-title">CHOOSE YOUR PATH</h2>
+        <p class="mode-selection__intro">Experience the album in sequence, or enter the archive and explore Vesper freely.</p>
+
+        <nav class="mode-grid" aria-label="Experience modes">
+          <a class="mode-card mode-card--story" href="./story.html" data-route>
+            <span class="mode-card__number">01</span>
+            <span class="mode-card__line"></span>
+            <span class="mode-card__label">STORY MODE</span>
+            <strong>FOLLOW THE LINE</strong>
+            <p>Enter the album chronologically. The world changes as Jiwon and Taeyun do.</p>
+            <span class="mode-card__action">BEGIN STORY <b>→</b></span>
+          </a>
+
+          <a class="mode-card mode-card--archive" href="./archive.html" data-route>
+            <span class="mode-card__number">02</span>
+            <span class="mode-card__line"></span>
+            <span class="mode-card__label">ARCHIVE MODE</span>
+            <strong>BREAK THE SEQUENCE</strong>
+            <p>Browse all fifteen tracks, perspectives, motifs and records without chronology.</p>
+            <span class="mode-card__action">OPEN ARCHIVE <b>→</b></span>
+          </a>
+        </nav>
+
+        <button class="mode-selection__back" id="return-to-title" type="button">← RETURN TO TITLE</button>
+      </section>
+
+      <footer class="landing__meta" aria-hidden="true">
         <span>HALO / ECLIPSE</span>
-        <span>01A—13</span>
+        <span class="landing__meta-center">THE LINE DEFINES THE CITY</span>
+        <span>01A—13 / 15 TRACKS</span>
+      </footer>
+
+      <div class="page-transition" aria-hidden="true">
+        <span></span>
       </div>
     </main>
 
