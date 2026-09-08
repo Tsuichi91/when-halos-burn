@@ -4,6 +4,7 @@ import './styles/story-world-assets.css'
 import './styles/first-contact.css'
 import './styles/prologue-player.css'
 import './styles/track-handoff.css'
+import './styles/second-look.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -11,8 +12,9 @@ const sceneNumber = document.querySelector('#scene-number')
 const sceneLabel = document.querySelector('#scene-label')
 const scenes = [...document.querySelectorAll('[data-scene]')]
 const revealItems = [...document.querySelectorAll('[data-reveal]')]
-const artLayers = [...document.querySelectorAll('.scene-art img, .first-contact__art img')]
+const artLayers = [...document.querySelectorAll('.scene-art img, .first-contact__art img, .second-look__art img')]
 const firstContact = document.querySelector('.first-contact')
+const secondLook = document.querySelector('.second-look')
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -59,15 +61,24 @@ const updateActiveScene = () => {
   if (sceneLabel) sceneLabel.textContent = label
 }
 
-const updateFirstContactExit = () => {
-  if (!firstContact) return
+const getSectionExitProgress = (section, start = 0.78, duration = 0.17) => {
+  if (!section) return 0
 
-  const rect = firstContact.getBoundingClientRect()
-  const scrollableDistance = Math.max(firstContact.offsetHeight - window.innerHeight, 1)
+  const rect = section.getBoundingClientRect()
+  const scrollableDistance = Math.max(section.offsetHeight - window.innerHeight, 1)
   const travelled = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1)
-  const exit = Math.min(Math.max((travelled - 0.78) / 0.17, 0), 1)
 
-  firstContact.style.setProperty('--fc-exit', exit.toFixed(3))
+  return Math.min(Math.max((travelled - start) / duration, 0), 1)
+}
+
+const updateTrackExits = () => {
+  if (firstContact) {
+    firstContact.style.setProperty('--fc-exit', getSectionExitProgress(firstContact).toFixed(3))
+  }
+
+  if (secondLook) {
+    secondLook.style.setProperty('--sl-exit', getSectionExitProgress(secondLook, 0.79, 0.16).toFixed(3))
+  }
 }
 
 let ticking = false
@@ -80,7 +91,7 @@ const updateScrollEffects = () => {
   progressBar?.style.setProperty('transform', `scaleX(${Math.min(Math.max(progress, 0), 1)})`)
 
   updateActiveScene()
-  updateFirstContactExit()
+  updateTrackExits()
 
   if (reducedMotion) return
 
