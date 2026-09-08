@@ -1,0 +1,176 @@
+/* Clean handoff between 01B FIRST CONTACT and 01C SECOND LOOK */
+
+.first-contact {
+  --fc-exit: 0;
+}
+
+.first-contact__sticky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: #020507;
+  opacity: var(--fc-exit);
+}
+
+.first-contact__heading {
+  opacity: calc(1 - var(--fc-exit));
+  transform: translateY(calc(var(--fc-exit) * -28px));
+}
+
+.first-contact__line {
+  opacity: calc(.55 * (1 - var(--fc-exit)));
+}
+
+.first-contact__handoff {
+  position: relative;
+  z-index: 10;
+  width: min(760px, calc(100% - 40px));
+  min-height: 48svh;
+  margin: 12svh auto 0;
+  padding: 48px 28px 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: inherit;
+  border-top: 1px solid rgba(228,240,245,.13);
+  border-bottom: 1px solid rgba(228,240,245,.08);
+  background: linear-gradient(180deg, rgba(3,7,10,.16), rgba(3,7,10,.76));
+  backdrop-filter: blur(8px);
+}
+
+.first-contact__handoff > span {
+  font-size: .5rem;
+  font-weight: 500;
+  letter-spacing: .32em;
+  color: rgba(211,225,231,.48);
+}
+
+.first-contact__handoff strong {
+  margin-top: 14px;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: .16em;
+}
+
+.first-contact__handoff em {
+  margin-top: 14px;
+  font-size: .56rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: .28em;
+  color: rgba(226,236,240,.65);
+}
+
+.first-contact__handoff i {
+  margin-top: 26px;
+  font-style: normal;
+  color: rgba(230,241,245,.40);
+  animation: handoffPulse 2.3s ease-in-out infinite;
+}
+
+.next-tease--second-look {
+  min-height: 110svh;
+  padding: 0 24px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(75,98,110,.10), transparent 33%),
+    linear-gradient(180deg, #020507 0%, #05090d 55%, #030609 100%);
+}
+
+.next-tease--second-look::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 49.96%, rgba(225,240,246,.055) 50%, transparent 50.04%),
+    repeating-linear-gradient(90deg, transparent 0 calc(12.5vw - 1px), rgba(225,240,246,.016) calc(12.5vw - 1px) 12.5vw);
+  pointer-events: none;
+}
+
+.next-tease--second-look .next-tease__line {
+  opacity: .32;
+}
+
+.second-look-tease__content {
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100% - 20px));
+  text-align: center;
+}
+
+.second-look-tease__content > p {
+  margin: 0 0 14px;
+  font-size: .55rem;
+  font-weight: 500;
+  letter-spacing: .34em;
+  color: rgba(207,222,228,.48);
+}
+
+.second-look-tease__content > span {
+  display: block;
+  margin-bottom: 22px;
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .30em;
+  color: rgba(225,235,239,.66);
+}
+
+.second-look-tease__content h2 {
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 200;
+  line-height: .84;
+  letter-spacing: .08em;
+  color: rgba(242,247,249,.96);
+}
+
+.second-look-tease__content blockquote {
+  max-width: 760px;
+  margin: 40px auto 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(1.2rem, 2.2vw, 2rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(212,225,231,.72);
+}
+
+@keyframes handoffPulse {
+  0%, 100% { transform: translateY(0); opacity: .38; }
+  50% { transform: translateY(6px); opacity: .78; }
+}
+
+@media (max-width: 620px) {
+  .first-contact__handoff {
+    min-height: 42svh;
+    padding-inline: 20px;
+  }
+
+  .first-contact__handoff strong {
+    font-size: clamp(1.7rem, 9vw, 2.6rem);
+  }
+
+  .second-look-tease__content h2 {
+    font-size: clamp(3.1rem, 16vw, 5.4rem);
+    letter-spacing: .045em;
+  }
+
+  .second-look-tease__content blockquote {
+    margin-top: 28px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .first-contact__handoff i {
+    animation: none;
+  }
+}
