@@ -1,0 +1,27 @@
+{
+  "city": {
+    "name": "Vesper City",
+    "description": "A futuristic metropolis built around safety, predictability and controlled order."
+  },
+  "halo": {
+    "name": "HALO Protocol",
+    "description": "Vesper's integrated security, surveillance and behavioral-risk system.",
+    "publicPromise": "Safety through certainty."
+  },
+  "haloCouncil": {
+    "name": "HALO Council",
+    "description": "The governing institution responsible for Vesper's security architecture."
+  },
+  "eclipse": {
+    "name": "Eclipse",
+    "description": "A decentralized resistance network opposing HALO's unchecked control."
+  },
+  "shadowGrid": {
+    "name": "Shadow Grid",
+    "description": "Older infrastructure, surveillance gaps and underground networks beneath Vesper."
+  },
+  "observatory": {
+    "name": "The Observatory",
+    "description": "An abandoned astronomical facility above the city that becomes neutral ground between Jiwon and Taeyun."
+  }
+}
