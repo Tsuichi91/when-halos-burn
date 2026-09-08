@@ -1,0 +1,130 @@
+/* Exact title artwork taken from the approved visual reference. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.landing__title-art {
+  position: relative;
+  width: min(66vw, 980px);
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(22px) scale(.985);
+  filter: blur(5px);
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.is-ready .landing__title-art {
+  animation: exactTitleReveal 1.05s 1.08s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.landing__title-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: screen;
+  filter:
+    brightness(1.18)
+    contrast(1.34)
+    saturate(.82)
+    drop-shadow(0 5px 26px rgba(0,0,0,.82));
+}
+
+/* Add a subtle glow where the original O/beam sits without replacing the source artwork. */
+.landing__title-art::after {
+  content: "";
+  position: absolute;
+  left: 56.75%;
+  top: 50%;
+  width: 7.5%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,246,224,.23) 0%, rgba(227,242,248,.09) 30%, transparent 70%);
+  filter: blur(7px);
+  mix-blend-mode: screen;
+  opacity: .75;
+  animation: titleGlowBreathe 4.8s 2.2s ease-in-out infinite;
+}
+
+/* The title image replaces the previous live-font title, so tighten the surrounding spacing. */
+.landing__eyebrow {
+  margin-bottom: 9px;
+}
+
+.landing__premise {
+  margin-top: 13px;
+}
+
+.enter-button {
+  margin-top: 24px;
+}
+
+@keyframes exactTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(.985);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes titleGlowBreathe {
+  0%, 100% { opacity: .48; transform: translate(-50%, -50%) scale(.94); }
+  50% { opacity: .82; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@media (max-width: 1050px) {
+  .landing__title-art {
+    width: min(73vw, 900px);
+  }
+}
+
+@media (max-width: 760px) {
+  .landing__title-art {
+    width: min(92vw, 760px);
+  }
+}
+
+@media (max-width: 620px) {
+  .landing__title-art {
+    width: 96vw;
+    max-width: 610px;
+  }
+
+  .landing__title-art img {
+    filter:
+      brightness(1.22)
+      contrast(1.38)
+      saturate(.78)
+      drop-shadow(0 4px 20px rgba(0,0,0,.9));
+  }
+
+  .landing__premise {
+    margin-top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing__title-art {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .landing__title-art::after {
+    animation: none;
+  }
+}
