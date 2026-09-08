@@ -2,6 +2,7 @@ import './styles/site.css'
 import './styles/story-experience.css'
 import './styles/story-world-assets.css'
 import './styles/first-contact.css'
+import './styles/prologue-player.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
