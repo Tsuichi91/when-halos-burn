@@ -1,0 +1,40 @@
+[
+  {
+    "id": "jiwon",
+    "name": "Han Jiwon",
+    "koreanName": "한지원",
+    "age": 29,
+    "codename": "AEGIS",
+    "affiliation": "Halo Guard",
+    "role": "Elite Halo Guard Officer",
+    "core": {
+      "value": "Protection",
+      "mask": "Competence",
+      "keyword": "STAY"
+    },
+    "arc": {
+      "start": "ORDER",
+      "end": "PROTECTION"
+    },
+    "quote": "I know exactly where the line is."
+  },
+  {
+    "id": "taeyun",
+    "name": "Kang Taeyun",
+    "koreanName": "강태윤",
+    "age": 32,
+    "codename": "THE ARCHITECT",
+    "affiliation": "Eclipse",
+    "role": "Strategist / Hacker / Former HALO Engineer",
+    "core": {
+      "value": "Truth",
+      "mask": "Performance",
+      "keyword": "TRUTH"
+    },
+    "arc": {
+      "start": "CONTROL",
+      "end": "AGENCY"
+    },
+    "quote": "I never needed saving."
+  }
+]
