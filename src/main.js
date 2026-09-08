@@ -1,6 +1,6 @@
 import './styles/site.css'
 import './styles/landing.css'
-import './styles/title-reference.css'
+import './styles/title-image.css'
 
 const landing = document.querySelector('.landing')
 const art = document.querySelector('.landing__art')
@@ -8,41 +8,11 @@ const enterButton = document.querySelector('#enter-vesper')
 const returnButton = document.querySelector('#return-to-title')
 const modeSelection = document.querySelector('#mode-selection')
 const routeLinks = document.querySelectorAll('[data-route]')
-const albumTitle = document.querySelector('#album-title')
-const titleO = document.querySelector('.title-o')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 requestAnimationFrame(() => {
   document.body.classList.add('is-ready')
 })
-
-const alignTitleOToBeam = () => {
-  if (!albumTitle || !titleO) return
-
-  if (window.innerWidth <= 620) {
-    albumTitle.style.setProperty('--title-shift', '0px')
-    return
-  }
-
-  albumTitle.style.setProperty('--title-shift', '0px')
-
-  requestAnimationFrame(() => {
-    const rect = titleO.getBoundingClientRect()
-    const oCenter = rect.left + rect.width / 2
-    const viewportCenter = window.innerWidth / 2
-    const shift = viewportCenter - oCenter
-
-    albumTitle.style.setProperty('--title-shift', `${shift.toFixed(1)}px`)
-  })
-}
-
-if (document.fonts?.ready) {
-  document.fonts.ready.then(alignTitleOToBeam)
-} else {
-  window.addEventListener('load', alignTitleOToBeam, { once: true })
-}
-
-window.addEventListener('resize', alignTitleOToBeam)
 
 const setModeStage = (entered) => {
   if (!landing || !modeSelection || !enterButton) return
