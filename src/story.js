@@ -3,6 +3,7 @@ import './styles/story-experience.css'
 import './styles/story-world-assets.css'
 import './styles/first-contact.css'
 import './styles/prologue-player.css'
+import './styles/track-handoff.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -11,6 +12,7 @@ const sceneLabel = document.querySelector('#scene-label')
 const scenes = [...document.querySelectorAll('[data-scene]')]
 const revealItems = [...document.querySelectorAll('[data-reveal]')]
 const artLayers = [...document.querySelectorAll('.scene-art img, .first-contact__art img')]
+const firstContact = document.querySelector('.first-contact')
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -23,21 +25,50 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 revealItems.forEach((item) => revealObserver.observe(item))
 
-const sceneObserver = new IntersectionObserver((entries) => {
-  const visible = entries
-    .filter((entry) => entry.isIntersecting)
-    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+const updateActiveScene = () => {
+  if (!scenes.length) return
 
-  if (!visible) return
+  const anchor = window.innerHeight * 0.44
+  let active = scenes[0]
+  let nearestDistance = Number.POSITIVE_INFINITY
 
-  const { scene, label } = visible.target.dataset
+  scenes.forEach((scene) => {
+    const rect = scene.getBoundingClientRect()
+
+    if (rect.top <= anchor && rect.bottom >= anchor) {
+      active = scene
+      nearestDistance = 0
+      return
+    }
+
+    if (nearestDistance === 0) return
+
+    const distance = Math.min(
+      Math.abs(rect.top - anchor),
+      Math.abs(rect.bottom - anchor)
+    )
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance
+      active = scene
+    }
+  })
+
+  const { scene, label } = active.dataset
   if (sceneNumber) sceneNumber.textContent = scene
   if (sceneLabel) sceneLabel.textContent = label
-}, {
-  threshold: [0.2, 0.35, 0.5, 0.7]
-})
+}
 
-scenes.forEach((scene) => sceneObserver.observe(scene))
+const updateFirstContactExit = () => {
+  if (!firstContact) return
+
+  const rect = firstContact.getBoundingClientRect()
+  const scrollableDistance = Math.max(firstContact.offsetHeight - window.innerHeight, 1)
+  const travelled = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1)
+  const exit = Math.min(Math.max((travelled - 0.78) / 0.17, 0), 1)
+
+  firstContact.style.setProperty('--fc-exit', exit.toFixed(3))
+}
 
 let ticking = false
 
@@ -47,6 +78,9 @@ const updateScrollEffects = () => {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0
   progressBar?.style.setProperty('transform', `scaleX(${Math.min(Math.max(progress, 0), 1)})`)
+
+  updateActiveScene()
+  updateFirstContactExit()
 
   if (reducedMotion) return
 
