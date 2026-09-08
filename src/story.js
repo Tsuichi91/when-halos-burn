@@ -5,6 +5,7 @@ import './styles/first-contact.css'
 import './styles/prologue-player.css'
 import './styles/track-handoff.css'
 import './styles/second-look.css'
+import './styles/second-look-ending.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
