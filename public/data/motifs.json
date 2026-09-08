@@ -1,0 +1,40 @@
+[
+  {
+    "id": "the-line",
+    "title": "THE LINE",
+    "meaning": "Boundary, morality, loyalty, intimacy and ultimately choice.",
+    "progression": ["Rule", "Boundary", "Temptation", "Betrayal", "Choice", "Horizon"]
+  },
+  {
+    "id": "stay",
+    "title": "STAY",
+    "character": "jiwon",
+    "meaning": "Jiwon's language of protection gradually becomes the language of voluntary presence."
+  },
+  {
+    "id": "truth",
+    "title": "TRUTH",
+    "character": "taeyun",
+    "meaning": "Taeyun begins by treating truth as a weapon and ends by surrendering control over what others do with it."
+  },
+  {
+    "id": "hands",
+    "title": "HANDS",
+    "meaning": "Violence becomes restraint, restraint becomes touch, and touch becomes choice."
+  },
+  {
+    "id": "names",
+    "title": "NAMES",
+    "meaning": "Aegis and Architect gradually give way to Jiwon and Taeyun."
+  },
+  {
+    "id": "saving",
+    "title": "SAVING",
+    "meaning": "The difference between protecting someone and choosing for them."
+  },
+  {
+    "id": "observatory",
+    "title": "THE OBSERVATORY",
+    "meaning": "The one place in Vesper where neither HALO nor Eclipse gets to define who they are."
+  }
+]
