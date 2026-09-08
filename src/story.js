@@ -1,6 +1,7 @@
 import './styles/site.css'
 import './styles/story-experience.css'
 import './styles/story-world-assets.css'
+import './styles/first-contact.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -8,7 +9,7 @@ const sceneNumber = document.querySelector('#scene-number')
 const sceneLabel = document.querySelector('#scene-label')
 const scenes = [...document.querySelectorAll('[data-scene]')]
 const revealItems = [...document.querySelectorAll('[data-reveal]')]
-const artLayers = [...document.querySelectorAll('.scene-art img')]
+const artLayers = [...document.querySelectorAll('.scene-art img, .first-contact__art img')]
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -49,7 +50,7 @@ const updateScrollEffects = () => {
   if (reducedMotion) return
 
   artLayers.forEach((img) => {
-    const section = img.closest('.story-scene')
+    const section = img.closest('[data-scene]')
     if (!section) return
 
     const rect = section.getBoundingClientRect()
