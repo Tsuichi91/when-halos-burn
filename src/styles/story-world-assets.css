@@ -1,0 +1,118 @@
+/* Dedicated world artwork overrides for Story Mode */
+
+.story-scene--halo .scene-art img {
+  object-position: 50% 48%;
+  transform: scale(1.055);
+  filter: saturate(.90) contrast(1.025) brightness(.94);
+}
+
+.story-scene--halo .scene-shade--halo {
+  background:
+    linear-gradient(90deg,
+      rgba(3,7,10,.10) 0%,
+      rgba(3,7,10,.03) 34%,
+      rgba(3,7,10,.12) 56%,
+      rgba(3,7,10,.58) 84%,
+      rgba(3,7,10,.76) 100%),
+    linear-gradient(180deg,
+      rgba(2,5,8,.08) 0%,
+      rgba(2,5,8,.03) 34%,
+      rgba(2,5,8,.22) 72%,
+      rgba(2,5,8,.48) 100%);
+}
+
+.story-scene--halo .world-copy--halo {
+  margin-left: auto;
+  margin-right: clamp(42px, 6vw, 118px);
+  text-align: left;
+}
+
+.story-scene--halo .world-copy--halo h2,
+.story-scene--halo .world-copy--halo .world-copy__promise,
+.story-scene--halo .world-copy--halo > p,
+.story-scene--halo .world-copy--halo .world-facts {
+  text-shadow: 0 3px 22px rgba(0,0,0,.76);
+}
+
+.story-scene--halo .halo-orbit {
+  opacity: .11;
+  transform: scale(.92);
+}
+
+.story-scene--eclipse .scene-art img {
+  object-position: 52% 50%;
+  transform: scale(1.06);
+  filter: saturate(.88) contrast(1.045) brightness(.84);
+}
+
+.story-scene--eclipse .scene-shade--eclipse {
+  background:
+    linear-gradient(90deg,
+      rgba(2,5,8,.82) 0%,
+      rgba(2,5,8,.66) 24%,
+      rgba(2,5,8,.26) 47%,
+      rgba(2,5,8,.08) 72%,
+      rgba(7,5,3,.15) 100%),
+    linear-gradient(180deg,
+      rgba(2,5,8,.12) 0%,
+      rgba(2,5,8,.02) 40%,
+      rgba(2,5,8,.42) 100%);
+}
+
+.story-scene--eclipse .world-copy--eclipse {
+  margin-left: clamp(42px, 6vw, 118px);
+  margin-right: auto;
+  text-align: left;
+}
+
+.story-scene--eclipse .eclipse-mark {
+  right: 6vw;
+  opacity: .07;
+}
+
+.story-scene--eclipse .world-copy--eclipse h2,
+.story-scene--eclipse .world-copy--eclipse .world-copy__promise,
+.story-scene--eclipse .world-copy--eclipse > p,
+.story-scene--eclipse .world-copy--eclipse .world-facts {
+  text-shadow: 0 3px 24px rgba(0,0,0,.88);
+}
+
+@media (max-width: 980px) {
+  .story-scene--halo .world-copy--halo,
+  .story-scene--eclipse .world-copy--eclipse {
+    margin-left: auto;
+    margin-right: auto;
+    width: min(560px, calc(100% - 40px));
+  }
+
+  .story-scene--halo .scene-shade--halo {
+    background:
+      linear-gradient(180deg, rgba(2,5,8,.06) 0%, rgba(2,5,8,.16) 44%, rgba(2,5,8,.72) 100%),
+      radial-gradient(circle at 50% 50%, transparent 0 30%, rgba(2,5,8,.25) 76%, rgba(2,5,8,.42) 100%);
+  }
+
+  .story-scene--eclipse .scene-shade--eclipse {
+    background:
+      linear-gradient(180deg, rgba(2,5,8,.12) 0%, rgba(2,5,8,.22) 44%, rgba(2,5,8,.78) 100%),
+      linear-gradient(90deg, rgba(2,5,8,.35), transparent 30%, transparent 70%, rgba(2,5,8,.28));
+  }
+}
+
+@media (max-width: 620px) {
+  .story-scene--halo .scene-art img {
+    object-position: 50% 50%;
+    transform: scale(1.03);
+    filter: saturate(.88) contrast(1.02) brightness(.86);
+  }
+
+  .story-scene--eclipse .scene-art img {
+    object-position: 58% 50%;
+    transform: scale(1.035);
+    filter: saturate(.84) contrast(1.04) brightness(.72);
+  }
+
+  .story-scene--halo .world-copy--halo,
+  .story-scene--eclipse .world-copy--eclipse {
+    width: calc(100% - 30px);
+  }
+}
