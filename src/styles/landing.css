@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+
 /* Artwork-driven landing experience */
 .page--landing {
   background: #030609;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
 .landing {
@@ -15,7 +18,7 @@
   background: #030609;
 }
 
-/* Hide the original CSS-only skyline/halo implementation. */
+/* Legacy CSS-only skyline/halo stays hidden. */
 .landing__sky,
 .landing__haze,
 .vesper-city,
@@ -25,9 +28,9 @@
 
 .landing__art {
   position: absolute;
-  inset: -2.5%;
+  inset: -2.2%;
   z-index: -10;
-  transform: translate3d(var(--art-x), var(--art-y), 0) scale(1.045);
+  transform: translate3d(var(--art-x), var(--art-y), 0) scale(1.04);
   transition: transform 1.3s cubic-bezier(.2,.7,.2,1), filter 1.2s ease;
   will-change: transform;
 }
@@ -38,22 +41,22 @@
   display: block;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: saturate(.93) contrast(1.045) brightness(.83);
+  filter: saturate(.98) contrast(1.025) brightness(.94);
 }
 
-/* Preserve the cinematic image, but create legibility without flattening it. */
+/* Keep the artwork visible. The overlay only protects type and edge UI. */
 .landing__art::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(2,5,8,.20) 0%, rgba(2,5,8,.04) 25%, rgba(2,5,8,.06) 50%, rgba(2,5,8,.56) 82%, rgba(2,5,8,.82) 100%),
-    radial-gradient(ellipse at 50% 66%, rgba(2,5,8,.06) 0%, rgba(2,5,8,.18) 43%, rgba(2,5,8,.35) 100%),
-    linear-gradient(90deg, rgba(2,5,8,.28), transparent 25%, transparent 74%, rgba(2,5,8,.22));
+    linear-gradient(180deg, rgba(2,5,8,.13) 0%, rgba(2,5,8,.015) 26%, rgba(2,5,8,.015) 53%, rgba(2,5,8,.21) 73%, rgba(2,5,8,.58) 100%),
+    radial-gradient(ellipse at 50% 64%, transparent 0%, rgba(2,5,8,.035) 43%, rgba(2,5,8,.15) 78%, rgba(2,5,8,.25) 100%),
+    linear-gradient(90deg, rgba(2,5,8,.16), transparent 18%, transparent 82%, rgba(2,5,8,.13));
   pointer-events: none;
 }
 
-/* The image already contains the main beam. This overlay only makes it feel alive. */
+/* The artwork contains the main beam; this is only a breathing highlight. */
 .landing__line {
   position: absolute;
   top: -8%;
@@ -65,71 +68,89 @@
   transform-origin: top;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(237,248,252,.92) 12%,
-    rgba(237,248,252,.45) 46%,
-    rgba(216,173,124,.22) 77%,
+    rgba(245,251,253,.90) 12%,
+    rgba(237,248,252,.28) 47%,
+    rgba(216,173,124,.16) 77%,
     transparent 100%);
-  box-shadow: 0 0 11px rgba(213,238,248,.26);
+  box-shadow: 0 0 10px rgba(213,238,248,.20);
   animation: artworkLineDraw 2.1s .15s cubic-bezier(.2,.8,.2,1) forwards,
              artworkLinePulse 5.4s 2.3s ease-in-out infinite;
-  opacity: .7;
+  opacity: .54;
 }
 
 .landing__grain {
-  opacity: .035;
+  opacity: .026;
   z-index: 20;
 }
 
+/* Small editorial chrome */
 .landing__chrome {
   z-index: 22;
-  padding: clamp(20px, 3vw, 40px) clamp(20px, 4vw, 62px);
+  padding: clamp(22px, 3vw, 42px) clamp(22px, 4vw, 64px);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  color: rgba(229,239,243,.70);
   text-shadow: 0 1px 18px rgba(0,0,0,.72);
 }
 
 .landing__brand {
-  font-size: .68rem;
-  letter-spacing: .42em;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .48em;
 }
 
 .landing__location {
-  font-size: .61rem;
-  letter-spacing: .22em;
+  font-size: .59rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
 }
 
+.landing__location span {
+  opacity: .58;
+}
+
+/* Main title: lower-middle, leaving the HALO tower unobstructed. */
 .landing__intro {
   position: absolute;
   z-index: 8;
   left: 50%;
-  bottom: clamp(76px, 8vh, 118px);
-  transform: translateX(-50%);
-  width: min(1060px, calc(100% - 36px));
+  top: 64%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: min(1220px, calc(100% - 42px));
   text-align: center;
   padding: 0;
   transition: opacity .7s ease, transform .95s cubic-bezier(.22,.8,.2,1), filter .7s ease;
 }
 
 .landing__eyebrow {
-  margin-bottom: 15px;
-  color: rgba(221,234,240,.70);
-  font-size: .63rem;
-  letter-spacing: .34em;
-  text-shadow: 0 2px 18px rgba(0,0,0,.8);
+  margin-bottom: 13px;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-size: .60rem;
+  font-weight: 400;
+  letter-spacing: .42em;
+  color: rgba(235,242,245,.76);
+  text-shadow: 0 2px 20px rgba(0,0,0,.88);
 }
 
 .landing h1 {
   margin: 0;
   display: flex;
   justify-content: center;
-  gap: .25em;
+  align-items: baseline;
+  gap: .28em;
   flex-wrap: nowrap;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(2.8rem, 6.55vw, 6.6rem);
-  line-height: .92;
-  letter-spacing: .065em;
-  font-weight: 270;
+  font-family: 'Bodoni Moda', 'Times New Roman', serif;
+  font-size: clamp(3.4rem, 6.45vw, 7.35rem);
+  line-height: .84;
+  letter-spacing: .045em;
+  font-weight: 500;
   text-transform: uppercase;
-  color: #f3f6f7;
-  text-shadow: 0 4px 30px rgba(0,0,0,.90), 0 0 2px rgba(255,255,255,.35);
+  color: #f7f5f1;
+  text-shadow:
+    0 5px 36px rgba(0,0,0,.92),
+    0 1px 2px rgba(0,0,0,.92),
+    0 0 22px rgba(233,242,245,.06);
 }
 
 .landing h1 span {
@@ -137,41 +158,82 @@
 }
 
 .landing__premise {
-  max-width: 690px;
-  margin: 18px auto 0;
-  color: rgba(222,231,235,.76);
-  font-size: clamp(.78rem, 1.15vw, .97rem);
-  line-height: 1.65;
-  letter-spacing: .035em;
-  text-shadow: 0 2px 18px rgba(0,0,0,.95);
+  max-width: 620px;
+  margin: 21px auto 0;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(.74rem, 1vw, .90rem);
+  font-weight: 300;
+  line-height: 1.75;
+  letter-spacing: .055em;
+  color: rgba(228,235,238,.82);
+  text-shadow: 0 2px 20px rgba(0,0,0,.96);
 }
 
+/* Editorial control rather than a generic web button. */
 .enter-button {
-  margin-top: 22px;
-  padding: 14px 24px 14px 27px;
-  border: 1px solid rgba(232,242,246,.27);
-  background: rgba(5,10,14,.28);
-  backdrop-filter: blur(10px);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025), 0 12px 40px rgba(0,0,0,.18);
-  color: rgba(244,248,250,.94);
-  letter-spacing: .25em;
-  transition: opacity .8s 2s ease, transform .8s 2s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease;
+  position: relative;
+  min-width: 242px;
+  margin-top: 27px;
+  padding: 15px 25px 15px 28px;
+  border: 1px solid rgba(237,245,248,.34);
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(5,10,14,.25), rgba(10,16,20,.38), rgba(5,10,14,.25));
+  backdrop-filter: blur(13px) saturate(.75);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.035),
+    0 12px 42px rgba(0,0,0,.20);
+  color: rgba(247,250,251,.96);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: .31em;
+  font-size: .64rem;
+  text-transform: uppercase;
+  transition:
+    opacity .8s 2s ease,
+    transform .8s 2s ease,
+    border-color .3s ease,
+    background .3s ease,
+    box-shadow .3s ease,
+    letter-spacing .3s ease;
 }
+
+.enter-button::before,
+.enter-button::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 1px;
+  top: -1px;
+  background: rgba(245,250,252,.82);
+  transition: width .3s ease, background .3s ease;
+}
+
+.enter-button::before { left: -1px; }
+.enter-button::after { right: -1px; }
 
 .enter-button:hover,
 .enter-button:focus-visible {
-  border-color: rgba(240,248,251,.68);
-  background: rgba(11,18,23,.50);
-  box-shadow: 0 0 35px rgba(196,224,236,.08), inset 0 0 0 1px rgba(255,255,255,.04);
+  border-color: rgba(245,250,252,.72);
+  background: linear-gradient(90deg, rgba(14,22,27,.42), rgba(22,31,36,.55), rgba(14,22,27,.42));
+  box-shadow: 0 0 42px rgba(196,224,236,.10), inset 0 1px rgba(255,255,255,.055);
+  letter-spacing: .34em;
+}
+
+.enter-button:hover::before,
+.enter-button:hover::after,
+.enter-button:focus-visible::before,
+.enter-button:focus-visible::after {
+  width: 50%;
+  background: rgba(245,250,252,.96);
 }
 
 .enter-button i {
   display: inline-block;
-  width: 30px;
+  width: 31px;
   height: 1px;
   margin-left: 15px;
   vertical-align: middle;
-  background: linear-gradient(90deg, rgba(225,239,245,.35), rgba(245,250,252,.95));
+  background: linear-gradient(90deg, rgba(225,239,245,.25), rgba(245,250,252,.95));
   position: relative;
 }
 
@@ -182,83 +244,163 @@
   height: 6px;
   right: 0;
   top: -3px;
-  border-top: 1px solid rgba(245,250,252,.9);
-  border-right: 1px solid rgba(245,250,252,.9);
+  border-top: 1px solid rgba(245,250,252,.92);
+  border-right: 1px solid rgba(245,250,252,.92);
   transform: rotate(45deg);
 }
 
 .landing__meta {
   z-index: 21;
   bottom: 22px;
-  color: rgba(197,211,218,.45);
-  text-shadow: 0 2px 14px rgba(0,0,0,.9);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-size: .57rem;
+  letter-spacing: .25em;
+  color: rgba(205,217,223,.50);
+  text-shadow: 0 2px 14px rgba(0,0,0,.94);
 }
 
-/* Entering Vesper: keep the city visible, dim it, then reveal the mode cards. */
+/* Entering Vesper: preserve the artwork, then focus attention on the mode portal. */
 .landing.is-entered .landing__art {
-  transform: translate3d(var(--art-x), calc(var(--art-y) + 5px), 0) scale(1.085);
-  filter: brightness(.60) saturate(.75);
+  transform: translate3d(var(--art-x), calc(var(--art-y) + 5px), 0) scale(1.075);
+  filter: brightness(.67) saturate(.80);
 }
 
 .landing.is-entered .landing__art::after {
   background:
-    linear-gradient(180deg, rgba(2,5,8,.50), rgba(2,5,8,.54)),
-    radial-gradient(circle at center, rgba(5,12,17,.28), rgba(2,5,8,.66));
+    linear-gradient(180deg, rgba(2,5,8,.36), rgba(2,5,8,.43)),
+    radial-gradient(circle at center, rgba(5,12,17,.18), rgba(2,5,8,.56));
 }
 
 .landing.is-entered .landing__intro {
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, 25px) scale(.985);
+  transform: translate(-50%, calc(-50% + 25px)) scale(.985);
   filter: blur(10px);
 }
 
+/* Mode portal inherits the editorial language. */
 .mode-selection {
   z-index: 12;
-  width: min(980px, calc(100% - 36px));
-  padding: 44px clamp(18px, 4vw, 48px) 36px;
-  border: 1px solid rgba(222,237,244,.13);
-  background: linear-gradient(135deg, rgba(5,11,16,.78), rgba(8,15,20,.57));
-  backdrop-filter: blur(18px) saturate(.75);
-  box-shadow: 0 28px 90px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.018);
+  width: min(1010px, calc(100% - 38px));
+  padding: 42px clamp(20px, 4vw, 50px) 36px;
+  border: 1px solid rgba(226,239,245,.16);
+  border-radius: 0;
+  background:
+    linear-gradient(135deg, rgba(5,11,16,.72), rgba(8,15,20,.53));
+  backdrop-filter: blur(20px) saturate(.72);
+  box-shadow: 0 28px 100px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.025);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+.mode-selection > .eyebrow {
+  font-size: .57rem;
+  letter-spacing: .32em;
 }
 
 .mode-selection h2 {
-  font-weight: 320;
-  letter-spacing: .10em;
+  margin-top: 5px;
+  font-family: 'Bodoni Moda', 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  line-height: .9;
+  font-weight: 500;
+  letter-spacing: .055em;
 }
 
 .mode-selection__intro {
-  color: rgba(201,215,222,.68);
+  max-width: 610px;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(207,219,225,.72);
+  font-weight: 300;
+}
+
+.mode-grid {
+  gap: 14px;
 }
 
 .mode-card {
-  background: linear-gradient(145deg, rgba(14,24,31,.60), rgba(4,9,13,.68));
-  border-color: rgba(222,237,244,.12);
-  backdrop-filter: blur(8px);
+  position: relative;
+  min-height: 255px;
+  border-radius: 0;
+  border-color: rgba(226,239,245,.14);
+  background: linear-gradient(145deg, rgba(13,23,30,.50), rgba(4,9,13,.60));
+  backdrop-filter: blur(9px);
+  overflow: hidden;
+}
+
+.mode-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(230,242,247,.92), rgba(209,155,101,.55));
+  transition: right .45s cubic-bezier(.2,.7,.2,1);
 }
 
 .mode-card:hover,
 .mode-card:focus-visible {
-  border-color: rgba(230,241,246,.43);
-  background: linear-gradient(145deg, rgba(21,33,41,.76), rgba(7,12,16,.76));
+  border-color: rgba(234,243,247,.42);
+  background: linear-gradient(145deg, rgba(20,32,39,.68), rgba(7,12,16,.70));
+  transform: translateY(-4px);
+}
+
+.mode-card:hover::after,
+.mode-card:focus-visible::after {
+  right: 0;
+}
+
+.mode-card__label,
+.mode-card__number,
+.mode-card__action {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .20em;
+}
+
+.mode-card strong {
+  font-family: 'Bodoni Moda', 'Times New Roman', serif;
+  font-size: clamp(1.55rem, 2.25vw, 2.2rem);
+  font-weight: 500;
+  letter-spacing: .035em;
+}
+
+.mode-card p {
+  font-weight: 300;
+}
+
+.mode-selection__back {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .18em;
 }
 
 @keyframes artworkLineDraw {
   from { transform: scaleY(0); opacity: 0; }
-  to { transform: scaleY(1); opacity: .70; }
+  to { transform: scaleY(1); opacity: .54; }
 }
 
 @keyframes artworkLinePulse {
-  0%, 100% { opacity: .42; filter: brightness(.95); }
-  50% { opacity: .78; filter: brightness(1.18); }
+  0%, 100% { opacity: .32; filter: brightness(.95); }
+  50% { opacity: .62; filter: brightness(1.16); }
+}
+
+@media (max-width: 1050px) {
+  .landing__intro { top: 66%; }
+  .landing h1 { font-size: clamp(3.15rem, 7.1vw, 6.2rem); gap: .20em; }
 }
 
 @media (max-width: 900px) {
-  .landing__art { inset: -1%; transform: translate3d(var(--art-x), var(--art-y), 0) scale(1.025); }
+  .landing__art {
+    inset: -1%;
+    transform: translate3d(var(--art-x), var(--art-y), 0) scale(1.025);
+  }
   .landing__art img { object-position: 50% 50%; }
-  .landing__intro { bottom: clamp(80px, 8vh, 110px); }
-  .landing h1 { font-size: clamp(2.45rem, 8.8vw, 5.2rem); gap: .17em; letter-spacing: .035em; }
+  .landing__intro { top: 67%; width: calc(100% - 30px); }
+  .landing h1 {
+    font-size: clamp(2.65rem, 8vw, 5.15rem);
+    gap: .14em;
+    letter-spacing: .025em;
+  }
 }
 
 @media (max-width: 620px) {
@@ -266,45 +408,74 @@
     inset: 0;
     transform: translate3d(var(--art-x), var(--art-y), 0) scale(1.01);
   }
+
   .landing__art img {
     object-position: 50% 48%;
+    filter: saturate(.96) contrast(1.02) brightness(.88);
   }
+
   .landing__art::after {
     background:
-      linear-gradient(180deg, rgba(2,5,8,.16) 0%, rgba(2,5,8,.10) 37%, rgba(2,5,8,.66) 72%, rgba(2,5,8,.91) 100%),
-      radial-gradient(ellipse at center, transparent 0%, rgba(2,5,8,.18) 58%, rgba(2,5,8,.43) 100%);
+      linear-gradient(180deg, rgba(2,5,8,.12) 0%, rgba(2,5,8,.06) 33%, rgba(2,5,8,.37) 67%, rgba(2,5,8,.80) 100%),
+      radial-gradient(ellipse at center, transparent 0%, rgba(2,5,8,.12) 58%, rgba(2,5,8,.30) 100%);
   }
+
   .landing__chrome { padding: 18px 16px; }
   .landing__location span { display: none; }
+
   .landing__intro {
-    width: calc(100% - 28px);
-    bottom: 76px;
+    width: calc(100% - 26px);
+    top: auto;
+    bottom: 72px;
+    transform: translateX(-50%);
   }
-  .landing__eyebrow { font-size: .55rem; letter-spacing: .25em; }
+
+  .landing__eyebrow {
+    margin-bottom: 12px;
+    font-size: .52rem;
+    letter-spacing: .27em;
+  }
+
   .landing h1 {
     flex-direction: column;
     align-items: center;
-    gap: .01em;
-    font-size: clamp(3.25rem, 15vw, 5rem);
-    letter-spacing: .04em;
-    line-height: .86;
+    gap: .03em;
+    font-size: clamp(3.15rem, 14.8vw, 4.9rem);
+    letter-spacing: .025em;
+    line-height: .79;
   }
+
   .landing__premise {
-    margin-top: 18px;
+    margin-top: 19px;
     max-width: 390px;
-    font-size: .80rem;
+    font-size: .76rem;
+    line-height: 1.65;
   }
-  .enter-button { margin-top: 22px; }
+
+  .enter-button {
+    min-width: 220px;
+    margin-top: 22px;
+  }
+
   .landing__meta-center { display: none; }
+
+  .landing.is-entered .landing__intro {
+    transform: translate(-50%, 24px) scale(.985);
+  }
+
   .mode-selection {
     width: calc(100% - 24px);
     max-height: calc(100svh - 118px);
     overflow-y: auto;
     padding: 28px 17px 24px;
   }
+
+  .mode-selection h2 {
+    font-size: clamp(2.55rem, 12vw, 3.6rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing__line { transform: scaleY(1); opacity: .52; }
+  .landing__line { transform: scaleY(1); opacity: .45; }
   .landing__art { transition: none; }
 }
