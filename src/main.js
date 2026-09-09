@@ -3,11 +3,16 @@ import './styles/landing.css'
 import './styles/title-image.css'
 import './styles/landing-game-ui.css'
 import './styles/landing-game-fixes.css'
+import './styles/landing-game-v2.css'
 
 const landing = document.querySelector('.landing-game')
 const art = document.querySelector('.landing__art')
+const title = document.querySelector('.game-title')
+const reticle = document.querySelector('.game-reticle')
+const orbit = document.querySelector('.game-reticle-orbit')
 const modeLinks = [...document.querySelectorAll('.game-mode')]
 const routeLinks = document.querySelectorAll('[data-route]')
+const routeLoader = document.querySelector('.game-loading-route')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 requestAnimationFrame(() => {
@@ -25,6 +30,31 @@ const setActiveMode = (link) => {
     item.classList.toggle('is-selected', selected)
     item.setAttribute('aria-current', selected ? 'true' : 'false')
   })
+
+  if (routeLoader) {
+    const label = routeLoader.querySelector('strong')
+    if (label) label.textContent = mode === 'archive' ? 'ARCHIVE MODE' : 'STORY MODE'
+  }
+}
+
+const getSelectedMode = () => modeLinks.find((link) => link.classList.contains('is-selected')) || modeLinks[0]
+
+const confirmRoute = (link) => {
+  if (!link || !landing) return
+
+  const href = link.getAttribute('href')
+  if (!href) return
+
+  if (reducedMotion) {
+    window.location.href = href
+    return
+  }
+
+  landing.classList.add('is-confirming', 'is-leaving')
+
+  window.setTimeout(() => {
+    window.location.href = href
+  }, 720)
 }
 
 setActiveMode(modeLinks[0])
@@ -35,47 +65,57 @@ modeLinks.forEach((link) => {
 })
 
 document.addEventListener('keydown', (event) => {
-  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
   if (!modeLinks.length) return
 
-  event.preventDefault()
+  if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+    event.preventDefault()
 
-  const currentIndex = Math.max(0, modeLinks.findIndex((link) => link.classList.contains('is-selected')))
-  const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1
-  const nextIndex = (currentIndex + direction + modeLinks.length) % modeLinks.length
-  const nextLink = modeLinks[nextIndex]
+    const currentIndex = Math.max(0, modeLinks.findIndex((link) => link.classList.contains('is-selected')))
+    const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1
+    const nextIndex = (currentIndex + direction + modeLinks.length) % modeLinks.length
+    const nextLink = modeLinks[nextIndex]
 
-  setActiveMode(nextLink)
-  nextLink.focus({ preventScroll: true })
+    setActiveMode(nextLink)
+    nextLink.focus({ preventScroll: true })
+    return
+  }
+
+  if (event.key === 'Enter' && document.activeElement?.tagName !== 'A') {
+    event.preventDefault()
+    confirmRoute(getSelectedMode())
+  }
 })
 
 if (landing && art && window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
   landing.addEventListener('pointermove', (event) => {
-    const x = event.clientX / window.innerWidth - 0.5
-    const y = event.clientY / window.innerHeight - 0.5
+    const px = event.clientX / window.innerWidth
+    const py = event.clientY / window.innerHeight
+    const x = px - 0.5
+    const y = py - 0.5
 
-    art.style.setProperty('--art-x', `${x * -9}px`)
-    art.style.setProperty('--art-y', `${y * -5}px`)
+    landing.style.setProperty('--cursor-x', `${(px * 100).toFixed(2)}%`)
+    landing.style.setProperty('--cursor-y', `${(py * 100).toFixed(2)}%`)
+    art.style.setProperty('--art-x', `${x * -15}px`)
+    art.style.setProperty('--art-y', `${y * -8}px`)
+
+    if (title) title.style.transform = `translate(calc(-50% + ${x * 4}px), calc(-50% + ${y * 2}px))`
+    if (reticle) reticle.style.marginLeft = `${x * 3}px`
+    if (orbit) orbit.style.marginLeft = `${x * 5}px`
   })
 
   landing.addEventListener('pointerleave', () => {
     art.style.setProperty('--art-x', '0px')
     art.style.setProperty('--art-y', '0px')
+    if (title) title.style.transform = 'translate(-50%, -50%)'
+    if (reticle) reticle.style.marginLeft = '0px'
+    if (orbit) orbit.style.marginLeft = '0px'
   })
 }
 
 routeLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
-    if (reducedMotion || !landing) return
-
     event.preventDefault()
-    const href = link.getAttribute('href')
-    if (!href) return
-
-    landing.classList.add('is-leaving')
-
-    window.setTimeout(() => {
-      window.location.href = href
-    }, 680)
+    setActiveMode(link)
+    confirmRoute(link)
   })
 })
