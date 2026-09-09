@@ -1,0 +1,313 @@
+/* WHEN HALOS BURN — scroll-driven world transitions: Vesper → HALO → Eclipse */
+
+.story-scene--vesper,
+.story-scene--halo,
+.story-scene--eclipse {
+  --world-in: 0;
+  --world-out: 0;
+}
+
+/* The approved scenes stay structurally intact; only their visual depth changes at the boundary. */
+.story-scene--vesper .scene-art,
+.story-scene--halo .scene-art,
+.story-scene--eclipse .scene-art {
+  will-change: transform, filter, opacity;
+  transform-origin: 50% 50%;
+}
+
+.story-scene--vesper .scene-art {
+  transform:
+    scale(calc(1 + (var(--world-out) * .045)))
+    translateY(calc(var(--world-out) * -1.4vh));
+  filter:
+    blur(calc(var(--world-out) * 5px))
+    brightness(calc(1 - (var(--world-out) * .17)));
+  opacity: calc(1 - (var(--world-out) * .26));
+}
+
+.story-scene--vesper .scene-copy,
+.story-scene--vesper .scroll-cue {
+  opacity: calc(1 - (var(--world-out) * 1.18));
+  transform: translateY(calc(13vh - (var(--world-out) * 3vh)));
+}
+
+.story-scene--halo .scene-art {
+  transform:
+    scale(calc(1.035 + ((1 - var(--world-in)) * .035) + (var(--world-out) * .028)))
+    translateY(calc(((1 - var(--world-in)) * 1.6vh) - (var(--world-out) * 1.2vh)));
+  filter:
+    blur(calc(((1 - var(--world-in)) * 6px) + (var(--world-out) * 4px)))
+    brightness(calc(.82 + (var(--world-in) * .18) - (var(--world-out) * .14)));
+  opacity: calc(.72 + (var(--world-in) * .28) - (var(--world-out) * .20));
+}
+
+.story-scene--halo .world-copy,
+.story-scene--halo .halo-orbit {
+  opacity: calc(.18 + (var(--world-in) * .82) - (var(--world-out) * .78));
+}
+
+.story-scene--eclipse .scene-art {
+  transform:
+    scale(calc(1.055 + ((1 - var(--world-in)) * .045)))
+    translateX(calc((1 - var(--world-in)) * 1.6vw));
+  filter:
+    blur(calc((1 - var(--world-in)) * 7px))
+    contrast(calc(1.04 + ((1 - var(--world-in)) * .11)))
+    brightness(calc(.70 + (var(--world-in) * .30)));
+  opacity: calc(.62 + (var(--world-in) * .38));
+}
+
+.story-scene--eclipse .world-copy,
+.story-scene--eclipse .eclipse-mark {
+  opacity: calc(.10 + (var(--world-in) * .90));
+}
+
+/* Fixed cinematic transition layer. It only becomes visible near the two world boundaries. */
+.world-transition {
+  --wt-p: 0;
+  --wt-wave: 0;
+  --wt-accent: rgba(231,244,249,.86);
+  position: fixed;
+  inset: 0;
+  z-index: 86;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: var(--wt-wave);
+  overflow: hidden;
+  isolation: isolate;
+  transition: visibility 0s linear .12s;
+}
+
+.world-transition.is-active {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.world-transition__veil,
+.world-transition__axis,
+.world-transition__ring,
+.world-transition__scan,
+.world-transition__glitch {
+  position: absolute;
+  pointer-events: none;
+}
+
+.world-transition__veil {
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(2,6,9,.09) 56%, rgba(2,6,9,.52) 100%),
+    linear-gradient(180deg, rgba(1,4,7,.12), rgba(1,4,7,.38));
+  opacity: calc(var(--wt-wave) * .95);
+  backdrop-filter: blur(calc(var(--wt-wave) * 2.5px));
+}
+
+.world-transition__axis {
+  top: -12vh;
+  bottom: -12vh;
+  left: 50%;
+  width: 1px;
+  z-index: 3;
+  transform-origin: 50% 50%;
+  transform:
+    translateX(-50%)
+    scaleY(calc(.12 + (var(--wt-wave) * .88)));
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(239,248,251,.94) 18%,
+    rgba(221,239,246,.52) 54%,
+    transparent);
+  box-shadow: 0 0 calc(8px + (var(--wt-wave) * 28px)) rgba(219,240,247,.34);
+}
+
+.world-transition__ring {
+  left: 50%;
+  top: 50%;
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  z-index: 2;
+  border: 1px solid rgba(232,245,249,.62);
+  border-radius: 50%;
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(var(--wt-p) * 120deg))
+    scale(calc(.58 + (var(--wt-p) * .62)));
+  opacity: calc(var(--wt-wave) * .86);
+  box-shadow:
+    0 0 calc(14px + (var(--wt-wave) * 52px)) rgba(206,232,242,.10),
+    inset 0 0 calc(10px + (var(--wt-wave) * 34px)) rgba(217,239,247,.06);
+}
+
+.world-transition__ring::before,
+.world-transition__ring::after,
+.world-transition__ring i {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.world-transition__ring::before {
+  inset: 9%;
+  border: 1px dashed rgba(231,244,249,.20);
+  transform: rotate(calc(var(--wt-p) * -220deg));
+}
+
+.world-transition__ring::after {
+  inset: 28%;
+  border: 1px solid rgba(237,247,250,.24);
+  transform: scale(calc(.72 + (var(--wt-wave) * .28)));
+}
+
+.world-transition__ring i {
+  inset: -7%;
+  border-top: 1px solid rgba(239,248,251,.92);
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  transform: rotate(calc(var(--wt-p) * 310deg));
+}
+
+.world-transition__scan {
+  left: 0;
+  right: 0;
+  top: calc(-14vh + (var(--wt-p) * 128vh));
+  height: 12vh;
+  z-index: 4;
+  opacity: calc(var(--wt-wave) * .76);
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(226,242,248,.025),
+    rgba(239,248,251,.13),
+    transparent);
+  box-shadow: 0 0 28px rgba(218,239,246,.04);
+}
+
+.world-transition__label {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(46px, 7vh, 88px);
+  z-index: 8;
+  min-width: min(480px, calc(100% - 54px));
+  transform: translateX(-50%) translateY(calc((1 - var(--wt-wave)) * 12px));
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 3px 24px rgba(0,0,0,.96);
+  opacity: calc(var(--wt-wave) * 1.15);
+}
+
+.world-transition__label span,
+.world-transition__label strong {
+  display: block;
+}
+
+.world-transition__label span {
+  margin-bottom: 8px;
+  font-size: .40rem;
+  letter-spacing: .42em;
+  color: rgba(205,222,229,.48);
+}
+
+.world-transition__label strong {
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(.82rem, 1.35vw, 1.15rem);
+  font-weight: 300;
+  letter-spacing: .30em;
+  color: rgba(239,247,249,.86);
+}
+
+/* HALO takeover: clean, geometric, controlled. */
+.world-transition[data-mode='halo'] .world-transition__glitch {
+  display: none;
+}
+
+.world-transition[data-mode='halo'] .world-transition__ring {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Eclipse takeover: the clean HALO signal fractures before the new image resolves. */
+.world-transition[data-mode='eclipse'] {
+  --wt-accent: rgba(221,174,126,.80);
+}
+
+.world-transition[data-mode='eclipse'] .world-transition__axis {
+  left: calc(50% + ((var(--wt-p) - .5) * 2.8vw));
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(229,238,241,.74) 24%,
+    rgba(221,174,126,.54) 56%,
+    transparent);
+  box-shadow: 0 0 calc(8px + (var(--wt-wave) * 25px)) rgba(223,179,135,.22);
+}
+
+.world-transition[data-mode='eclipse'] .world-transition__ring {
+  border-color: rgba(223,190,157,.43);
+  border-radius: 46% 54% 43% 57%;
+  clip-path: polygon(0 0,100% 0,100% 18%,61% 18%,61% 34%,100% 34%,100% 57%,28% 57%,28% 73%,100% 73%,100% 100%,0 100%);
+  transform:
+    translate(calc(-50% + ((var(--wt-wave) - .5) * 8px)), -50%)
+    rotate(calc(var(--wt-p) * -78deg))
+    scale(calc(.74 + (var(--wt-p) * .42)));
+}
+
+.world-transition__glitch {
+  inset: 0;
+  z-index: 5;
+  opacity: calc(var(--wt-wave) * .82);
+}
+
+.world-transition__glitch i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 7%;
+  background: linear-gradient(90deg,
+    transparent 0 8%,
+    rgba(226,239,244,.055) 22%,
+    rgba(221,174,126,.035) 63%,
+    transparent 92%);
+  border-top: 1px solid rgba(232,240,242,.055);
+  border-bottom: 1px solid rgba(232,240,242,.025);
+  backdrop-filter: blur(2px);
+}
+
+.world-transition__glitch i:nth-child(1) { top: 15%; transform: translateX(calc(var(--wt-wave) * 2.4vw)); }
+.world-transition__glitch i:nth-child(2) { top: 29%; transform: translateX(calc(var(--wt-wave) * -3.1vw)); height: 4%; }
+.world-transition__glitch i:nth-child(3) { top: 43%; transform: translateX(calc(var(--wt-wave) * 1.8vw)); height: 9%; }
+.world-transition__glitch i:nth-child(4) { top: 61%; transform: translateX(calc(var(--wt-wave) * -2.2vw)); height: 5%; }
+.world-transition__glitch i:nth-child(5) { top: 74%; transform: translateX(calc(var(--wt-wave) * 3.5vw)); height: 8%; }
+
+.world-transition[data-mode='eclipse'] .world-transition__scan {
+  height: 7vh;
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(228,238,241,.04),
+    rgba(221,174,126,.09),
+    transparent);
+}
+
+@media (max-width: 700px) {
+  .world-transition__ring {
+    width: min(72vw, 420px);
+  }
+
+  .world-transition__label {
+    bottom: 48px;
+  }
+
+  .world-transition__label strong {
+    font-size: .72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-transition {
+    display: none !important;
+  }
+
+  .story-scene--vesper,
+  .story-scene--halo,
+  .story-scene--eclipse {
+    --world-in: 1 !important;
+    --world-out: 0 !important;
+  }
+}
