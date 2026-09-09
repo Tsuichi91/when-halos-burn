@@ -8,14 +8,12 @@ import './styles/story-game-refine.css'
 import './styles/story-rebuild.css'
 import './styles/world-transition-motion.css'
 import './styles/story-hub.css'
+import './styles/story-home-reference.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
 const sceneNumber = document.querySelector('#scene-number')
 const sceneLabel = document.querySelector('#scene-label')
-const scenes = [...document.querySelectorAll('[data-scene]')]
-const revealItems = [...document.querySelectorAll('[data-reveal]')]
-const artLayers = [...document.querySelectorAll('.scene-art img, .game-track__art img')]
 
 const vesperScene = document.querySelector('#vesper')
 const haloScene = document.querySelector('#halo')
@@ -23,7 +21,6 @@ const eclipseScene = document.querySelector('#eclipse')
 const worldIntroScenes = [vesperScene, haloScene, eclipseScene].filter(Boolean)
 const storyHub = document.querySelector('#story-hub')
 const episodeExperiences = [...document.querySelectorAll('.episode-experience[data-episode]')]
-const openingProgress = document.querySelector('#opening-progress')
 
 const trackLibrary = {
   '01A': { title: 'PROLOGUE: THE LINE', src: './audio/tracks/01a-prologue-the-line.mp3' },
@@ -31,9 +28,191 @@ const trackLibrary = {
   '01C': { title: 'SECOND LOOK', src: './audio/tracks/01c-second-look.mp3' }
 }
 
-const activeAudioPlayers = []
+const playableCodes = Object.keys(trackLibrary)
 const completionStorageKey = 'whb-story-complete-v1'
+const worldIntroStorageKey = 'whb-world-intro-seen-v1'
+const activeAudioPlayers = []
 let activeEpisodeCode = null
+let openingProgress = null
+
+const buildStoryHome = () => {
+  if (!storyHub) return
+
+  storyHub.innerHTML = `
+    <div class="story-home">
+      <header class="story-home__topbar">
+        <a class="story-home__identity" href="./index.html" aria-label="WHEN HALOS BURN home">
+          <span class="story-home__halo-mark" aria-hidden="true"></span>
+          <span class="story-home__identity-copy"><span>A CINEMATIC</span><span>CONCEPT ALBUM</span></span>
+        </a>
+
+        <nav class="story-home__nav" aria-label="Story Mode navigation">
+          <a href="./index.html">HOME</a>
+          <a class="is-active" href="#story-hub">STORY MODE</a>
+          <a href="./archive.html">ARCHIVE MODE</a>
+          <button type="button" data-replay-world-intro>WORLD</button>
+          <button type="button" aria-disabled="true">EXTRAS</button>
+        </nav>
+
+        <div class="story-home__city" aria-label="Setting">
+          <span>VESPER CITY<br />2164</span>
+          <span class="story-home__menu-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+      </header>
+
+      <section class="story-home__hero">
+        <div class="story-home__hero-art" aria-hidden="true">
+          <img src="./images/landing/vesper-city.png" alt="" />
+        </div>
+        <div class="story-home__hero-shade" aria-hidden="true"></div>
+        <div class="story-home__hero-grid" aria-hidden="true"></div>
+
+        <div class="story-home__hero-copy">
+          <p class="story-home__eyebrow">STORY MODE</p>
+          <h1>WHEN HALOS BURN</h1>
+          <span class="story-home__tagline">SOME LINES WERE NEVER MEANT TO STAY CLEAN</span>
+          <p class="story-home__intro">STEP INTO THE STORY.<br />EXPERIENCE THE ALBUM THROUGH SCENES, PERSPECTIVES AND CHOICES.</p>
+
+          <button class="story-home__continue" type="button" data-continue-story>
+            <span data-continue-label>CONTINUE</span><i>›</i>
+          </button>
+          <div class="story-home__continue-meta">
+            <span data-continue-title>PROLOGUE: THE LINE</span>
+            <span data-continue-status>NOT STARTED</span>
+          </div>
+        </div>
+
+        <div class="story-home__hero-edge" aria-hidden="true">
+          <span>DIFFERENT</span><span>PEOPLE</span><span>SAME</span><span>SKY</span>
+        </div>
+      </section>
+
+      <main class="story-home__main">
+        <div class="story-home__chapters-head">
+          <h2>CHAPTERS</h2>
+          <span id="opening-progress">0 / 3 COMPLETE</span>
+        </div>
+
+        <div class="story-home__chapter-grid" aria-label="Story chapters">
+          <article class="story-home-card story-home-card--01a" data-episode-card="01A">
+            <img src="./images/landing/vesper-city.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">01</span>
+              <div class="story-home-card__copy">
+                <small>NARRATOR / OPENING</small>
+                <h3>PROLOGUE:<br />THE LINE</h3>
+              </div>
+              <div class="story-home-card__footer">
+                <span data-episode-status="01A">NEW</span>
+                <button type="button" data-open-episode="01A"><span>START</span> ›</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-home-card story-home-card--01b" data-episode-card="01B">
+            <img src="./images/tracks/hero.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">02</span>
+              <div class="story-home-card__copy">
+                <small>TAEYUN POV / OPENING</small>
+                <h3>FIRST CONTACT</h3>
+              </div>
+              <div class="story-home-card__footer">
+                <span data-episode-status="01B">AVAILABLE</span>
+                <button type="button" data-open-episode="01B"><span>PLAY</span> ›</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-home-card story-home-card--01c" data-episode-card="01C">
+            <img src="./images/tracks/01c-second-look/hero.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">03</span>
+              <div class="story-home-card__copy">
+                <small>JIWON POV / OPENING</small>
+                <h3>SECOND LOOK</h3>
+              </div>
+              <div class="story-home-card__footer">
+                <span data-episode-status="01C">AVAILABLE</span>
+                <button type="button" data-open-episode="01C"><span>PLAY</span> ›</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-home-card story-home-card--02 is-upcoming">
+            <img src="./images/world/eclipse-headquarters.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">04</span>
+              <div class="story-home-card__copy">
+                <small>TAEYUN POV / ACT I</small>
+                <h3>NO SAINT</h3>
+              </div>
+              <div class="story-home-card__footer"><span>UPCOMING</span><span>02</span></div>
+            </div>
+          </article>
+
+          <article class="story-home-card story-home-card--03 is-upcoming">
+            <img src="./images/world/halo-headquarters.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">05</span>
+              <div class="story-home-card__copy">
+                <small>JIWON POV / ACT I</small>
+                <h3>HOLD THE LINE</h3>
+              </div>
+              <div class="story-home-card__footer"><span>UPCOMING</span><span>03</span></div>
+            </div>
+          </article>
+
+          <article class="story-home-card story-home-card--04 is-upcoming">
+            <img src="./images/landing/vesper-city.png" alt="" aria-hidden="true" />
+            <div class="story-home-card__wash" aria-hidden="true"></div>
+            <div class="story-home-card__inner">
+              <span class="story-home-card__number">06</span>
+              <div class="story-home-card__copy">
+                <small>TAEYUN POV / ACT II</small>
+                <h3>CROSSFIRE</h3>
+              </div>
+              <div class="story-home-card__footer"><span>UPCOMING</span><span>04</span></div>
+            </div>
+          </article>
+        </div>
+
+        <section class="story-home__perspective" aria-label="Story Mode description">
+          <strong>YOUR STORY.<br />YOUR PERSPECTIVE.</strong>
+          <i aria-hidden="true"></i>
+          <p>EXPLORE THE ALBUM THROUGH ITS CHARACTERS, LOCATIONS AND HIDDEN DETAILS AS THE STORY UNFOLDS. NOT EVERYTHING IS AS IT SEEMS.</p>
+        </section>
+      </main>
+
+      <footer class="story-home__footer" aria-hidden="true">
+        <div>CONTROL<br />OBSERVE<br />PROTECT</div>
+        <div class="story-home__footer-center"><i></i>ENTER VESPER</div>
+        <div>QUESTION<br />DISRUPT<br />RECLAIM</div>
+      </footer>
+
+      <nav class="story-home__mobile-dock" aria-label="Mobile navigation">
+        <a href="./index.html"><i>⌂</i><span>HOME</span></a>
+        <a class="is-active" href="#story-hub"><i>▣</i><span>STORY</span></a>
+        <a href="./archive.html"><i>▤</i><span>ARCHIVE</span></a>
+        <button type="button" data-replay-world-intro><i>◎</i><span>WORLD</span></button>
+        <button type="button" aria-disabled="true"><i>◇</i><span>EXTRAS</span></button>
+      </nav>
+    </div>
+  `
+
+  openingProgress = storyHub.querySelector('#opening-progress')
+}
+
+buildStoryHome()
+
+const scenes = [...document.querySelectorAll('[data-scene]')]
+const revealItems = [...document.querySelectorAll('[data-reveal]')]
+const artLayers = [...document.querySelectorAll('.scene-art img, .game-track__art img')]
 
 const formatTime = (seconds) => {
   if (!Number.isFinite(seconds) || seconds < 0) return '--:--'
@@ -81,16 +260,12 @@ const initAudioPlayers = () => {
     consoleEl.classList.add('is-audio-ready')
     if (note) note.textContent = `${track.title} / FINAL MASTER — Story Mode audio.`
 
-    const syncDuration = () => {
-      duration.textContent = formatTime(audio.duration)
-    }
-
+    const syncDuration = () => { duration.textContent = formatTime(audio.duration) }
     const syncProgress = () => {
       const progress = audio.duration > 0 ? (audio.currentTime / audio.duration) * 1000 : 0
       setSeekVisual(seek, progress)
       currentTime.textContent = formatTime(audio.currentTime)
     }
-
     const setPlayingState = (isPlaying) => {
       consoleEl.classList.toggle('is-playing', isPlaying)
       playButton.textContent = isPlaying ? 'Ⅱ' : '▶'
@@ -103,11 +278,9 @@ const initAudioPlayers = () => {
         audio.pause()
         return
       }
-
       activeAudioPlayers.forEach((entry) => {
         if (entry.audio !== audio && !entry.audio.paused) entry.audio.pause()
       })
-
       try {
         await audio.play()
       } catch (error) {
@@ -124,10 +297,7 @@ const initAudioPlayers = () => {
       syncProgress()
     })
 
-    audio.addEventListener('loadedmetadata', () => {
-      syncDuration()
-      syncProgress()
-    })
+    audio.addEventListener('loadedmetadata', () => { syncDuration(); syncProgress() })
     audio.addEventListener('durationchange', syncDuration)
     audio.addEventListener('timeupdate', syncProgress)
     audio.addEventListener('play', () => setPlayingState(true))
@@ -165,20 +335,61 @@ const readCompletedEpisodes = () => {
 
 const completedEpisodes = readCompletedEpisodes()
 
+const hasSeenWorldIntro = () => {
+  try {
+    return window.localStorage.getItem(worldIntroStorageKey) === '1'
+  } catch {
+    return false
+  }
+}
+
+const rememberWorldIntro = () => {
+  try {
+    window.localStorage.setItem(worldIntroStorageKey, '1')
+  } catch {
+    // The site remains usable when storage is unavailable.
+  }
+}
+
+const setWorldIntroHidden = (hidden) => {
+  worldIntroScenes.forEach((scene) => {
+    scene.hidden = hidden
+    scene.setAttribute('aria-hidden', String(hidden))
+  })
+}
+
+const getContinueCode = () => playableCodes.find((code) => !completedEpisodes.has(code)) || '01A'
+
+const updateContinueAction = () => {
+  if (!storyHub) return
+  const continueButton = storyHub.querySelector('[data-continue-story]')
+  const continueLabel = storyHub.querySelector('[data-continue-label]')
+  const continueTitle = storyHub.querySelector('[data-continue-title]')
+  const continueStatus = storyHub.querySelector('[data-continue-status]')
+  const allComplete = playableCodes.every((code) => completedEpisodes.has(code))
+  const code = getContinueCode()
+
+  if (continueButton) continueButton.dataset.continueCode = code
+  if (continueLabel) continueLabel.textContent = allComplete ? 'REPLAY OPENING' : 'CONTINUE'
+  if (continueTitle) continueTitle.textContent = trackLibrary[code]?.title || 'PROLOGUE: THE LINE'
+  if (continueStatus) continueStatus.textContent = allComplete ? 'OPENING COMPLETE' : completedEpisodes.size ? 'CONTINUE STORY' : 'NOT STARTED'
+}
+
 const updateEpisodeProgress = () => {
-  Object.keys(trackLibrary).forEach((code, index) => {
+  playableCodes.forEach((code, index) => {
     const card = document.querySelector(`[data-episode-card="${code}"]`)
     const status = document.querySelector(`[data-episode-status="${code}"]`)
     const buttonLabel = card?.querySelector('[data-open-episode] span')
     const complete = completedEpisodes.has(code)
 
     card?.classList.toggle('is-complete', complete)
-    if (status) status.textContent = complete ? 'COMPLETE' : index === 0 ? 'NEW' : 'AVAILABLE'
-    if (buttonLabel) buttonLabel.textContent = complete ? 'REPLAY STORY' : index === 0 ? 'START STORY' : 'PLAY STORY'
+    if (status) status.textContent = complete ? 'COMPLETE' : index === 0 ? 'NOT STARTED' : 'AVAILABLE'
+    if (buttonLabel) buttonLabel.textContent = complete ? 'REPLAY' : index === 0 ? 'START' : 'PLAY'
   })
 
-  const totalComplete = Object.keys(trackLibrary).filter((code) => completedEpisodes.has(code)).length
+  const totalComplete = playableCodes.filter((code) => completedEpisodes.has(code)).length
   if (openingProgress) openingProgress.textContent = `${totalComplete} / 3 COMPLETE`
+  updateContinueAction()
 }
 
 const markEpisodeComplete = (code) => {
@@ -218,7 +429,7 @@ const worldTransitionStatus = worldTransition.querySelector('[data-world-transit
 const worldTransitionTarget = worldTransition.querySelector('[data-world-transition="target"]')
 
 const getWorldBoundaryProgress = (incomingScene) => {
-  if (!incomingScene) return 0
+  if (!incomingScene || incomingScene.hidden) return 0
   const rect = incomingScene.getBoundingClientRect()
   const start = window.innerHeight * 1.05
   const distance = window.innerHeight
@@ -229,25 +440,17 @@ const setWorldTransitionCopy = (mode, progress) => {
   if (!worldTransitionStatus || !worldTransitionTarget) return
 
   if (mode === 'halo') {
-    worldTransitionStatus.textContent = progress < .52
-      ? 'CITY NETWORK // ROUTING'
-      : 'HALO PROTOCOL // ACCESS GRANTED'
-    worldTransitionTarget.textContent = progress < .52
-      ? 'ENTERING CONTROL GRID'
-      : 'SYSTEM LOCKED'
+    worldTransitionStatus.textContent = progress < .52 ? 'CITY NETWORK // ROUTING' : 'HALO PROTOCOL // ACCESS GRANTED'
+    worldTransitionTarget.textContent = progress < .52 ? 'ENTERING CONTROL GRID' : 'SYSTEM LOCKED'
     return
   }
 
-  worldTransitionStatus.textContent = progress < .52
-    ? 'HALO SECURE GRID // SIGNAL LOSS'
-    : 'ECLIPSE CHANNEL // SIGNAL ACQUIRED'
-  worldTransitionTarget.textContent = progress < .52
-    ? 'CONTROL SIGNAL FRACTURING'
-    : 'ENTER SHADOW GRID'
+  worldTransitionStatus.textContent = progress < .52 ? 'HALO SECURE GRID // SIGNAL LOSS' : 'ECLIPSE CHANNEL // SIGNAL ACQUIRED'
+  worldTransitionTarget.textContent = progress < .52 ? 'CONTROL SIGNAL FRACTURING' : 'ENTER SHADOW GRID'
 }
 
 const updateWorldTransitions = () => {
-  if (activeEpisodeCode) {
+  if (activeEpisodeCode || worldIntroScenes.every((scene) => scene.hidden)) {
     worldTransition.classList.remove('is-active')
     return
   }
@@ -325,11 +528,7 @@ const openEpisode = (code, updateHash = true) => {
 
   pauseAllAudio()
   activeEpisodeCode = code
-
-  worldIntroScenes.forEach((scene) => {
-    scene.hidden = true
-    scene.setAttribute('aria-hidden', 'true')
-  })
+  setWorldIntroHidden(true)
 
   episodeExperiences.forEach((episode) => {
     const active = episode === target
@@ -343,6 +542,7 @@ const openEpisode = (code, updateHash = true) => {
   }
 
   document.body.classList.add('is-episode-mode')
+  document.body.classList.remove('is-story-home')
   setEpisodeChrome(code)
   worldTransition.classList.remove('is-active')
 
@@ -359,11 +559,6 @@ const closeEpisode = (updateHash = true) => {
   activeEpisodeCode = null
   document.body.classList.remove('is-episode-mode')
 
-  worldIntroScenes.forEach((scene) => {
-    scene.hidden = false
-    scene.setAttribute('aria-hidden', 'false')
-  })
-
   episodeExperiences.forEach((episode) => {
     episode.hidden = true
     episode.setAttribute('aria-hidden', 'true')
@@ -374,6 +569,8 @@ const closeEpisode = (updateHash = true) => {
     storyHub.setAttribute('aria-hidden', 'false')
   }
 
+  setWorldIntroHidden(hasSeenWorldIntro())
+
   if (updateHash) history.replaceState(null, '', '#story-hub')
 
   requestAnimationFrame(() => {
@@ -383,9 +580,22 @@ const closeEpisode = (updateHash = true) => {
   })
 }
 
+const replayWorldIntro = () => {
+  if (activeEpisodeCode) closeEpisode(false)
+  setWorldIntroHidden(false)
+  document.body.classList.remove('is-story-home')
+  history.replaceState(null, '', '#vesper')
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: vesperScene?.offsetTop || 0, behavior: reducedMotion ? 'auto' : 'smooth' })
+    requestScrollUpdate()
+  })
+}
+
 createStoryBoot()
 initAudioPlayers()
 updateEpisodeProgress()
+
+if (hasSeenWorldIntro()) setWorldIntroHidden(true)
 
 document.querySelectorAll('[data-open-episode]').forEach((button) => {
   button.addEventListener('click', () => openEpisode(button.dataset.openEpisode))
@@ -402,6 +612,15 @@ document.querySelectorAll('[data-next-episode]').forEach((button) => {
   })
 })
 
+document.querySelectorAll('[data-replay-world-intro]').forEach((button) => {
+  button.addEventListener('click', replayWorldIntro)
+})
+
+storyHub?.querySelector('[data-continue-story]')?.addEventListener('click', (event) => {
+  const code = event.currentTarget.dataset.continueCode || getContinueCode()
+  openEpisode(code)
+})
+
 const completionObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) markEpisodeComplete(entry.target.dataset.completesEpisode)
@@ -414,10 +633,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) entry.target.classList.add('is-visible')
   })
-}, {
-  threshold: 0.22,
-  rootMargin: '0px 0px -8% 0px'
-})
+}, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' })
 
 revealItems.forEach((item) => revealObserver.observe(item))
 
@@ -425,15 +641,21 @@ const beatObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     entry.target.classList.toggle('is-current', entry.isIntersecting)
   })
-}, {
-  threshold: 0.56,
-  rootMargin: '-12% 0px -12% 0px'
-})
+}, { threshold: 0.56, rootMargin: '-12% 0px -12% 0px' })
 
 document.querySelectorAll('.game-track__beat').forEach((beat) => beatObserver.observe(beat))
 
+const hubSeenObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && !activeEpisodeCode) rememberWorldIntro()
+  })
+}, { threshold: 0.18 })
+
+if (storyHub) hubSeenObserver.observe(storyHub)
+
 const updateActiveScene = () => {
   if (activeEpisodeCode) {
+    document.body.classList.remove('is-story-home')
     setEpisodeChrome(activeEpisodeCode)
     return
   }
@@ -441,7 +663,7 @@ const updateActiveScene = () => {
   if (!scenes.length) return
 
   const anchor = window.innerHeight * 0.44
-  let active = scenes[0]
+  let active = scenes.find((scene) => !scene.hidden) || scenes[0]
   let nearestDistance = Number.POSITIVE_INFINITY
 
   scenes.forEach((scene) => {
@@ -455,12 +677,7 @@ const updateActiveScene = () => {
     }
 
     if (nearestDistance === 0) return
-
-    const distance = Math.min(
-      Math.abs(rect.top - anchor),
-      Math.abs(rect.bottom - anchor)
-    )
-
+    const distance = Math.min(Math.abs(rect.top - anchor), Math.abs(rect.bottom - anchor))
     if (distance < nearestDistance) {
       nearestDistance = distance
       active = scene
@@ -470,13 +687,13 @@ const updateActiveScene = () => {
   const { scene, label } = active.dataset
   if (sceneNumber) sceneNumber.textContent = scene
   if (sceneLabel) sceneLabel.textContent = label
+  document.body.classList.toggle('is-story-home', active === storyHub)
 }
 
 let ticking = false
 
 const updateScrollEffects = () => {
   ticking = false
-
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0
   progressBar?.style.setProperty('transform', `scaleX(${Math.min(Math.max(progress, 0), 1)})`)
@@ -489,12 +706,10 @@ const updateScrollEffects = () => {
   artLayers.forEach((img) => {
     const section = img.closest('[data-scene], .episode-experience')
     if (!section || section.hidden) return
-
     const rect = section.getBoundingClientRect()
     const sectionProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
     const clamped = Math.min(Math.max(sectionProgress, 0), 1)
-    const drift = (clamped - 0.5) * 18
-    img.style.translate = `0 ${drift}px`
+    img.style.translate = `0 ${(clamped - 0.5) * 18}px`
   })
 }
 
@@ -509,14 +724,12 @@ window.addEventListener('resize', requestScrollUpdate)
 
 if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
   const vesperArt = vesperScene?.querySelector('.scene-art img')
-
   vesperScene?.addEventListener('pointermove', (event) => {
     if (!vesperArt) return
     const x = event.clientX / window.innerWidth - 0.5
     const y = event.clientY / window.innerHeight - 0.5
     vesperArt.style.transform = `scale(1.055) translate(${x * -6}px, ${y * -3}px)`
   })
-
   vesperScene?.addEventListener('pointerleave', () => {
     if (vesperArt) vesperArt.style.transform = 'scale(1.04)'
   })
@@ -526,5 +739,12 @@ const initialEpisode = window.location.hash.match(/^#episode-(01a|01b|01c)$/i)?.
 if (initialEpisode) {
   window.setTimeout(() => openEpisode(initialEpisode, false), reducedMotion ? 160 : 1550)
 } else {
-  requestScrollUpdate()
+  if (hasSeenWorldIntro() && storyHub) {
+    window.setTimeout(() => {
+      window.scrollTo({ top: storyHub.offsetTop || 0, behavior: 'auto' })
+      requestScrollUpdate()
+    }, reducedMotion ? 40 : 1500)
+  } else {
+    requestScrollUpdate()
+  }
 }
