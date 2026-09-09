@@ -3,35 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#070b10" />
-    <title>Archive — WHEN HALOS BURN</title>
+    <meta name="theme-color" content="#030609" />
+    <meta name="description" content="WHEN HALOS BURN — Vesper Archive Mode." />
+    <title>Archive Mode — WHEN HALOS BURN</title>
   </head>
-  <body class="page page--archive">
-    <header class="topbar">
-      <a class="brand" href="./index.html">WHB</a>
-      <nav class="topbar__nav" aria-label="Primary navigation">
-        <a href="./story.html">Story</a>
-        <a class="is-active" href="./archive.html">Archive</a>
-      </nav>
-    </header>
-
-    <main class="section-shell archive-shell">
-      <section class="archive-intro">
-        <p class="eyebrow">ARCHIVE MODE</p>
-        <h1>VESPER ARCHIVE</h1>
-        <p class="lede">Tracks, points of view, acts and the story architecture behind WHEN HALOS BURN.</p>
-      </section>
-
-      <div class="archive-filter" role="group" aria-label="Filter tracks">
-        <button class="chip is-active" type="button" data-filter="all">ALL</button>
-        <button class="chip" type="button" data-filter="jiwon">JIWON</button>
-        <button class="chip" type="button" data-filter="taeyun">TAEYUN</button>
-        <button class="chip" type="button" data-filter="narrator">NARRATOR</button>
-      </div>
-
-      <div id="archive-root" class="track-grid" aria-live="polite"></div>
-    </main>
-
+  <body class="page page--archive-mode">
+    <main id="archive-app" class="archive-mode" aria-live="polite"></main>
     <script type="module" src="/src/archive.js"></script>
   </body>
 </html>
