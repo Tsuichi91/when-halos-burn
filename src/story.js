@@ -20,6 +20,7 @@ const artLayers = [...document.querySelectorAll('.scene-art img, .game-track__ar
 const vesperScene = document.querySelector('#vesper')
 const haloScene = document.querySelector('#halo')
 const eclipseScene = document.querySelector('#eclipse')
+const worldIntroScenes = [vesperScene, haloScene, eclipseScene].filter(Boolean)
 const storyHub = document.querySelector('#story-hub')
 const episodeExperiences = [...document.querySelectorAll('.episode-experience[data-episode]')]
 const openingProgress = document.querySelector('#opening-progress')
@@ -324,6 +325,12 @@ const openEpisode = (code, updateHash = true) => {
 
   pauseAllAudio()
   activeEpisodeCode = code
+
+  worldIntroScenes.forEach((scene) => {
+    scene.hidden = true
+    scene.setAttribute('aria-hidden', 'true')
+  })
+
   episodeExperiences.forEach((episode) => {
     const active = episode === target
     episode.hidden = !active
@@ -351,6 +358,11 @@ const closeEpisode = (updateHash = true) => {
   pauseAllAudio()
   activeEpisodeCode = null
   document.body.classList.remove('is-episode-mode')
+
+  worldIntroScenes.forEach((scene) => {
+    scene.hidden = false
+    scene.setAttribute('aria-hidden', 'false')
+  })
 
   episodeExperiences.forEach((episode) => {
     episode.hidden = true
