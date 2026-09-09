@@ -42,6 +42,7 @@ const waitForCriticalImages = () => {
 
   const critical = [
     root.querySelector('.archive-hero__art img'),
+    ...root.querySelectorAll('.archive-chapter-grid .archive-chapter__art img'),
     ...root.querySelectorAll('.archive-record-grid .archive-record__image img')
   ].filter(Boolean).slice(0, 3)
 
