@@ -2,6 +2,7 @@ import './styles/site.css'
 import './styles/landing.css'
 import './styles/title-image.css'
 import './styles/landing-game-ui.css'
+import './styles/landing-game-fixes.css'
 
 const landing = document.querySelector('.landing-game')
 const art = document.querySelector('.landing__art')
