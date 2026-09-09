@@ -1,0 +1,14 @@
+/* Final compatibility overrides for the game-title landing. */
+.landing-game .landing__art::after {
+  content: none !important;
+  display: none !important;
+}
+
+.landing-game .landing__title-art::after {
+  pointer-events: none;
+}
+
+.landing-game a,
+.landing-game button {
+  -webkit-tap-highlight-color: transparent;
+}
