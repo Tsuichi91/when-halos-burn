@@ -6,6 +6,7 @@ import './styles/audio-player.css'
 import './styles/story-game-ui.css'
 import './styles/story-game-refine.css'
 import './styles/story-rebuild.css'
+import './styles/world-transition-motion.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -14,6 +15,10 @@ const sceneLabel = document.querySelector('#scene-label')
 const scenes = [...document.querySelectorAll('[data-scene]')]
 const revealItems = [...document.querySelectorAll('[data-reveal]')]
 const artLayers = [...document.querySelectorAll('.scene-art img, .game-track__art img')]
+
+const vesperScene = document.querySelector('#vesper')
+const haloScene = document.querySelector('#halo')
+const eclipseScene = document.querySelector('#eclipse')
 
 const trackLibrary = {
   '01A': { title: 'PROLOGUE: THE LINE', src: './audio/tracks/01a-prologue-the-line.mp3' },
@@ -136,6 +141,108 @@ const initAudioPlayers = () => {
   })
 }
 
+const clamp01 = (value) => Math.min(Math.max(value, 0), 1)
+
+const createWorldTransition = () => {
+  const layer = document.createElement('div')
+  layer.className = 'world-transition'
+  layer.setAttribute('aria-hidden', 'true')
+  layer.innerHTML = `
+    <div class="world-transition__veil"></div>
+    <div class="world-transition__axis"></div>
+    <div class="world-transition__ring"><i></i></div>
+    <div class="world-transition__scan"></div>
+    <div class="world-transition__glitch">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="world-transition__label">
+      <span data-world-transition="status"></span>
+      <strong data-world-transition="target"></strong>
+    </div>
+  `
+  document.body.appendChild(layer)
+  return layer
+}
+
+const worldTransition = createWorldTransition()
+const worldTransitionStatus = worldTransition.querySelector('[data-world-transition="status"]')
+const worldTransitionTarget = worldTransition.querySelector('[data-world-transition="target"]')
+
+const getWorldBoundaryProgress = (incomingScene) => {
+  if (!incomingScene) return 0
+  const rect = incomingScene.getBoundingClientRect()
+  const start = window.innerHeight * 1.05
+  const distance = window.innerHeight
+  return clamp01((start - rect.top) / distance)
+}
+
+const setWorldTransitionCopy = (mode, progress) => {
+  if (!worldTransitionStatus || !worldTransitionTarget) return
+
+  if (mode === 'halo') {
+    worldTransitionStatus.textContent = progress < .52
+      ? 'CITY NETWORK // ROUTING'
+      : 'HALO PROTOCOL // ACCESS GRANTED'
+    worldTransitionTarget.textContent = progress < .52
+      ? 'ENTERING CONTROL GRID'
+      : 'SYSTEM LOCKED'
+    return
+  }
+
+  worldTransitionStatus.textContent = progress < .52
+    ? 'HALO SECURE GRID // SIGNAL LOSS'
+    : 'ECLIPSE CHANNEL // SIGNAL ACQUIRED'
+  worldTransitionTarget.textContent = progress < .52
+    ? 'CONTROL SIGNAL FRACTURING'
+    : 'ENTER SHADOW GRID'
+}
+
+const updateWorldTransitions = () => {
+  if (!vesperScene || !haloScene || !eclipseScene) return
+
+  if (reducedMotion) {
+    vesperScene.style.setProperty('--world-out', '0')
+    haloScene.style.setProperty('--world-in', '1')
+    haloScene.style.setProperty('--world-out', '0')
+    eclipseScene.style.setProperty('--world-in', '1')
+    worldTransition.classList.remove('is-active')
+    return
+  }
+
+  const haloProgress = getWorldBoundaryProgress(haloScene)
+  const eclipseProgress = getWorldBoundaryProgress(eclipseScene)
+
+  vesperScene.style.setProperty('--world-out', haloProgress.toFixed(4))
+  haloScene.style.setProperty('--world-in', haloProgress.toFixed(4))
+  haloScene.style.setProperty('--world-out', eclipseProgress.toFixed(4))
+  eclipseScene.style.setProperty('--world-in', eclipseProgress.toFixed(4))
+
+  let mode = null
+  let progress = 0
+
+  if (haloProgress > 0 && haloProgress < 1) {
+    mode = 'halo'
+    progress = haloProgress
+  } else if (eclipseProgress > 0 && eclipseProgress < 1) {
+    mode = 'eclipse'
+    progress = eclipseProgress
+  }
+
+  if (!mode) {
+    worldTransition.classList.remove('is-active')
+    worldTransition.style.setProperty('--wt-p', '0')
+    worldTransition.style.setProperty('--wt-wave', '0')
+    return
+  }
+
+  const wave = Math.sin(Math.PI * progress)
+  worldTransition.dataset.mode = mode
+  worldTransition.style.setProperty('--wt-p', progress.toFixed(4))
+  worldTransition.style.setProperty('--wt-wave', wave.toFixed(4))
+  worldTransition.classList.add('is-active')
+  setWorldTransitionCopy(mode, progress)
+}
+
 const createStoryBoot = () => {
   const boot = document.createElement('div')
   boot.className = 'campaign-boot'
@@ -221,6 +328,7 @@ const updateScrollEffects = () => {
   progressBar?.style.setProperty('transform', `scaleX(${Math.min(Math.max(progress, 0), 1)})`)
 
   updateActiveScene()
+  updateWorldTransitions()
 
   if (reducedMotion) return
 
