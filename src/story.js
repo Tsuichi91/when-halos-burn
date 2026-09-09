@@ -7,6 +7,7 @@ import './styles/story-game-ui.css'
 import './styles/story-game-refine.css'
 import './styles/story-rebuild.css'
 import './styles/world-transition-motion.css'
+import './styles/story-hub.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -19,6 +20,9 @@ const artLayers = [...document.querySelectorAll('.scene-art img, .game-track__ar
 const vesperScene = document.querySelector('#vesper')
 const haloScene = document.querySelector('#halo')
 const eclipseScene = document.querySelector('#eclipse')
+const storyHub = document.querySelector('#story-hub')
+const episodeExperiences = [...document.querySelectorAll('.episode-experience[data-episode]')]
+const openingProgress = document.querySelector('#opening-progress')
 
 const trackLibrary = {
   '01A': { title: 'PROLOGUE: THE LINE', src: './audio/tracks/01a-prologue-the-line.mp3' },
@@ -27,6 +31,8 @@ const trackLibrary = {
 }
 
 const activeAudioPlayers = []
+const completionStorageKey = 'whb-story-complete-v1'
+let activeEpisodeCode = null
 
 const formatTime = (seconds) => {
   if (!Number.isFinite(seconds) || seconds < 0) return '--:--'
@@ -141,6 +147,50 @@ const initAudioPlayers = () => {
   })
 }
 
+const pauseAllAudio = () => {
+  activeAudioPlayers.forEach(({ audio }) => {
+    if (!audio.paused) audio.pause()
+  })
+}
+
+const readCompletedEpisodes = () => {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(completionStorageKey) || '[]')
+    return new Set(Array.isArray(stored) ? stored : [])
+  } catch {
+    return new Set()
+  }
+}
+
+const completedEpisodes = readCompletedEpisodes()
+
+const updateEpisodeProgress = () => {
+  Object.keys(trackLibrary).forEach((code, index) => {
+    const card = document.querySelector(`[data-episode-card="${code}"]`)
+    const status = document.querySelector(`[data-episode-status="${code}"]`)
+    const buttonLabel = card?.querySelector('[data-open-episode] span')
+    const complete = completedEpisodes.has(code)
+
+    card?.classList.toggle('is-complete', complete)
+    if (status) status.textContent = complete ? 'COMPLETE' : index === 0 ? 'NEW' : 'AVAILABLE'
+    if (buttonLabel) buttonLabel.textContent = complete ? 'REPLAY STORY' : index === 0 ? 'START STORY' : 'PLAY STORY'
+  })
+
+  const totalComplete = Object.keys(trackLibrary).filter((code) => completedEpisodes.has(code)).length
+  if (openingProgress) openingProgress.textContent = `${totalComplete} / 3 COMPLETE`
+}
+
+const markEpisodeComplete = (code) => {
+  if (!trackLibrary[code] || completedEpisodes.has(code)) return
+  completedEpisodes.add(code)
+  try {
+    window.localStorage.setItem(completionStorageKey, JSON.stringify([...completedEpisodes]))
+  } catch {
+    // The experience still works when local storage is unavailable.
+  }
+  updateEpisodeProgress()
+}
+
 const clamp01 = (value) => Math.min(Math.max(value, 0), 1)
 
 const createWorldTransition = () => {
@@ -152,9 +202,7 @@ const createWorldTransition = () => {
     <div class="world-transition__axis"></div>
     <div class="world-transition__ring"><i></i></div>
     <div class="world-transition__scan"></div>
-    <div class="world-transition__glitch">
-      <i></i><i></i><i></i><i></i><i></i>
-    </div>
+    <div class="world-transition__glitch"><i></i><i></i><i></i><i></i><i></i></div>
     <div class="world-transition__label">
       <span data-world-transition="status"></span>
       <strong data-world-transition="target"></strong>
@@ -198,6 +246,11 @@ const setWorldTransitionCopy = (mode, progress) => {
 }
 
 const updateWorldTransitions = () => {
+  if (activeEpisodeCode) {
+    worldTransition.classList.remove('is-active')
+    return
+  }
+
   if (!vesperScene || !haloScene || !eclipseScene) return
 
   if (reducedMotion) {
@@ -259,8 +312,91 @@ const createStoryBoot = () => {
   window.setTimeout(() => boot.classList.add('is-done'), reducedMotion ? 120 : 1450)
 }
 
+const setEpisodeChrome = (code) => {
+  const track = trackLibrary[code]
+  if (sceneNumber) sceneNumber.textContent = code || 'HUB'
+  if (sceneLabel) sceneLabel.textContent = track?.title || 'STORY MODE'
+}
+
+const openEpisode = (code, updateHash = true) => {
+  const target = document.querySelector(`.episode-experience[data-episode="${code}"]`)
+  if (!target || !trackLibrary[code]) return
+
+  pauseAllAudio()
+  activeEpisodeCode = code
+  episodeExperiences.forEach((episode) => {
+    const active = episode === target
+    episode.hidden = !active
+    episode.setAttribute('aria-hidden', String(!active))
+  })
+
+  if (storyHub) {
+    storyHub.hidden = true
+    storyHub.setAttribute('aria-hidden', 'true')
+  }
+
+  document.body.classList.add('is-episode-mode')
+  setEpisodeChrome(code)
+  worldTransition.classList.remove('is-active')
+
+  if (updateHash) history.replaceState(null, '', `#episode-${code.toLowerCase()}`)
+
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })
+    requestScrollUpdate()
+  })
+}
+
+const closeEpisode = (updateHash = true) => {
+  pauseAllAudio()
+  activeEpisodeCode = null
+  document.body.classList.remove('is-episode-mode')
+
+  episodeExperiences.forEach((episode) => {
+    episode.hidden = true
+    episode.setAttribute('aria-hidden', 'true')
+  })
+
+  if (storyHub) {
+    storyHub.hidden = false
+    storyHub.setAttribute('aria-hidden', 'false')
+  }
+
+  if (updateHash) history.replaceState(null, '', '#story-hub')
+
+  requestAnimationFrame(() => {
+    const hubTop = storyHub?.offsetTop || 0
+    window.scrollTo({ top: hubTop, behavior: reducedMotion ? 'auto' : 'smooth' })
+    requestScrollUpdate()
+  })
+}
+
 createStoryBoot()
 initAudioPlayers()
+updateEpisodeProgress()
+
+document.querySelectorAll('[data-open-episode]').forEach((button) => {
+  button.addEventListener('click', () => openEpisode(button.dataset.openEpisode))
+})
+
+document.querySelectorAll('[data-close-episode]').forEach((button) => {
+  button.addEventListener('click', () => closeEpisode())
+})
+
+document.querySelectorAll('[data-next-episode]').forEach((button) => {
+  button.addEventListener('click', () => {
+    if (activeEpisodeCode) markEpisodeComplete(activeEpisodeCode)
+    openEpisode(button.dataset.nextEpisode)
+  })
+})
+
+const completionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) markEpisodeComplete(entry.target.dataset.completesEpisode)
+  })
+}, { threshold: 0.46 })
+
+document.querySelectorAll('[data-completes-episode]').forEach((ending) => completionObserver.observe(ending))
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -285,6 +421,11 @@ const beatObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.game-track__beat').forEach((beat) => beatObserver.observe(beat))
 
 const updateActiveScene = () => {
+  if (activeEpisodeCode) {
+    setEpisodeChrome(activeEpisodeCode)
+    return
+  }
+
   if (!scenes.length) return
 
   const anchor = window.innerHeight * 0.44
@@ -292,6 +433,7 @@ const updateActiveScene = () => {
   let nearestDistance = Number.POSITIVE_INFINITY
 
   scenes.forEach((scene) => {
+    if (scene.hidden) return
     const rect = scene.getBoundingClientRect()
 
     if (rect.top <= anchor && rect.bottom >= anchor) {
@@ -333,8 +475,8 @@ const updateScrollEffects = () => {
   if (reducedMotion) return
 
   artLayers.forEach((img) => {
-    const section = img.closest('[data-scene]')
-    if (!section) return
+    const section = img.closest('[data-scene], .episode-experience')
+    if (!section || section.hidden) return
 
     const rect = section.getBoundingClientRect()
     const sectionProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
@@ -344,7 +486,7 @@ const updateScrollEffects = () => {
   })
 }
 
-const requestScrollUpdate = () => {
+function requestScrollUpdate() {
   if (ticking) return
   ticking = true
   requestAnimationFrame(updateScrollEffects)
@@ -352,20 +494,25 @@ const requestScrollUpdate = () => {
 
 window.addEventListener('scroll', requestScrollUpdate, { passive: true })
 window.addEventListener('resize', requestScrollUpdate)
-requestScrollUpdate()
 
 if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
-  const vesper = document.querySelector('.story-scene--vesper')
-  const vesperArt = vesper?.querySelector('.scene-art img')
+  const vesperArt = vesperScene?.querySelector('.scene-art img')
 
-  vesper?.addEventListener('pointermove', (event) => {
+  vesperScene?.addEventListener('pointermove', (event) => {
     if (!vesperArt) return
     const x = event.clientX / window.innerWidth - 0.5
     const y = event.clientY / window.innerHeight - 0.5
     vesperArt.style.transform = `scale(1.055) translate(${x * -6}px, ${y * -3}px)`
   })
 
-  vesper?.addEventListener('pointerleave', () => {
+  vesperScene?.addEventListener('pointerleave', () => {
     if (vesperArt) vesperArt.style.transform = 'scale(1.04)'
   })
+}
+
+const initialEpisode = window.location.hash.match(/^#episode-(01a|01b|01c)$/i)?.[1]?.toUpperCase()
+if (initialEpisode) {
+  window.setTimeout(() => openEpisode(initialEpisode, false), reducedMotion ? 160 : 1550)
+} else {
+  requestScrollUpdate()
 }
