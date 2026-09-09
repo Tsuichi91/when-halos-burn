@@ -8,27 +8,41 @@
     <title>WHEN HALOS BURN</title>
   </head>
   <body class="page page--landing">
-    <main class="landing landing-game" aria-labelledby="album-title">
+    <main class="landing landing-game landing-game-v2" aria-labelledby="album-title">
       <div class="landing__art" aria-hidden="true">
         <img src="./images/landing/vesper-city.png" alt="" />
       </div>
 
       <div class="game-vignette" aria-hidden="true"></div>
       <div class="game-grid" aria-hidden="true"></div>
+      <div class="game-scan" aria-hidden="true"></div>
+      <div class="game-signal-sweep" aria-hidden="true"></div>
       <div class="landing__line" aria-hidden="true"></div>
       <div class="game-reticle" aria-hidden="true"><i></i><i></i></div>
+      <div class="game-reticle-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="landing__grain" aria-hidden="true"></div>
+
+      <div class="game-boot" aria-hidden="true">
+        <div class="game-boot__line"></div>
+        <div class="game-boot__content">
+          <span>VESPER INTERFACE</span>
+          <strong>SYSTEM INITIALIZING</strong>
+          <div class="game-boot__bar"><i></i></div>
+          <small>HALO NETWORK / ACCESS CHANNEL 01</small>
+        </div>
+      </div>
 
       <header class="game-hud game-hud--top" aria-label="Vesper interface">
         <div class="game-hud__identity">
           <span>A CINEMATIC</span>
           <span>CONCEPT ALBUM</span>
+          <small class="game-online"><i></i>SYSTEM ONLINE</small>
         </div>
 
         <div class="game-hud__city">
           <div>
             <span>VESPER CITY</span>
-            <span>2026</span>
+            <span>2026 / NIGHT CYCLE</span>
           </div>
           <span class="game-menu-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>
@@ -40,6 +54,7 @@
         <span>CONTROL</span>
         <span>OBSERVE</span>
         <span>PROTECT</span>
+        <small>PROTOCOL / ACTIVE</small>
       </aside>
 
       <aside class="game-side game-side--eclipse" aria-label="ECLIPSE thematic interface">
@@ -48,7 +63,20 @@
         <span>QUESTION</span>
         <span>DISRUPT</span>
         <span>RECLAIM</span>
+        <small>SIGNAL / DETECTED</small>
       </aside>
+
+      <div class="game-vertical game-vertical--left" aria-hidden="true">
+        <span>VESPER / CLEARANCE 04</span>
+        <i></i>
+        <span>HALO NETWORK</span>
+      </div>
+
+      <div class="game-vertical game-vertical--right" aria-hidden="true">
+        <span>BLACKOUT RECORD</span>
+        <i></i>
+        <span>STATUS / SEALED</span>
+      </div>
 
       <section class="game-title" aria-label="Main menu">
         <p class="game-title__kicker">THE LINE DEFINES THE CITY</p>
@@ -60,8 +88,15 @@
 
         <p class="game-title__statement">NO LINE STAYS SIMPLE ONCE YOU KNOW THE FACE ON THE OTHER SIDE.</p>
 
+        <div class="game-menu-header" aria-hidden="true">
+          <span>MAIN MENU</span>
+          <i></i>
+          <span>SELECT EXPERIENCE</span>
+        </div>
+
         <nav class="game-mode-menu" aria-label="Choose experience mode">
           <a class="game-mode game-mode--story is-selected" href="./story.html" data-route data-mode="story">
+            <span class="game-mode__selector" aria-hidden="true"><i></i></span>
             <span class="game-mode__index">01</span>
             <span class="game-mode__copy">
               <strong>STORY MODE</strong>
@@ -71,6 +106,7 @@
           </a>
 
           <a class="game-mode game-mode--archive" href="./archive.html" data-route data-mode="archive">
+            <span class="game-mode__selector" aria-hidden="true"><i></i></span>
             <span class="game-mode__index">02</span>
             <span class="game-mode__copy">
               <strong>ARCHIVE MODE</strong>
@@ -79,6 +115,14 @@
             <span class="game-mode__marker" aria-hidden="true"></span>
           </a>
         </nav>
+
+        <div class="game-confirm" aria-hidden="true">
+          <span class="game-key">ENTER</span>
+          <span>CONFIRM</span>
+          <i></i>
+          <span class="game-key">↑ ↓</span>
+          <span>SELECT</span>
+        </div>
       </section>
 
       <div class="game-context game-context--story" aria-hidden="true">
@@ -96,20 +140,26 @@
       <footer class="game-hud game-hud--bottom" aria-hidden="true">
         <div class="game-hud__catalog">
           <span>WHB / 01A—13</span>
-          <span>15 TRACKS</span>
+          <span>15 TRACKS / MASTER DATA</span>
         </div>
 
         <div class="game-select-cue">
           <i></i>
-          <span>SELECT MODE</span>
+          <span>INTERFACE READY</span>
           <b>⌄</b>
         </div>
 
         <div class="game-hud__status">
           <span>HALO / ECLIPSE</span>
-          <span>THE LINE / ACTIVE</span>
+          <span>THE LINE / UNSTABLE</span>
         </div>
       </footer>
+
+      <div class="game-loading-route" aria-hidden="true">
+        <span>ACCESSING</span>
+        <strong>STORY MODE</strong>
+        <div><i></i></div>
+      </div>
 
       <div class="page-transition" aria-hidden="true"><span></span></div>
     </main>
