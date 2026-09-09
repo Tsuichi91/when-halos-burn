@@ -8,6 +8,7 @@ import './styles/second-look.css'
 import './styles/second-look-ending.css'
 import './styles/audio-player.css'
 import './styles/story-game-ui.css'
+import './styles/story-game-refine.css'
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const progressBar = document.querySelector('.story-progress span')
@@ -277,22 +278,20 @@ const updateScrollEffects = () => {
   ticking = false
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0
-  const clampedProgress = Math.min(Math.max(progress, 0), 1)
-  progressBar?.style.setProperty('transform', `scaleX(${clampedProgress})`)
-  document.documentElement.style.setProperty('--campaign-progress', `${clampedProgress * 100}%`)
+  progressBar?.style.setProperty('transform', `scaleX(${Math.min(Math.max(progress, 0), 1)})`)
+  document.documentElement.style.setProperty('--campaign-progress', `${Math.min(Math.max(progress,0),1) * 100}%`)
 
   updateActiveScene()
   updateTrackExits()
-
   if (reducedMotion) return
+
   artLayers.forEach((img) => {
     const section = img.closest('[data-scene]')
     if (!section) return
     const rect = section.getBoundingClientRect()
     const sectionProgress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
     const clamped = Math.min(Math.max(sectionProgress, 0), 1)
-    const drift = (clamped - 0.5) * 18
-    img.style.translate = `0 ${drift}px`
+    img.style.translate = `0 ${(clamped - 0.5) * 18}px`
   })
 }
 
@@ -301,7 +300,6 @@ const requestScrollUpdate = () => {
   ticking = true
   requestAnimationFrame(updateScrollEffects)
 }
-
 window.addEventListener('scroll', requestScrollUpdate, { passive: true })
 window.addEventListener('resize', requestScrollUpdate)
 requestScrollUpdate()
