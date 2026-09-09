@@ -44,8 +44,8 @@ const getCriticalAssets = (mode) => {
   if (mode === 'archive') {
     return [
       './images/tracks/01a-prologue-the-line/ChatGPT%20Image%209.%20Sept.%202026,%2022_08_26.png',
-      './images/tracks/03-hold-the-line/hero.png',
-      './images/tracks/02-no-saint/hero.png'
+      './images/tracks/01b-first-contact/hero.png',
+      './images/tracks/01c-second-look/hero.png'
     ]
   }
 
