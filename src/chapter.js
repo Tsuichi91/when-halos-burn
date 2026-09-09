@@ -1,5 +1,6 @@
 import './styles/site.css'
 import './styles/chapter-detail.css'
+import './styles/chapter-player.css'
 
 const completionStorageKey = 'whb-story-complete-v1'
 const startedStorageKey = 'whb-story-started-v1'
@@ -125,14 +126,13 @@ const getStatus = () => {
 }
 
 const formatDuration = (seconds) => {
-  if (!Number.isFinite(seconds) || seconds <= 0) return '--:--'
+  if (!Number.isFinite(seconds) || seconds < 0) return '--:--'
   const minutes = Math.floor(seconds / 60)
   const remainder = Math.floor(seconds % 60)
   return `${minutes}:${String(remainder).padStart(2, '0')}`
 }
 
 const root = document.querySelector('#chapter-root')
-
 document.title = `${chapter.title} — WHEN HALOS BURN`
 
 const sceneCards = chapter.scenes.map(([index, label, copy]) => `
@@ -145,6 +145,12 @@ const sceneCards = chapter.scenes.map(([index, label, copy]) => `
 const notes = chapter.notes.map(([label, value]) => `
   <div><dt>${label}</dt><dd>${value}</dd></div>
 `).join('')
+
+const commandLabel = completed.has(chapter.code)
+  ? 'REPLAY CHAPTER'
+  : started.has(chapter.code)
+    ? 'CONTINUE CHAPTER'
+    : 'START CHAPTER'
 
 root.innerHTML = `
   <header class="chapter-topbar">
@@ -191,9 +197,22 @@ root.innerHTML = `
       <div><dt>STATUS</dt><dd data-chapter-status>${getStatus()}</dd></div>
     </dl>
 
-    <a class="chapter-command__start" href="./story.html#episode-${chapter.code.toLowerCase()}" data-start-chapter>
-      <span>▶</span><strong>${completed.has(chapter.code) ? 'REPLAY CHAPTER' : started.has(chapter.code) ? 'CONTINUE CHAPTER' : 'START CHAPTER'}</strong><i>›</i>
-    </a>
+    <button class="chapter-command__start" type="button" data-start-chapter>
+      <span data-command-icon>▶</span><strong data-command-label>${commandLabel}</strong><i>›</i>
+    </button>
+
+    <div class="chapter-player" data-chapter-player>
+      <button class="chapter-player__play" type="button" data-player-play aria-label="Play ${chapter.title}">▶</button>
+      <div class="chapter-player__main">
+        <div class="chapter-player__head">
+          <div><span>${chapter.code} / FINAL MASTER</span><strong>${chapter.title}</strong></div>
+          <span data-player-state>MASTER / READY</span>
+        </div>
+        <input class="chapter-player__seek" type="range" min="0" max="1000" value="0" step="1" data-player-seek aria-label="Seek through ${chapter.title}" />
+        <div class="chapter-player__times"><span data-player-current>0:00</span><span data-player-duration>--:--</span></div>
+      </div>
+      <audio data-player-audio preload="metadata" src="${chapter.audio}"></audio>
+    </div>
   </section>
 
   <section class="chapter-content">
@@ -276,26 +295,137 @@ tabs.forEach((tab) => {
   })
 })
 
-root.querySelector('[data-start-chapter]')?.addEventListener('click', () => {
-  if (!completed.has(chapter.code)) {
+const statusEl = root.querySelector('[data-chapter-status]')
+const durationEl = root.querySelector('[data-duration]')
+const command = root.querySelector('[data-start-chapter]')
+const commandLabelEl = root.querySelector('[data-command-label]')
+const commandIcon = root.querySelector('[data-command-icon]')
+const player = root.querySelector('[data-chapter-player]')
+const playButton = root.querySelector('[data-player-play]')
+const seek = root.querySelector('[data-player-seek]')
+const currentEl = root.querySelector('[data-player-current]')
+const playerDurationEl = root.querySelector('[data-player-duration]')
+const playerState = root.querySelector('[data-player-state]')
+const audio = root.querySelector('[data-player-audio]')
+
+const refreshStatus = () => {
+  const status = getStatus()
+  if (statusEl) statusEl.textContent = status
+  return status
+}
+
+const refreshCommand = () => {
+  if (!commandLabelEl || !commandIcon || !audio) return
+  if (!audio.paused) {
+    commandLabelEl.textContent = 'PAUSE CHAPTER'
+    commandIcon.textContent = 'Ⅱ'
+    return
+  }
+  commandIcon.textContent = '▶'
+  if (completed.has(chapter.code)) commandLabelEl.textContent = 'REPLAY CHAPTER'
+  else if (started.has(chapter.code)) commandLabelEl.textContent = 'CONTINUE CHAPTER'
+  else commandLabelEl.textContent = 'START CHAPTER'
+}
+
+const markStarted = () => {
+  if (!completed.has(chapter.code) && !started.has(chapter.code)) {
     started.add(chapter.code)
     saveSet(startedStorageKey, started)
   }
+  refreshStatus()
+  refreshCommand()
+}
+
+const markComplete = () => {
+  completed.add(chapter.code)
+  started.delete(chapter.code)
+  saveSet(completionStorageKey, completed)
+  saveSet(startedStorageKey, started)
+  refreshStatus()
+  refreshCommand()
+}
+
+const setSeekVisual = () => {
+  if (!audio || !seek || !currentEl) return
+  const progress = audio.duration > 0 ? (audio.currentTime / audio.duration) * 1000 : 0
+  seek.value = String(Math.min(Math.max(progress, 0), 1000))
+  seek.style.setProperty('--chapter-audio-progress', `${progress / 10}%`)
+  currentEl.textContent = formatDuration(audio.currentTime)
+}
+
+const setPlayingState = (playing) => {
+  player?.classList.toggle('is-playing', playing)
+  if (playButton) {
+    playButton.textContent = playing ? 'Ⅱ' : '▶'
+    playButton.setAttribute('aria-label', `${playing ? 'Pause' : 'Play'} ${chapter.title}`)
+  }
+  if (playerState) playerState.textContent = playing ? 'MASTER / PLAYING' : completed.has(chapter.code) ? 'MASTER / COMPLETE' : 'MASTER / READY'
+  refreshCommand()
+}
+
+const togglePlayback = async () => {
+  if (!audio) return
+  if (!audio.paused) {
+    audio.pause()
+    return
+  }
+
+  if (Number.isFinite(audio.duration) && audio.duration > 0 && audio.currentTime >= audio.duration - .25) {
+    audio.currentTime = 0
+  }
+
+  markStarted()
+  try {
+    await audio.play()
+    player?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })
+  } catch (error) {
+    if (playerState) playerState.textContent = 'AUDIO / UNAVAILABLE'
+    if (playButton) playButton.disabled = true
+    if (command) command.disabled = true
+    console.error(`Could not play ${chapter.title}`, error)
+  }
+}
+
+command?.addEventListener('click', togglePlayback)
+playButton?.addEventListener('click', togglePlayback)
+
+seek?.addEventListener('input', () => {
+  if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) return
+  audio.currentTime = (Number(seek.value) / 1000) * audio.duration
+  setSeekVisual()
+  if (!completed.has(chapter.code)) markStarted()
 })
 
-const statusEl = root.querySelector('[data-chapter-status]')
-if (statusEl) statusEl.textContent = getStatus()
+if (audio) {
+  audio.addEventListener('loadedmetadata', () => {
+    const duration = formatDuration(audio.duration)
+    if (durationEl) durationEl.textContent = duration
+    if (playerDurationEl) playerDurationEl.textContent = duration
+    setSeekVisual()
+  })
+  audio.addEventListener('durationchange', () => {
+    const duration = formatDuration(audio.duration)
+    if (durationEl) durationEl.textContent = duration
+    if (playerDurationEl) playerDurationEl.textContent = duration
+  })
+  audio.addEventListener('timeupdate', setSeekVisual)
+  audio.addEventListener('play', () => setPlayingState(true))
+  audio.addEventListener('pause', () => setPlayingState(false))
+  audio.addEventListener('ended', () => {
+    audio.currentTime = 0
+    setSeekVisual()
+    markComplete()
+    setPlayingState(false)
+  })
+  audio.addEventListener('error', () => {
+    if (durationEl) durationEl.textContent = '--:--'
+    if (playerDurationEl) playerDurationEl.textContent = '--:--'
+    if (playerState) playerState.textContent = 'AUDIO / UNAVAILABLE'
+  })
+}
 
-const durationEl = root.querySelector('[data-duration]')
-const audio = new Audio()
-audio.preload = 'metadata'
-audio.src = chapter.audio
-audio.addEventListener('loadedmetadata', () => {
-  if (durationEl) durationEl.textContent = formatDuration(audio.duration)
-})
-audio.addEventListener('error', () => {
-  if (durationEl) durationEl.textContent = '--:--'
-})
+refreshStatus()
+refreshCommand()
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
   const hero = root.querySelector('.chapter-hero')
