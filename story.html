@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#05080c" />
     <meta name="description" content="WHEN HALOS BURN — Story Mode. Enter Vesper and follow the album in sequence." />
+    <link rel="preload" as="image" href="./images/landing/vesper-city.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="./images/tracks/01a-prologue-the-line/ChatGPT%20Image%209.%20Sept.%202026,%2022_08_26.png" />
+    <link rel="preload" as="image" href="./images/tracks/01b-first-contact/hero.png" />
+    <link rel="preload" as="image" href="./images/tracks/01c-second-look/hero.png" />
     <title>Story Mode — WHEN HALOS BURN</title>
   </head>
   <body class="page page--story-experience">
@@ -26,7 +30,7 @@
     <main class="story-experience">
       <section class="story-scene story-scene--vesper" id="vesper" data-scene="00" data-label="VESPER CITY">
         <div class="scene-art scene-art--vesper" aria-hidden="true">
-          <img src="./images/landing/vesper-city.png" alt="" />
+          <img src="./images/landing/vesper-city.png" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div class="scene-shade" aria-hidden="true"></div>
         <div class="scene-line" aria-hidden="true"></div>
@@ -44,7 +48,7 @@
 
       <section class="story-scene story-scene--halo" id="halo" data-scene="01" data-label="HALO">
         <div class="scene-art scene-art--halo" aria-hidden="true">
-          <img src="./images/world/halo-headquarters.png" alt="" />
+          <img src="./images/world/halo-headquarters.png" alt="" decoding="async" />
         </div>
         <div class="scene-shade scene-shade--halo" aria-hidden="true"></div>
         <div class="halo-orbit" aria-hidden="true"><span></span></div>
@@ -64,7 +68,7 @@
 
       <section class="story-scene story-scene--eclipse" id="eclipse" data-scene="02" data-label="ECLIPSE">
         <div class="scene-art scene-art--eclipse" aria-hidden="true">
-          <img src="./images/world/eclipse-headquarters.png" alt="" />
+          <img src="./images/world/eclipse-headquarters.png" alt="" decoding="async" />
         </div>
         <div class="scene-shade scene-shade--eclipse" aria-hidden="true"></div>
         <div class="eclipse-mark" aria-hidden="true"><i></i><i></i></div>
