@@ -30,6 +30,7 @@ const trackLibrary = {
 
 const playableCodes = Object.keys(trackLibrary)
 const completionStorageKey = 'whb-story-complete-v1'
+const startedStorageKey = 'whb-story-started-v1'
 const worldIntroStorageKey = 'whb-world-intro-seen-v1'
 const activeAudioPlayers = []
 let activeEpisodeCode = null
@@ -105,7 +106,7 @@ const buildStoryHome = () => {
               </div>
               <div class="story-home-card__footer">
                 <span data-episode-status="01A">NEW</span>
-                <button type="button" data-open-episode="01A"><span>START</span> ›</button>
+                <button type="button" data-open-episode="01A"><span>VIEW</span> ›</button>
               </div>
             </div>
           </article>
@@ -121,7 +122,7 @@ const buildStoryHome = () => {
               </div>
               <div class="story-home-card__footer">
                 <span data-episode-status="01B">AVAILABLE</span>
-                <button type="button" data-open-episode="01B"><span>PLAY</span> ›</button>
+                <button type="button" data-open-episode="01B"><span>VIEW</span> ›</button>
               </div>
             </div>
           </article>
@@ -137,7 +138,7 @@ const buildStoryHome = () => {
               </div>
               <div class="story-home-card__footer">
                 <span data-episode-status="01C">AVAILABLE</span>
-                <button type="button" data-open-episode="01C"><span>PLAY</span> ›</button>
+                <button type="button" data-open-episode="01C"><span>VIEW</span> ›</button>
               </div>
             </div>
           </article>
@@ -324,16 +325,31 @@ const pauseAllAudio = () => {
   })
 }
 
-const readCompletedEpisodes = () => {
+const readStoredEpisodes = (key) => {
   try {
-    const stored = JSON.parse(window.localStorage.getItem(completionStorageKey) || '[]')
+    const stored = JSON.parse(window.localStorage.getItem(key) || '[]')
     return new Set(Array.isArray(stored) ? stored : [])
   } catch {
     return new Set()
   }
 }
 
-const completedEpisodes = readCompletedEpisodes()
+const completedEpisodes = readStoredEpisodes(completionStorageKey)
+const startedEpisodes = readStoredEpisodes(startedStorageKey)
+
+const saveStartedEpisodes = () => {
+  try {
+    window.localStorage.setItem(startedStorageKey, JSON.stringify([...startedEpisodes]))
+  } catch {
+    // The site remains usable when storage is unavailable.
+  }
+}
+
+const markEpisodeStarted = (code) => {
+  if (!trackLibrary[code] || completedEpisodes.has(code) || startedEpisodes.has(code)) return
+  startedEpisodes.add(code)
+  saveStartedEpisodes()
+}
 
 const hasSeenWorldIntro = () => {
   try {
@@ -358,7 +374,10 @@ const setWorldIntroHidden = (hidden) => {
   })
 }
 
-const getContinueCode = () => playableCodes.find((code) => !completedEpisodes.has(code)) || '01A'
+const getContinueCode = () => {
+  const inProgress = playableCodes.find((code) => startedEpisodes.has(code) && !completedEpisodes.has(code))
+  return inProgress || playableCodes.find((code) => !completedEpisodes.has(code)) || '01A'
+}
 
 const updateContinueAction = () => {
   if (!storyHub) return
@@ -372,7 +391,13 @@ const updateContinueAction = () => {
   if (continueButton) continueButton.dataset.continueCode = code
   if (continueLabel) continueLabel.textContent = allComplete ? 'REPLAY OPENING' : 'CONTINUE'
   if (continueTitle) continueTitle.textContent = trackLibrary[code]?.title || 'PROLOGUE: THE LINE'
-  if (continueStatus) continueStatus.textContent = allComplete ? 'OPENING COMPLETE' : completedEpisodes.size ? 'CONTINUE STORY' : 'NOT STARTED'
+  if (continueStatus) {
+    continueStatus.textContent = allComplete
+      ? 'OPENING COMPLETE'
+      : startedEpisodes.has(code)
+        ? 'IN PROGRESS'
+        : 'NOT STARTED'
+  }
 }
 
 const updateEpisodeProgress = () => {
@@ -381,10 +406,12 @@ const updateEpisodeProgress = () => {
     const status = document.querySelector(`[data-episode-status="${code}"]`)
     const buttonLabel = card?.querySelector('[data-open-episode] span')
     const complete = completedEpisodes.has(code)
+    const inProgress = startedEpisodes.has(code) && !complete
 
     card?.classList.toggle('is-complete', complete)
-    if (status) status.textContent = complete ? 'COMPLETE' : index === 0 ? 'NOT STARTED' : 'AVAILABLE'
-    if (buttonLabel) buttonLabel.textContent = complete ? 'REPLAY' : index === 0 ? 'START' : 'PLAY'
+    card?.classList.toggle('is-in-progress', inProgress)
+    if (status) status.textContent = complete ? 'COMPLETE' : inProgress ? 'IN PROGRESS' : index === 0 ? 'NOT STARTED' : 'AVAILABLE'
+    if (buttonLabel) buttonLabel.textContent = 'VIEW'
   })
 
   const totalComplete = playableCodes.filter((code) => completedEpisodes.has(code)).length
@@ -395,8 +422,10 @@ const updateEpisodeProgress = () => {
 const markEpisodeComplete = (code) => {
   if (!trackLibrary[code] || completedEpisodes.has(code)) return
   completedEpisodes.add(code)
+  startedEpisodes.delete(code)
   try {
     window.localStorage.setItem(completionStorageKey, JSON.stringify([...completedEpisodes]))
+    window.localStorage.setItem(startedStorageKey, JSON.stringify([...startedEpisodes]))
   } catch {
     // The experience still works when local storage is unavailable.
   }
@@ -526,6 +555,7 @@ const openEpisode = (code, updateHash = true) => {
   const target = document.querySelector(`.episode-experience[data-episode="${code}"]`)
   if (!target || !trackLibrary[code]) return
 
+  markEpisodeStarted(code)
   pauseAllAudio()
   activeEpisodeCode = code
   setWorldIntroHidden(true)
@@ -570,6 +600,7 @@ const closeEpisode = (updateHash = true) => {
   }
 
   setWorldIntroHidden(hasSeenWorldIntro())
+  updateEpisodeProgress()
 
   if (updateHash) history.replaceState(null, '', '#story-hub')
 
@@ -598,7 +629,10 @@ updateEpisodeProgress()
 if (hasSeenWorldIntro()) setWorldIntroHidden(true)
 
 document.querySelectorAll('[data-open-episode]').forEach((button) => {
-  button.addEventListener('click', () => openEpisode(button.dataset.openEpisode))
+  button.addEventListener('click', () => {
+    const code = button.dataset.openEpisode
+    window.location.href = `./chapter.html?chapter=${encodeURIComponent(code)}`
+  })
 })
 
 document.querySelectorAll('[data-close-episode]').forEach((button) => {
@@ -618,7 +652,7 @@ document.querySelectorAll('[data-replay-world-intro]').forEach((button) => {
 
 storyHub?.querySelector('[data-continue-story]')?.addEventListener('click', (event) => {
   const code = event.currentTarget.dataset.continueCode || getContinueCode()
-  openEpisode(code)
+  window.location.href = `./chapter.html?chapter=${encodeURIComponent(code)}`
 })
 
 const completionObserver = new IntersectionObserver((entries) => {
