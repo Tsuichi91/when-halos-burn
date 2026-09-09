@@ -82,211 +82,213 @@
         </div>
       </section>
 
-      <section class="act-opening" id="opening" data-scene="03" data-label="OPENING">
-        <div class="act-opening__line" aria-hidden="true"></div>
-        <div class="act-opening__content" data-reveal>
-          <p>OPENING</p>
-          <span>THE STORY WE ARE TOLD</span>
-          <h2>The city defines them<br />before they ever define each other.</h2>
-        </div>
-        <div class="binary-labels" aria-hidden="true">
-          <span>HERO</span><span>VILLAIN</span><span>PROTECTOR</span><span>THREAT</span>
-        </div>
-      </section>
-
-      <section class="prologue" id="prologue" data-scene="01A" data-label="PROLOGUE: THE LINE">
-        <div class="prologue__city" aria-hidden="true">
+      <section class="story-gate story-gate--opening" id="opening" data-scene="OPENING" data-label="THE STORY WE ARE TOLD">
+        <div class="story-gate__city" aria-hidden="true">
           <img src="./images/landing/vesper-city.png" alt="" />
         </div>
-        <div class="prologue__veil" aria-hidden="true"></div>
-        <div class="prologue__line" aria-hidden="true"></div>
-
-        <div class="prologue__intro" data-reveal>
-          <p class="scene-kicker">01A / NARRATOR</p>
-          <h2>PROLOGUE:<br /><span>THE LINE</span></h2>
-          <p>Before Jiwon meets Taeyun, Vesper has already decided what each man is supposed to be.</p>
+        <div class="story-gate__veil" aria-hidden="true"></div>
+        <div class="story-gate__axis" aria-hidden="true"><i></i></div>
+        <div class="story-gate__side story-gate__side--left" aria-hidden="true">
+          <span>HERO</span><span>PROTECTOR</span>
         </div>
-
-        <div class="track-console prologue__console" data-reveal>
-          <div class="track-console__meta">
-            <span>01A</span>
-            <span>NARRATOR</span>
-            <span>OPENING</span>
-          </div>
-
-          <div class="track-console__player" aria-label="PROLOGUE THE LINE audio player placeholder">
-            <button type="button" disabled aria-label="PROLOGUE THE LINE audio file not yet uploaded">▶</button>
-            <div class="track-console__timeline" aria-hidden="true"><i></i></div>
-            <span>AUDIO FILE PENDING</span>
-          </div>
-
-          <p>The spoken prologue master will play here once the final audio file is added to the site.</p>
+        <div class="story-gate__side story-gate__side--right" aria-hidden="true">
+          <span>VILLAIN</span><span>THREAT</span>
         </div>
-
-        <div class="prologue__sequence" aria-label="Prologue story fragments">
-          <p data-reveal>In Vesper, safety has a shape.</p>
-          <p data-reveal>Order has a name.</p>
-          <p class="prologue__word" data-reveal>HALO.</p>
-          <p data-reveal>Everything beyond the approved line becomes easier to name than to understand.</p>
-          <div class="role-grid" data-reveal>
-            <span>HERO.</span><span>VILLAIN.</span><span>PROTECTOR.</span><span>THREAT.</span>
-          </div>
+        <div class="story-gate__content" data-reveal>
+          <p>STORY SEQUENCE // OPENING</p>
+          <h2>THE STORY<br /><span>WE ARE TOLD</span></h2>
+          <strong>The city defines them before they ever define each other.</strong>
+          <a href="#prologue"><span>BEGIN OPENING</span><i>↓</i></a>
         </div>
-
-        <blockquote class="prologue__signature" data-reveal>
-          “No line stays simple once you know the face on the other side.”
-        </blockquote>
-
-        <a class="next-track" href="#first-contact" data-reveal>
-          <span>NEXT / 01B</span>
-          <strong>FIRST CONTACT</strong>
-          <i>↓</i>
-        </a>
       </section>
 
-      <section class="first-contact" id="first-contact" data-scene="01B" data-label="FIRST CONTACT">
-        <div class="first-contact__sticky">
-          <div class="first-contact__art" aria-hidden="true">
+      <section class="game-track game-track--prologue" id="prologue" data-scene="01A" data-label="PROLOGUE: THE LINE">
+        <div class="game-track__sticky">
+          <div class="game-track__art" aria-hidden="true">
+            <img src="./images/landing/vesper-city.png" alt="" />
+          </div>
+          <div class="game-track__shade game-track__shade--prologue" aria-hidden="true"></div>
+          <div class="game-track__axis" aria-hidden="true"></div>
+          <div class="game-track__corner game-track__corner--left" aria-hidden="true">
+            <span>01A / NARRATOR</span><small>VESPER CITY</small>
+          </div>
+          <div class="game-track__corner game-track__corner--right" aria-hidden="true">
+            <span>OPENING</span><small>CLASSIFICATION / THE LINE</small>
+          </div>
+          <div class="game-track__title" data-reveal>
+            <p>TRACK 01A // STORY EVENT</p>
+            <h2>PROLOGUE:<br /><span>THE LINE</span></h2>
+            <strong>Before either man speaks, Vesper has already decided what they mean.</strong>
+          </div>
+        </div>
+
+        <div class="game-track__flow" aria-label="Prologue story sequence">
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>01 / SYSTEM</span>
+            <p>In Vesper, safety has a shape.</p>
+          </article>
+          <article class="game-track__beat game-track__beat--right" data-reveal>
+            <span>02 / SYSTEM</span>
+            <p>Order has a name.</p>
+            <strong>HALO.</strong>
+          </article>
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>03 / CLASSIFICATION</span>
+            <p>Everything beyond the approved line becomes easier to name than to understand.</p>
+            <div class="game-track__roles"><i>HERO</i><i>VILLAIN</i><i>PROTECTOR</i><i>THREAT</i></div>
+          </article>
+          <blockquote class="game-track__quote" data-reveal>
+            <span>VOICE / NARRATOR</span>
+            “No line stays simple once you know the face on the other side.”
+          </blockquote>
+
+          <div class="track-console game-track__console" data-reveal>
+            <div class="track-console__meta"><span>01A</span><span>NARRATOR</span><span>OPENING</span></div>
+            <div class="track-console__player" aria-label="PROLOGUE THE LINE audio player"></div>
+            <p>PROLOGUE: THE LINE / FINAL MASTER</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-handoff story-handoff--eclipse" data-scene="01A" data-label="PROLOGUE: THE LINE">
+        <div class="story-handoff__line" aria-hidden="true"></div>
+        <div class="story-handoff__content" data-reveal>
+          <span>EVENT COMPLETE // 01A</span>
+          <p>THE LINE HAS BEEN DRAWN.</p>
+          <a href="#first-contact"><small>NEXT EVENT / 01B</small><strong>FIRST CONTACT</strong><i>→</i></a>
+        </div>
+      </section>
+
+      <section class="game-track game-track--first-contact" id="first-contact" data-scene="01B" data-label="FIRST CONTACT">
+        <div class="game-track__sticky">
+          <div class="game-track__art" aria-hidden="true">
             <img src="./images/tracks/hero.png" alt="" />
           </div>
-          <div class="first-contact__shade" aria-hidden="true"></div>
-          <div class="first-contact__line" aria-hidden="true"></div>
-
-          <div class="first-contact__heading" data-reveal>
-            <p class="scene-kicker">01B / TAEYUN POV</p>
-            <h2>FIRST <span>CONTACT</span></h2>
-            <p class="first-contact__stage">RECOGNITION / CURIOSITY</p>
+          <div class="game-track__shade game-track__shade--contact" aria-hidden="true"></div>
+          <div class="game-track__axis" aria-hidden="true"></div>
+          <div class="game-track__corner game-track__corner--left" aria-hidden="true">
+            <span>TAEYUN / ECLIPSE</span><small>BORDER DISTRICT</small>
+          </div>
+          <div class="game-track__corner game-track__corner--right" aria-hidden="true">
+            <span>OPENING / 01B</span><small>RECOGNITION / CURIOSITY</small>
+          </div>
+          <div class="game-track__title game-track__title--left" data-reveal>
+            <p>TRACK 01B // TAEYUN POV</p>
+            <h2>FIRST<br /><span>CONTACT</span></h2>
+            <strong>The file told him who Jiwon was. The first choice tells him something else.</strong>
           </div>
         </div>
 
-        <div class="first-contact__narrative" aria-label="First Contact story fragments">
-          <article class="first-contact__beat first-contact__beat--left" data-reveal>
-            <span>THE FILE</span>
-            <p>Taeyun came to the Border District already knowing who Han Jiwon was supposed to be.</p>
+        <div class="game-track__flow" aria-label="First Contact story sequence">
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>01 / THE FILE</span>
+            <p>Taeyun arrives already knowing who Han Jiwon is supposed to be.</p>
           </article>
-
-          <article class="first-contact__beat first-contact__beat--right" data-reveal>
-            <span>THE OPENING</span>
-            <p>Then Jiwon gives up the cleaner tactical position without hesitation — because a stranger needs shielding first.</p>
+          <article class="game-track__beat game-track__beat--right" data-reveal>
+            <span>02 / THE OPENING</span>
+            <p>Jiwon gives up the cleaner tactical position without hesitation — because a stranger needs shielding first.</p>
           </article>
-
-          <article class="first-contact__beat first-contact__beat--left" data-reveal>
-            <span>THE CHOICE</span>
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>03 / THE CHOICE</span>
             <p>Taeyun could exploit it. He doesn't. For one suspended second, observation matters more than winning.</p>
           </article>
-
-          <blockquote class="first-contact__signature" data-reveal>
+          <blockquote class="game-track__quote" data-reveal>
+            <span>TAEYUN / INTERNAL</span>
             “Maybe the file left something out.”
           </blockquote>
-        </div>
 
-        <div class="track-console" data-reveal>
-          <div class="track-console__meta">
-            <span>01B</span>
-            <span>TAEYUN</span>
-            <span>OPENING</span>
+          <div class="track-console game-track__console" data-reveal>
+            <div class="track-console__meta"><span>01B</span><span>TAEYUN</span><span>OPENING</span></div>
+            <div class="track-console__player" aria-label="FIRST CONTACT audio player"></div>
+            <p>FIRST CONTACT / FINAL MASTER</p>
           </div>
-
-          <div class="track-console__player" aria-label="FIRST CONTACT audio player placeholder">
-            <button type="button" disabled aria-label="FIRST CONTACT audio file not yet uploaded">▶</button>
-            <div class="track-console__timeline" aria-hidden="true"><i></i></div>
-            <span>AUDIO FILE PENDING</span>
-          </div>
-
-          <p>When the finished master is added to the site, this becomes the persistent album player without changing the scene layout.</p>
         </div>
-
-        <a class="first-contact__handoff" href="#second-look" data-reveal>
-          <span>END / 01B</span>
-          <strong>CONTINUE</strong>
-          <em>01C / SECOND LOOK</em>
-          <i>↓</i>
-        </a>
       </section>
 
-      <section class="second-look" id="second-look" data-scene="01C" data-label="SECOND LOOK">
-        <div class="second-look__sticky">
-          <div class="second-look__art" aria-hidden="true">
+      <section class="story-handoff story-handoff--halo" data-scene="01B" data-label="FIRST CONTACT">
+        <div class="story-handoff__line" aria-hidden="true"></div>
+        <div class="story-handoff__content" data-reveal>
+          <span>CONTACT LOGGED // ANOMALY DETECTED</span>
+          <p>HE HAD THE OPENING.</p>
+          <a href="#second-look"><small>NEXT POV / 01C</small><strong>SECOND LOOK</strong><i>→</i></a>
+        </div>
+      </section>
+
+      <section class="game-track game-track--second-look" id="second-look" data-scene="01C" data-label="SECOND LOOK">
+        <div class="game-track__sticky">
+          <div class="game-track__art" aria-hidden="true">
             <img src="./images/tracks/01c-second-look/hero.png" alt="" />
           </div>
-          <div class="second-look__shade" aria-hidden="true"></div>
-          <div class="second-look__line" aria-hidden="true"></div>
-          <div class="second-look__fade" aria-hidden="true"></div>
-
-          <div class="second-look__heading" data-reveal>
-            <p class="scene-kicker">01C / JIWON POV</p>
-            <h2>SECOND <span>LOOK</span></h2>
-            <p class="second-look__stage">ANALYSIS / DOUBT</p>
+          <div class="game-track__shade game-track__shade--review" aria-hidden="true"></div>
+          <div class="game-track__axis" aria-hidden="true"></div>
+          <div class="game-track__corner game-track__corner--left" aria-hidden="true">
+            <span>JIWON / HALO</span><small>HALO REVIEW CHAMBER</small>
+          </div>
+          <div class="game-track__corner game-track__corner--right" aria-hidden="true">
+            <span>OPENING / 01C</span><small>ANALYSIS / DOUBT</small>
+          </div>
+          <div class="game-track__title game-track__title--left" data-reveal>
+            <p>TRACK 01C // JIWON POV</p>
+            <h2>SECOND<br /><span>LOOK</span></h2>
+            <strong>The record is clear. The footage is not.</strong>
           </div>
         </div>
 
-        <div class="second-look__narrative" aria-label="Second Look story fragments">
-          <article class="second-look__beat second-look__beat--left" data-reveal>
-            <span>THE RECORD</span>
-            <p>The file is clear. Kang Taeyun is the Architect of the Blackout. A threat with a name, a history and a category.</p>
+        <div class="game-track__flow" aria-label="Second Look story sequence">
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>01 / THE RECORD</span>
+            <p>Kang Taeyun is the Architect of the Blackout. A threat with a name, a history and a category.</p>
           </article>
-
-          <article class="second-look__beat second-look__beat--right" data-reveal>
-            <span>THE GAP</span>
-            <p>But the footage keeps returning to the same impossible detail: the opening was there. Taeyun saw it.</p>
+          <article class="game-track__beat game-track__beat--right" data-reveal>
+            <span>02 / THE GAP</span>
+            <p>The footage keeps returning to the same impossible detail: the opening was there. Taeyun saw it.</p>
           </article>
-
-          <article class="second-look__beat second-look__beat--left" data-reveal>
-            <span>THE QUESTION</span>
-            <p>Jiwon can explain an attack. He can explain a retreat. What he cannot explain is a choice that contradicts the man HALO taught him to see.</p>
+          <article class="game-track__beat game-track__beat--left" data-reveal>
+            <span>03 / THE QUESTION</span>
+            <p>Jiwon can explain an attack. He can explain a retreat. He cannot explain a choice that contradicts the man HALO taught him to see.</p>
           </article>
-
-          <blockquote class="second-look__signature" data-reveal>
+          <blockquote class="game-track__quote" data-reveal>
+            <span>JIWON / INTERNAL</span>
             “You had the opening. Why didn’t you take it?”
           </blockquote>
-        </div>
 
-        <div class="track-console second-look__console" data-reveal>
-          <div class="track-console__meta">
-            <span>01C</span>
-            <span>JIWON</span>
-            <span>OPENING</span>
+          <div class="track-console game-track__console" data-reveal>
+            <div class="track-console__meta"><span>01C</span><span>JIWON</span><span>OPENING</span></div>
+            <div class="track-console__player" aria-label="SECOND LOOK audio player"></div>
+            <p>SECOND LOOK / FINAL MASTER</p>
           </div>
-
-          <div class="track-console__player" aria-label="SECOND LOOK audio player placeholder">
-            <button type="button" disabled aria-label="SECOND LOOK audio file not yet uploaded">▶</button>
-            <div class="track-console__timeline" aria-hidden="true"><i></i></div>
-            <span>AUDIO FILE PENDING</span>
-          </div>
-
-          <p>The finished SECOND LOOK master will play here once the audio file is added to the site.</p>
         </div>
       </section>
 
-      <section class="opening-end" id="opening-end" data-scene="01C" data-label="SECOND LOOK">
-        <a class="second-look__handoff" href="#act-one" data-reveal>
-          <span>END / OPENING</span>
-          <strong>THE QUESTION REMAINS.</strong>
-          <em>CONTINUE TO ACT I</em>
-          <i>↓</i>
-        </a>
+      <section class="story-gate story-gate--complete" id="opening-end" data-scene="OPENING" data-label="COMPLETE">
+        <div class="story-gate__axis" aria-hidden="true"><i></i></div>
+        <div class="story-gate__content" data-reveal>
+          <p>OPENING // COMPLETE</p>
+          <h2>THE QUESTION<br /><span>REMAINS.</span></h2>
+          <strong>Certainty was easier before they saw each other clearly.</strong>
+          <a href="#act-one"><span>CONTINUE STORY</span><i>↓</i></a>
+        </div>
       </section>
 
-      <section class="act-transition act-transition--one" id="act-one" data-scene="ACT I" data-label="ENEMIES">
-        <div class="act-transition__line" aria-hidden="true"></div>
-        <div class="act-transition__content" data-reveal>
-          <p>ACT I</p>
+      <section class="act-gate" id="act-one" data-scene="ACT I" data-label="ENEMIES">
+        <div class="act-gate__grid" aria-hidden="true"></div>
+        <div class="act-gate__axis" aria-hidden="true"></div>
+        <div class="act-gate__content" data-reveal>
+          <p>CHAPTER UNLOCKED</p>
+          <span>ACT I</span>
           <h2>ENEMIES</h2>
-          <span>Recognition becomes fixation. Certainty begins to require effort.</span>
+          <strong>Recognition becomes fixation. Certainty begins to require effort.</strong>
+          <a href="#no-saint-tease"><small>NEXT TRACK / 02 / TAEYUN POV</small><b>NO SAINT</b><i>→</i></a>
         </div>
-        <a class="act-transition__next" href="#no-saint-tease" data-reveal>
-          <span>NEXT / 02 / TAEYUN POV</span>
-          <strong>NO SAINT</strong>
-          <i>↓</i>
-        </a>
       </section>
 
-      <section class="next-tease next-tease--no-saint" id="no-saint-tease" data-scene="02" data-label="NO SAINT">
-        <div class="next-tease__line" aria-hidden="true"></div>
-        <div data-reveal>
-          <p>02 / TAEYUN</p>
+      <section class="next-track-screen" id="no-saint-tease" data-scene="02" data-label="NO SAINT">
+        <div class="next-track-screen__line" aria-hidden="true"></div>
+        <div class="next-track-screen__content" data-reveal>
+          <p>ACT I // TRACK 02 // TAEYUN</p>
           <h2>NO SAINT</h2>
           <span>TRUTH DOESN'T MAKE HIM INNOCENT.</span>
+          <small>NEXT STORY EVENT / IN DEVELOPMENT</small>
         </div>
       </section>
     </main>
