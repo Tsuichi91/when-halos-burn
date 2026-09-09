@@ -1,6 +1,6 @@
 import './styles/site.css'
 import './styles/archive-mode.css'
-import { chapterList, chapters, getChapterHref } from './chapter-data.js'
+import { chapterList, getChapterHref } from './chapter-data.js'
 
 const root = document.querySelector('#archive-app')
 const completionStorageKey = 'whb-story-complete-v1'
@@ -17,17 +17,17 @@ const characters = [
   {
     id:'CHAR-01', title:'HAN JIWON', subtitle:'AEGIS / HALO GUARD',
     body:'An elite HALO Guard officer built around protection, precision and discipline. The closer he examines the official story, the less certainty behaves like evidence.',
-    tags:['PROTECTION','HALO','AEGIS'], image:'./images/tracks/03-hold-the-line/hero.png'
+    tags:['PROTECTION','HALO','AEGIS'], image:'./images/archive/characters/han-jiwon.png'
   },
   {
     id:'CHAR-02', title:'KANG TAEYUN', subtitle:'THE ARCHITECT / ECLIPSE',
     body:'A former HALO insider turned Eclipse strategist. He pursues the truth through methods he refuses to call innocent and begins with Jiwon already inside a plan.',
-    tags:['TRUTH','ECLIPSE','ARCHITECT'], image:'./images/tracks/02-no-saint/hero.png'
+    tags:['TRUTH','ECLIPSE','ARCHITECT'], image:'./images/archive/characters/kang-taeyun.png'
   },
   {
     id:'CHAR-03', title:'HAN SEOJUN', subtitle:'HALO MARTYR / BLACKOUT RECORD',
     body:'Jiwon’s older brother. Publicly remembered as a HALO martyr, privately tied to evidence that contradicts the official account of the Blackout.',
-    tags:['BLACKOUT','SEOJUN','SEALED'], image:'./images/world/halo-headquarters.png'
+    tags:['BLACKOUT','SEOJUN','SEALED'], image:'./images/archive/characters/han-seojun.png'
   }
 ]
 
@@ -35,8 +35,8 @@ const locations = [
   { id:'LOC-00', title:'VESPER CITY', subtitle:'PRIMARY SETTING / 2164', body:'A surveillance metropolis built on the promise that enough certainty can keep everyone safe. Its cleanest systems hide the messiest decisions.', tags:['CITY','2164','THE LINE'], image:'./images/tracks/01a-prologue-the-line/ChatGPT%20Image%209.%20Sept.%202026,%2022_08_26.png' },
   { id:'LOC-01', title:'HALO HEADQUARTERS', subtitle:'CONTROL GRID / CIVIC AUTHORITY', body:'White, silver and symmetrical by design. HALO presents protection as architecture: beautiful, legible and almost impossible to question from inside it.', tags:['HALO','ORDER','SURVEILLANCE'], image:'./images/world/halo-headquarters.png' },
   { id:'LOC-02', title:'ECLIPSE HUB', subtitle:'SHADOW GRID / OLD TRANSIT', body:'A repurposed underground transit network where obsolete infrastructure and advanced systems coexist outside HALO’s clean geometry.', tags:['ECLIPSE','SHADOW GRID','RESISTANCE'], image:'./images/world/eclipse-headquarters.png' },
-  { id:'LOC-03', title:'THE OBSERVATORY', subtitle:'NEUTRAL GROUND / RECURRING LOCATION', body:'A recurring neutral space where ideological confrontation gradually becomes voluntary proximity, vulnerability and intimacy.', tags:['OBSERVATORY','NEUTRAL','INTIMACY'], image:'./images/tracks/05-after-curfew/hero.png' },
-  { id:'LOC-04', title:'HALO CORE', subtitle:'SEALED ARCHIVE / CENTRAL SYSTEM', body:'The institutional heart of HALO and the location of the complete archive capable of collapsing Vesper’s official Blackout narrative.', tags:['HALO CORE','ARCHIVE','TRUTH'], image:'./images/tracks/12-when-halos-burn/hero.png' }
+  { id:'LOC-03', title:'THE OBSERVATORY', subtitle:'NEUTRAL GROUND / RECURRING LOCATION', body:'A recurring neutral space where ideological confrontation gradually becomes voluntary proximity, vulnerability and intimacy.', tags:['OBSERVATORY','NEUTRAL','INTIMACY'], image:'./images/archive/locations/observatory.png' },
+  { id:'LOC-04', title:'HALO CORE', subtitle:'SEALED ARCHIVE / CENTRAL SYSTEM', body:'The institutional heart of HALO and the location of the complete archive capable of collapsing Vesper’s official Blackout narrative.', tags:['HALO CORE','ARCHIVE','TRUTH'], image:'./images/archive/locations/halo-core.png' }
 ]
 
 const timeline = [
@@ -58,10 +58,10 @@ const notes = [
 ]
 
 const categories = [
-  ['all','ALL RECORDS','00'],['chapters','CHAPTERS','01'],['characters','CHARACTERS','02'],['locations','LOCATIONS','03'],['music','MUSIC','04'],['visuals','VISUALS','05'],['notes','NOTES','06'],['timeline','TIMELINE','07']
+  ['chapters','CHAPTERS','01'],['characters','CHARACTERS','02'],['locations','LOCATIONS','03'],['music','MUSIC','04'],['visuals','VISUALS','05'],['notes','NOTES','06'],['timeline','TIMELINE','07']
 ]
 
-let activeCategory = 'all'
+let activeCategory = 'chapters'
 let searchTerm = ''
 
 const escapeHtml = (value='') => String(value)
@@ -133,29 +133,12 @@ const renderSection = () => {
   if (!target || !title || !count) return
 
   const items = filteredChapters()
-  const label = categories.find(([key]) => key === activeCategory)?.[1] || 'ALL RECORDS'
+  const label = categories.find(([key]) => key === activeCategory)?.[1] || 'CHAPTERS'
   title.textContent = label
   let html = ''
   let total = 0
 
-  if (activeCategory === 'all') {
-    total = 3 + 2 + items.length
-    html = `
-      <section class="archive-featured">
-        <article class="archive-featured__blackout">
-          <div aria-hidden="true"><img src="./images/tracks/01a-prologue-the-line/ChatGPT%20Image%209.%20Sept.%202026,%2022_08_26.png" alt="" /></div>
-          <span>SEALED RECORD / 2158</span><h2>THE BLACKOUT</h2>
-          <p>The event that defines Vesper’s official Hero and Villain story is also the archive most capable of destroying it.</p><strong>STATUS / RECORD FRAGMENTED</strong>
-        </article>
-        <article class="archive-featured__system"><span>HALO PROTOCOL</span><strong>SAFETY THROUGH CERTAINTY.</strong><small>AUTHORITY / HALO COUNCIL</small></article>
-        <article class="archive-featured__system archive-featured__system--eclipse"><span>ECLIPSE</span><strong>QUESTION. DISRUPT. RECLAIM.</strong><small>NETWORK / SHADOW GRID</small></article>
-      </section>
-      <div class="archive-subhead"><span>PRIMARY PEOPLE</span><i></i></div>
-      <div class="archive-record-grid">${characters.slice(0,2).map((record) => renderRecordCard(record,'person')).join('')}</div>
-      <div class="archive-subhead"><span>COMPLETE STORY RECORD</span><i></i></div>
-      <div class="archive-chapter-grid">${items.map(renderChapterCard).join('')}</div>
-    `
-  } else if (activeCategory === 'chapters') {
+  if (activeCategory === 'chapters') {
     total = items.length; html = `<div class="archive-chapter-grid">${items.map(renderChapterCard).join('')}</div>`
   } else if (activeCategory === 'characters') {
     total = characters.length; html = `<div class="archive-record-grid">${characters.map((record) => renderRecordCard(record,'person')).join('')}</div>`
@@ -199,7 +182,7 @@ const buildShell = () => {
 
       <main class="archive-main">
         <div class="archive-toolbar">
-          <div><span>ARCHIVE CATEGORY</span><h2 data-archive-title>ALL RECORDS</h2></div>
+          <div><span>ARCHIVE CATEGORY</span><h2 data-archive-title>CHAPTERS</h2></div>
           <label class="archive-search"><span>SEARCH RECORDS</span><input type="search" placeholder="Search title, POV, act…" data-archive-search /></label>
           <span data-archive-count>0 RECORDS</span>
         </div>
@@ -221,7 +204,7 @@ const buildShell = () => {
 
   root.querySelector('[data-archive-search]')?.addEventListener('input', (event) => {
     searchTerm = event.target.value.trim()
-    if (!['all','chapters','music','visuals'].includes(activeCategory) && searchTerm) {
+    if (!['chapters','music','visuals'].includes(activeCategory) && searchTerm) {
       activeCategory = 'chapters'
       root.querySelectorAll('[data-archive-category]').forEach((item) => item.classList.toggle('is-active', item.dataset.archiveCategory === 'chapters'))
     }
