@@ -1,12 +1,11 @@
 import './styles/site.css'
 import './styles/landing.css'
 import './styles/title-image.css'
+import './styles/landing-game-ui.css'
 
-const landing = document.querySelector('.landing')
+const landing = document.querySelector('.landing-game')
 const art = document.querySelector('.landing__art')
-const enterButton = document.querySelector('#enter-vesper')
-const returnButton = document.querySelector('#return-to-title')
-const modeSelection = document.querySelector('#mode-selection')
+const modeLinks = [...document.querySelectorAll('.game-mode')]
 const routeLinks = document.querySelectorAll('[data-route]')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -14,31 +13,39 @@ requestAnimationFrame(() => {
   document.body.classList.add('is-ready')
 })
 
-const setModeStage = (entered) => {
-  if (!landing || !modeSelection || !enterButton) return
+const setActiveMode = (link) => {
+  if (!landing || !link) return
 
-  landing.classList.toggle('is-entered', entered)
-  modeSelection.setAttribute('aria-hidden', entered ? 'false' : 'true')
-  enterButton.setAttribute('aria-expanded', entered ? 'true' : 'false')
+  const mode = link.dataset.mode || 'story'
+  landing.dataset.activeMode = mode
 
-  if (entered) {
-    window.setTimeout(() => {
-      modeSelection.querySelector('a')?.focus({ preventScroll: true })
-    }, reducedMotion ? 0 : 900)
-  } else {
-    window.setTimeout(() => {
-      enterButton.focus({ preventScroll: true })
-    }, reducedMotion ? 0 : 650)
-  }
+  modeLinks.forEach((item) => {
+    const selected = item === link
+    item.classList.toggle('is-selected', selected)
+    item.setAttribute('aria-current', selected ? 'true' : 'false')
+  })
 }
 
-enterButton?.addEventListener('click', () => setModeStage(true))
-returnButton?.addEventListener('click', () => setModeStage(false))
+setActiveMode(modeLinks[0])
+
+modeLinks.forEach((link) => {
+  link.addEventListener('pointerenter', () => setActiveMode(link))
+  link.addEventListener('focus', () => setActiveMode(link))
+})
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && landing?.classList.contains('is-entered')) {
-    setModeStage(false)
-  }
+  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+  if (!modeLinks.length) return
+
+  event.preventDefault()
+
+  const currentIndex = Math.max(0, modeLinks.findIndex((link) => link.classList.contains('is-selected')))
+  const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1
+  const nextIndex = (currentIndex + direction + modeLinks.length) % modeLinks.length
+  const nextLink = modeLinks[nextIndex]
+
+  setActiveMode(nextLink)
+  nextLink.focus({ preventScroll: true })
 })
 
 if (landing && art && window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
@@ -46,7 +53,7 @@ if (landing && art && window.matchMedia('(pointer: fine)').matches && !reducedMo
     const x = event.clientX / window.innerWidth - 0.5
     const y = event.clientY / window.innerHeight - 0.5
 
-    art.style.setProperty('--art-x', `${x * -10}px`)
+    art.style.setProperty('--art-x', `${x * -9}px`)
     art.style.setProperty('--art-y', `${y * -5}px`)
   })
 
@@ -62,10 +69,12 @@ routeLinks.forEach((link) => {
 
     event.preventDefault()
     const href = link.getAttribute('href')
+    if (!href) return
+
     landing.classList.add('is-leaving')
 
     window.setTimeout(() => {
       window.location.href = href
-    }, 760)
+    }, 680)
   })
 })
