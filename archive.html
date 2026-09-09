@@ -8,7 +8,27 @@
     <title>Archive Mode — WHEN HALOS BURN</title>
   </head>
   <body class="page page--archive-mode">
+    <section class="archive-loader" data-archive-loader aria-label="Loading Archive Mode">
+      <div class="archive-loader__grid" aria-hidden="true"></div>
+      <div class="archive-loader__scan" aria-hidden="true"></div>
+      <div class="archive-loader__axis" aria-hidden="true"></div>
+      <div class="archive-loader__vignette" aria-hidden="true"></div>
+
+      <div class="archive-loader__shell">
+        <div class="archive-loader__ring" aria-hidden="true"><i></i></div>
+        <span class="archive-loader__eyebrow">VESPER ARCHIVE // SECURE DATABASE</span>
+        <h1>ARCHIVE MODE</h1>
+        <p class="archive-loader__status" data-archive-loader-status>ESTABLISHING ACCESS CHANNEL</p>
+        <div class="archive-loader__bar" data-archive-loader-bar aria-hidden="true"><i></i></div>
+        <div class="archive-loader__meta" aria-hidden="true">
+          <span>DATABASE / VSP-2164</span>
+          <span>CLEARANCE / PARTIAL</span>
+        </div>
+      </div>
+    </section>
+
     <main id="archive-app" class="archive-mode" aria-live="polite"></main>
+    <script type="module" src="/src/archive-loader.js"></script>
     <script type="module" src="/src/archive.js"></script>
   </body>
 </html>
