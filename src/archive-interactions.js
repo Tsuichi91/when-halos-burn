@@ -19,7 +19,7 @@ const characterProfiles = {
       ['CORE', 'PROTECTION'],
       ['STATUS', 'ACTIVE / 2164']
     ],
-    bio: 'Han Jiwon is an elite HALO Guard officer trained to turn fear into procedure and protection into precision. His certainty begins to fracture when evidence stops matching the official record — not because Taeyun asks him to believe, but because Jiwon keeps checking for himself. Beneath the uniform he is warmer, drier and more empathetic than his restraint suggests. His arc is not about abandoning protection; it is about reclaiming Aegis as something that belongs to Jiwon rather than to HALO.',
+    bio: 'Han Jiwon is an elite HALO Guard officer shaped by discipline, protection and precision. When the official record stops matching the evidence, he investigates rather than obeys certainty. Beneath the uniform he is warmer and more empathetic than his restraint suggests. His arc is about reclaiming Aegis as something that belongs to Jiwon — not to HALO.',
     tags: ['PROTECTION', 'CHOICE', 'STAY', 'AGENCY']
   },
   TAEYUN: {
@@ -33,7 +33,7 @@ const characterProfiles = {
       ['FORMER', 'HALO INSIDER'],
       ['CORE', 'TRUTH']
     ],
-    bio: 'Kang Taeyun is a former HALO insider who discovered illegal surveillance and political classification inside the system he once served. After internal exposure failed, he became an Eclipse strategist willing to manipulate, provoke and lie in pursuit of evidence he believes Vesper deserves to see. Jiwon originally enters his plan as access to the sealed archive. The problem is that the person becomes real before the plan is finished. Taeyun never claims innocence; his conflict is whether truth can mean anything if he refuses accountability for the damage caused while pursuing it.',
+    bio: 'Kang Taeyun is a former HALO insider who uncovered illegal surveillance and political classification within the system. After internal exposure failed, he became an Eclipse strategist willing to manipulate and lie in pursuit of the truth. Jiwon begins as a route to the sealed archive and becomes the person who breaks the plan. Taeyun’s conflict is whether truth means anything without accountability.',
     tags: ['TRUTH', 'ECLIPSE', 'CONTROL', 'ACCOUNTABILITY']
   },
   SEOJUN: {
@@ -47,7 +47,7 @@ const characterProfiles = {
       ['ARCHIVE ROLE', 'WITNESS / DATA FRAGMENT'],
       ['STATUS', 'DECEASED']
     ],
-    bio: 'Han Seojun is Jiwon’s older brother and one of the people whose real history was rewritten after the Blackout. He independently discovered evidence of HALO wrongdoing and was shot by Council internal forces during the chaos of 2158. Taeyun found him before he died; Seojun passed on a surviving data fragment and asked that the truth be preserved. HALO later transformed him into a clean public martyr, separating the symbol from the witness whose final actions threatened the official story.',
+    bio: 'Han Seojun is Jiwon’s older brother and a witness whose history was rewritten after the Blackout. He discovered evidence of HALO wrongdoing and was shot by Council internal forces in 2158. Before dying, he gave Taeyun a surviving data fragment and asked that the truth be preserved. HALO later turned the witness into a clean public martyr.',
     tags: ['BLACKOUT', 'WITNESS', 'SEOJUN', 'SEALED RECORD']
   }
 }
