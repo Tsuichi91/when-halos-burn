@@ -90,26 +90,18 @@ const districts = [
   }
 ]
 
-const layerFilters = {
-  locations:['ALL','HALO','ECLIPSE','NEUTRAL','CIVIC'],
-  districts:['ALL','HALO','CIVIC','CONTESTED','NEUTRAL','ECLIPSE']
-}
-
-let activeLayer = 'locations'
+const filters = ['ALL','HALO','ECLIPSE','NEUTRAL','CIVIC']
 let activeFilter = 'ALL'
-let selectedLocationId = 'MAP-03'
-let selectedDistrictId = 'DST-03'
+let selectedType = 'location'
+let selectedId = 'MAP-03'
 
-const currentItems = () => activeLayer === 'locations' ? locations : districts
-const selectedId = () => activeLayer === 'locations' ? selectedLocationId : selectedDistrictId
-const setSelectedId = (id) => {
-  if (activeLayer === 'locations') selectedLocationId = id
-  else selectedDistrictId = id
+const selectedItem = () => {
+  const source = selectedType === 'district' ? districts : locations
+  return source.find((item) => item.id === selectedId) || source[0]
 }
-const selectedItem = () => currentItems().find((item) => item.id === selectedId()) || currentItems()[0]
 
 const districtMarkup = () => districts.map((district) => `
-  <g class="world-map-district" data-district-id="${district.id}" data-affiliation="${district.affiliation}" role="button" tabindex="-1" aria-label="Show ${district.title}">
+  <g class="world-map-district" data-district-id="${district.id}" data-affiliation="${district.affiliation}" role="button" tabindex="0" aria-label="Show ${district.title}">
     <polygon points="${district.polygon}"></polygon>
   </g>`).join('')
 
@@ -125,11 +117,11 @@ const mapMarkup = () => `
   <section class="world-map-section" id="city-map" aria-labelledby="world-map-title">
     <header class="world-map-section__head">
       <div><span>VESPER CITY / CARTOGRAPHIC LAYER</span><h2 id="world-map-title">INTERACTIVE CITY MAP</h2></div>
-      <p>Switch between story locations and Vesper’s seven functional districts. District boundaries are schematic and define worldbuilding relationships rather than exact geographic scale.</p>
+      <p>Vesper’s seven functional districts and its key story locations share one map. Select a location node or any open district area to inspect how the city and story overlap.</p>
     </header>
 
     <div class="world-map-shell">
-      <div class="world-map-canvas" data-world-map-canvas data-map-layer="locations">
+      <div class="world-map-canvas" data-world-map-canvas>
         <div class="world-map-canvas__grid" aria-hidden="true"></div>
         <svg class="world-map-canvas__districts" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-label="Vesper City districts">
           ${districtMarkup()}
@@ -143,51 +135,60 @@ const mapMarkup = () => `
         </svg>
         ${districtLabels()}
         ${locationMarkers()}
-        <div class="world-map-canvas__legend"><span>VESPER NETWORK / 2164</span><span>7 DISTRICTS / SCHEMATIC / NOT TO SCALE</span></div>
+        <div class="world-map-canvas__legend">
+          <span><i class="world-map-key world-map-key--district"></i>DISTRICT <i class="world-map-key world-map-key--node"></i>LOCATION NODE</span>
+          <span>7 DISTRICTS / 5 STORY NODES / SCHEMATIC / NOT TO SCALE</span>
+        </div>
       </div>
 
       <aside class="world-map-panel" aria-live="polite">
-        <div class="world-map-panel__layers" aria-label="Map layer">
-          <span>MAP LAYER</span>
-          <button type="button" class="is-active" data-map-layer-button="locations">LOCATION NODES</button>
-          <button type="button" data-map-layer-button="districts">CITY DISTRICTS</button>
-        </div>
-        <div class="world-map-panel__filters" data-map-filters aria-label="Map filters"></div>
-        <div class="world-map-panel__art" data-map-art-wrap><img src="" alt="" data-map-image /><div aria-hidden="true"></div></div>
+        <div class="world-map-panel__mode"><span>MAP STATE</span><strong>COMBINED CITY LAYER</strong></div>
+        <div class="world-map-panel__filters" aria-label="Location filters">${filters.map((filter) => `<button type="button" data-map-filter="${filter}" class="${filter === activeFilter ? 'is-active' : ''}">${filter}</button>`).join('')}</div>
+        <div class="world-map-panel__art"><img src="" alt="" data-map-image /><div aria-hidden="true"></div></div>
         <div class="world-map-panel__meta"><span data-map-id></span><span data-map-affiliation></span></div>
         <small data-map-role></small>
         <h3 data-map-title></h3>
         <p data-map-body></p>
         <dl class="world-map-panel__stats" data-map-stats></dl>
         <div class="world-map-panel__actions"><a data-map-chapter href="#">OPEN STORY CHAPTER <i>↗</i></a><a href="./archive.html">OPEN ARCHIVE <i>↗</i></a></div>
-        <div class="world-map-panel__list" data-map-list-container aria-label="Mapped items"></div>
+        <div class="world-map-panel__directory" aria-label="Vesper map directory">
+          <div><span>LOCATION NODES</span>${locations.map((item) => `<button type="button" data-map-list="${item.id}" data-map-list-type="location"><b>${item.id}</b><strong>${item.title}</strong></button>`).join('')}</div>
+          <div><span>CITY DISTRICTS</span>${districts.map((item) => `<button type="button" data-map-list="${item.id}" data-map-list-type="district"><b>${item.id}</b><strong>${item.title}</strong></button>`).join('')}</div>
+        </div>
       </aside>
     </div>
   </section>`
 
-const renderFilters = () => {
-  const wrap = root.querySelector('[data-map-filters]')
-  if (!wrap) return
-  const allowed = layerFilters[activeLayer]
-  if (!allowed.includes(activeFilter)) activeFilter = 'ALL'
-  wrap.innerHTML = allowed.map((filter) => `<button type="button" data-map-filter="${filter}" class="${filter === activeFilter ? 'is-active' : ''}">${filter}</button>`).join('')
-}
+const syncContext = () => {
+  const item = selectedItem()
+  const districtTitle = selectedType === 'location' ? item.district : item.title
 
-const renderList = () => {
-  const wrap = root.querySelector('[data-map-list-container]')
-  if (!wrap) return
-  wrap.innerHTML = currentItems().map((item) => `<button type="button" data-map-list="${item.id}" data-affiliation="${item.affiliation}"><span>${item.id}</span><strong>${item.title}</strong></button>`).join('')
+  root.querySelectorAll('[data-district-id]').forEach((district) => {
+    const data = districts.find((entry) => entry.id === district.dataset.districtId)
+    district.classList.toggle('is-selected', selectedType === 'district' && district.dataset.districtId === item.id)
+    district.classList.toggle('is-context', Boolean(data && data.title === districtTitle))
+  })
+  root.querySelectorAll('[data-district-label]').forEach((label) => {
+    const data = districts.find((entry) => entry.id === label.dataset.districtLabel)
+    label.classList.toggle('is-selected', selectedType === 'district' && label.dataset.districtLabel === item.id)
+    label.classList.toggle('is-context', Boolean(data && data.title === districtTitle))
+  })
+  root.querySelectorAll('[data-map-node]').forEach((node) => {
+    const data = locations.find((entry) => entry.id === node.dataset.mapNode)
+    node.classList.toggle('is-selected', selectedType === 'location' && node.dataset.mapNode === item.id)
+    node.classList.toggle('is-context', selectedType === 'district' && data?.district === item.title)
+  })
 }
 
 const syncPanel = (focusMap = false) => {
   const item = selectedItem()
   if (!item) return
   const set = (selector,value) => { const target = root.querySelector(selector); if (target) target.textContent = value }
-  set('[data-map-id]',item.id)
-  set('[data-map-affiliation]',item.affiliation)
-  set('[data-map-role]',item.role)
-  set('[data-map-title]',item.title)
-  set('[data-map-body]',item.body)
+  set('[data-map-id]', `${selectedType === 'district' ? 'DISTRICT' : 'LOCATION'} / ${item.id}`)
+  set('[data-map-affiliation]', item.affiliation)
+  set('[data-map-role]', item.role)
+  set('[data-map-title]', item.title)
+  set('[data-map-body]', item.body)
 
   const image = root.querySelector('[data-map-image]')
   if (image) { image.src = item.image; image.alt = item.title }
@@ -204,112 +205,109 @@ const syncPanel = (focusMap = false) => {
     }
   }
 
-  root.querySelectorAll('[data-map-node]').forEach((node) => node.classList.toggle('is-selected', activeLayer === 'locations' && node.dataset.mapNode === item.id))
-  root.querySelectorAll('[data-district-id]').forEach((district) => district.classList.toggle('is-selected', activeLayer === 'districts' && district.dataset.districtId === item.id))
-  root.querySelectorAll('[data-district-label]').forEach((label) => label.classList.toggle('is-selected', activeLayer === 'districts' && label.dataset.districtLabel === item.id))
-  root.querySelectorAll('[data-map-list]').forEach((entry) => entry.classList.toggle('is-selected', entry.dataset.mapList === item.id))
+  root.querySelectorAll('[data-map-list]').forEach((entry) => {
+    entry.classList.toggle('is-selected', entry.dataset.mapList === item.id && entry.dataset.mapListType === selectedType)
+  })
+
+  syncContext()
 
   if (focusMap) {
-    if (activeLayer === 'locations') root.querySelector(`[data-map-node="${item.id}"]`)?.focus({ preventScroll:true })
-    else root.querySelector(`[data-district-id="${item.id}"]`)?.focus({ preventScroll:true })
+    const target = selectedType === 'location'
+      ? root.querySelector(`[data-map-node="${item.id}"]`)
+      : root.querySelector(`[data-district-id="${item.id}"]`)
+    target?.focus({ preventScroll:true })
   }
 }
 
 const applyFilter = (filter) => {
   activeFilter = filter
   root.querySelectorAll('[data-map-filter]').forEach((button) => button.classList.toggle('is-active', button.dataset.mapFilter === filter))
-  const selector = activeLayer === 'locations' ? '[data-map-node]' : '[data-district-id]'
-  root.querySelectorAll(selector).forEach((item) => {
-    const visible = filter === 'ALL' || item.dataset.affiliation === filter
-    item.classList.toggle('is-filtered-out', !visible)
-    if (activeLayer === 'districts') {
-      const label = root.querySelector(`[data-district-label="${item.dataset.districtId}"]`)
-      label?.classList.toggle('is-filtered-out', !visible)
+  root.querySelectorAll('[data-map-node]').forEach((node) => {
+    const visible = filter === 'ALL' || node.dataset.affiliation === filter
+    node.classList.toggle('is-filtered-out', !visible)
+  })
+  root.querySelectorAll('[data-map-list-type="location"]').forEach((entry) => {
+    const item = locations.find((location) => location.id === entry.dataset.mapList)
+    entry.hidden = Boolean(item && filter !== 'ALL' && item.affiliation !== filter)
+  })
+
+  if (selectedType === 'location') {
+    const current = selectedItem()
+    if (filter !== 'ALL' && current.affiliation !== filter) {
+      const first = locations.find((location) => location.affiliation === filter)
+      if (first) {
+        selectedId = first.id
+        syncPanel()
+      }
     }
-  })
-  root.querySelectorAll('[data-map-list]').forEach((item) => {
-    item.hidden = !(filter === 'ALL' || item.dataset.affiliation === filter)
-  })
-  const current = selectedItem()
-  if (filter !== 'ALL' && current.affiliation !== filter) {
-    const first = currentItems().find((item) => item.affiliation === filter)
-    if (first) setSelectedId(first.id)
   }
-  syncPanel()
 }
 
-const switchLayer = (layer) => {
-  if (!['locations','districts'].includes(layer) || activeLayer === layer) return
-  activeLayer = layer
-  activeFilter = 'ALL'
-  const canvas = root.querySelector('[data-world-map-canvas]')
-  if (canvas) canvas.dataset.mapLayer = layer
-  root.querySelectorAll('[data-map-layer-button]').forEach((button) => button.classList.toggle('is-active', button.dataset.mapLayerButton === layer))
-  root.querySelectorAll('[data-district-id]').forEach((district) => district.setAttribute('tabindex', layer === 'districts' ? '0' : '-1'))
-  root.querySelectorAll('[data-map-node]').forEach((marker) => marker.tabIndex = layer === 'locations' ? 0 : -1)
-  renderFilters()
-  renderList()
-  applyFilter('ALL')
+const selectLocation = (id, focus = false) => {
+  selectedType = 'location'
+  selectedId = id
+  syncPanel(focus)
 }
 
-const selectFromMap = (id, layer) => {
-  if (layer !== activeLayer) switchLayer(layer)
-  setSelectedId(id)
-  syncPanel()
+const selectDistrict = (id, focus = false) => {
+  selectedType = 'district'
+  selectedId = id
+  syncPanel(focus)
 }
 
-const moveSelection = (delta) => {
-  const visible = currentItems().filter((item) => activeFilter === 'ALL' || item.affiliation === activeFilter)
-  if (!visible.length) return
-  const index = Math.max(0, visible.findIndex((item) => item.id === selectedId()))
-  setSelectedId(visible[(index + delta + visible.length) % visible.length].id)
-  syncPanel(true)
+const handleDistrictKey = (event, district) => {
+  if (!['Enter',' '].includes(event.key)) return
+  event.preventDefault()
+  selectDistrict(district.dataset.districtId)
 }
 
 const initialize = () => {
   if (!root) return
   const vesper = root.querySelector('#vesper-city')
-  if (!vesper) {
-    const observer = new MutationObserver(() => {
-      if (!root.querySelector('#vesper-city')) return
-      observer.disconnect()
-      initialize()
-    })
-    observer.observe(root, { childList:true, subtree:true })
-    return
-  }
-  if (root.querySelector('#city-map')) return
+  if (!vesper || root.querySelector('#city-map')) return
   vesper.insertAdjacentHTML('afterend', mapMarkup())
 
   root.addEventListener('click', (event) => {
-    const layerButton = event.target.closest('[data-map-layer-button]')
-    if (layerButton) { switchLayer(layerButton.dataset.mapLayerButton); return }
     const marker = event.target.closest('[data-map-node]')
-    if (marker) { selectFromMap(marker.dataset.mapNode,'locations'); return }
+    if (marker) {
+      event.stopPropagation()
+      selectLocation(marker.dataset.mapNode)
+      return
+    }
+
     const district = event.target.closest('[data-district-id]')
-    if (district) { selectFromMap(district.dataset.districtId,'districts'); return }
+    if (district) {
+      selectDistrict(district.dataset.districtId)
+      return
+    }
+
     const listItem = event.target.closest('[data-map-list]')
-    if (listItem) { setSelectedId(listItem.dataset.mapList); syncPanel(true); return }
+    if (listItem) {
+      if (listItem.dataset.mapListType === 'district') selectDistrict(listItem.dataset.mapList, true)
+      else selectLocation(listItem.dataset.mapList, true)
+      return
+    }
+
     const filter = event.target.closest('[data-map-filter]')
     if (filter) applyFilter(filter.dataset.mapFilter)
   })
 
-  root.addEventListener('keydown', (event) => {
-    const district = event.target.closest('[data-district-id]')
-    if (district && ['Enter',' '].includes(event.key)) {
-      event.preventDefault()
-      selectFromMap(district.dataset.districtId,'districts')
-      return
-    }
-    const mapTarget = event.target.closest('[data-map-node],[data-district-id]')
-    if (!mapTarget || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return
-    event.preventDefault()
-    moveSelection(['ArrowRight','ArrowDown'].includes(event.key) ? 1 : -1)
+  root.querySelectorAll('[data-district-id]').forEach((district) => {
+    district.addEventListener('keydown', (event) => handleDistrictKey(event, district))
   })
 
-  root.querySelectorAll('[data-district-id]').forEach((district) => district.setAttribute('tabindex','-1'))
-  renderFilters()
-  renderList()
+  root.querySelector('[data-world-map-canvas]')?.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return
+    if (!event.target.closest('[data-map-node]')) return
+    const visible = locations.filter((item) => activeFilter === 'ALL' || item.affiliation === activeFilter)
+    if (!visible.length) return
+    const index = Math.max(0, visible.findIndex((item) => item.id === selectedId))
+    const delta = ['ArrowRight','ArrowDown'].includes(event.key) ? 1 : -1
+    const next = visible[(index + delta + visible.length) % visible.length]
+    event.preventDefault()
+    selectLocation(next.id, true)
+  })
+
   syncPanel()
 }
 
