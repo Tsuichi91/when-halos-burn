@@ -158,3 +158,45 @@
   .page--world-mode .world-map-panel__directory button strong{font-size:.74rem!important}
   .page--world-mode .world-map-district-label strong{font-size:.58rem!important}
 }
+
+
+/* SEVEN DISTINCT DISTRICT PALETTE */
+.page--world-mode .world-map-district[data-district-id="DST-01"] polygon{
+  fill:rgba(96,190,224,.17)!important;
+  stroke:rgba(150,220,242,.42)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-02"] polygon{
+  fill:rgba(64,166,158,.16)!important;
+  stroke:rgba(113,207,196,.39)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-03"] polygon{
+  fill:rgba(183,91,63,.18)!important;
+  stroke:rgba(226,145,114,.42)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-04"] polygon{
+  fill:rgba(184,155,73,.17)!important;
+  stroke:rgba(224,198,120,.40)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-05"] polygon{
+  fill:rgba(72,86,156,.19)!important;
+  stroke:rgba(121,142,211,.41)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-06"] polygon{
+  fill:rgba(90,145,105,.17)!important;
+  stroke:rgba(135,189,149,.38)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-07"] polygon{
+  fill:rgba(132,94,166,.18)!important;
+  stroke:rgba(178,135,208,.41)!important;
+}
+
+/* Preserve the seven-color identity when a district is contextual or selected. */
+.page--world-mode .world-map-district.is-context polygon{
+  opacity:1!important;
+  filter:brightness(1.22) saturate(1.08)!important;
+}
+.page--world-mode .world-map-district.is-selected polygon{
+  opacity:1!important;
+  filter:brightness(1.50) saturate(1.12)!important;
+  stroke-width:1.9!important;
+}
