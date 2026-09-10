@@ -7,3 +7,154 @@
 @media(max-width:760px){.world-map-panel__mode,.world-map-panel__filters,.world-map-panel__stats,.world-map-panel__directory{grid-column:1;grid-row:auto}.world-map-panel__directory{grid-template-columns:1fr 1fr;margin-top:20px}.world-map-district-label strong{font-size:.24rem}.world-map-district-label small{display:none}.world-map-marker{min-width:48px!important;min-height:48px!important}.world-map-canvas__legend>span:first-child{display:none}}
 @media(max-width:520px){.world-map-panel__stats,.world-map-panel__directory{grid-template-columns:1fr}.world-map-district-label strong{max-width:78px;white-space:normal;text-align:center;line-height:1.3}.world-map-district-label{opacity:.38}.world-map-marker strong{font-size:.28rem}}
 @media(prefers-reduced-motion:reduce){.world-map-district,.world-map-district polygon,.world-map-district-label{transition:none}}
+
+
+/* DIRECT MAP READABILITY + DISTRICT COLOR PASS */
+.page--world-mode .world-map-panel__mode span,
+.page--world-mode .world-map-panel__directory>div>span{
+  font-size:.72rem!important;
+  letter-spacing:.12em!important;
+  color:rgba(218,232,237,.68)!important;
+}
+.page--world-mode .world-map-panel__mode strong{
+  font-size:.78rem!important;
+  letter-spacing:.11em!important;
+  color:rgba(242,248,250,.84)!important;
+}
+.page--world-mode .world-map-panel__filters button{
+  min-height:40px!important;
+  padding-inline:13px!important;
+  font-size:.72rem!important;
+  letter-spacing:.10em!important;
+  color:rgba(220,233,238,.62)!important;
+}
+.page--world-mode .world-map-panel__meta span,
+.page--world-mode .world-map-panel>small{
+  font-size:.70rem!important;
+  letter-spacing:.11em!important;
+  color:rgba(210,226,232,.62)!important;
+}
+.page--world-mode .world-map-panel__stats dt{
+  font-size:.64rem!important;
+  letter-spacing:.10em!important;
+  color:rgba(205,222,228,.56)!important;
+}
+.page--world-mode .world-map-panel__stats dd{
+  font-size:.74rem!important;
+  letter-spacing:.06em!important;
+  color:rgba(239,246,248,.80)!important;
+}
+.page--world-mode .world-map-panel__actions a{
+  font-size:.72rem!important;
+  letter-spacing:.10em!important;
+}
+.page--world-mode .world-map-panel__directory button{
+  min-height:56px!important;
+  grid-template-columns:66px 1fr!important;
+  padding-inline:10px!important;
+}
+.page--world-mode .world-map-panel__directory button b{
+  font-size:.66rem!important;
+  letter-spacing:.08em!important;
+  color:rgba(205,222,228,.58)!important;
+}
+.page--world-mode .world-map-panel__directory button strong{
+  font-size:.80rem!important;
+  line-height:1.35!important;
+  letter-spacing:.055em!important;
+  color:rgba(232,241,244,.76)!important;
+}
+.page--world-mode .world-map-panel__directory button:hover strong,
+.page--world-mode .world-map-panel__directory button:focus-visible strong,
+.page--world-mode .world-map-panel__directory button.is-selected strong{
+  color:#fff!important;
+}
+.page--world-mode .world-map-marker strong{
+  font-size:.72rem!important;
+  letter-spacing:.08em!important;
+  color:rgba(242,248,250,.82)!important;
+}
+.page--world-mode .world-map-marker small{
+  font-size:.56rem!important;
+  letter-spacing:.07em!important;
+  color:rgba(204,222,228,.58)!important;
+}
+.page--world-mode .world-map-district-label strong{
+  font-size:.64rem!important;
+  letter-spacing:.08em!important;
+  color:rgba(236,244,247,.78)!important;
+  text-shadow:0 1px 9px rgba(0,0,0,.9);
+}
+.page--world-mode .world-map-district-label small{
+  font-size:.50rem!important;
+  letter-spacing:.07em!important;
+  color:rgba(210,226,232,.50)!important;
+}
+.page--world-mode .world-map-canvas__legend{
+  justify-content:flex-start!important;
+  font-size:.66rem!important;
+  letter-spacing:.10em!important;
+  color:rgba(216,231,236,.64)!important;
+}
+
+.page--world-mode .world-map-district{
+  opacity:1!important;
+}
+.page--world-mode .world-map-district polygon{
+  fill:rgba(103,145,162,.10)!important;
+  stroke:rgba(163,198,211,.28)!important;
+}
+.page--world-mode .world-map-district[data-affiliation="HALO"] polygon{
+  fill:rgba(99,177,214,.16)!important;
+  stroke:rgba(151,211,234,.38)!important;
+}
+.page--world-mode .world-map-district[data-affiliation="CIVIC"] polygon{
+  fill:rgba(74,137,160,.14)!important;
+  stroke:rgba(133,190,210,.34)!important;
+}
+.page--world-mode .world-map-district[data-affiliation="ECLIPSE"] polygon{
+  fill:rgba(48,96,128,.19)!important;
+  stroke:rgba(104,165,192,.39)!important;
+}
+.page--world-mode .world-map-district[data-affiliation="NEUTRAL"] polygon{
+  fill:rgba(184,160,88,.14)!important;
+  stroke:rgba(222,202,137,.36)!important;
+}
+.page--world-mode .world-map-district[data-affiliation="CONTESTED"] polygon{
+  fill:rgba(173,87,67,.16)!important;
+  stroke:rgba(222,139,112,.39)!important;
+}
+.page--world-mode .world-map-district:hover polygon,
+.page--world-mode .world-map-district:focus-visible polygon{
+  filter:brightness(1.28)!important;
+  stroke-width:1.5!important;
+}
+.page--world-mode .world-map-district.is-context polygon{
+  filter:brightness(1.18)!important;
+  stroke-width:1.45!important;
+}
+.page--world-mode .world-map-district.is-selected polygon{
+  filter:brightness(1.45)!important;
+  stroke:rgba(244,250,252,.80)!important;
+  stroke-width:1.8!important;
+}
+.page--world-mode .world-map-district-label{
+  opacity:.72!important;
+}
+.page--world-mode .world-map-district-label.is-context{
+  opacity:.92!important;
+}
+.page--world-mode .world-map-district-label.is-selected{
+  opacity:1!important;
+}
+
+@media(max-width:1050px){
+  .page--world-mode .world-map-panel__directory button strong{font-size:.76rem!important}
+  .page--world-mode .world-map-district-label strong{font-size:.60rem!important}
+}
+@media(max-width:760px){
+  .page--world-mode .world-map-panel__directory>div>span{font-size:.68rem!important}
+  .page--world-mode .world-map-panel__directory button b{font-size:.62rem!important}
+  .page--world-mode .world-map-panel__directory button strong{font-size:.74rem!important}
+  .page--world-mode .world-map-district-label strong{font-size:.58rem!important}
+}
