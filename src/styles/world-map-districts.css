@@ -493,3 +493,33 @@
 .page--world-mode .world-map-panel__art{
   max-width:100%;
 }
+
+
+/* TRACED GEOGRAPHY FINAL POLISH */
+.page--world-mode .world-map-district path{
+  stroke-width:.9!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{fill:rgba(96,190,224,.018)!important;stroke:rgba(150,220,242,.31)!important}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{fill:rgba(64,166,158,.017)!important;stroke:rgba(113,207,196,.29)!important}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{fill:rgba(183,91,63,.020)!important;stroke:rgba(226,145,114,.32)!important}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{fill:rgba(184,155,73,.016)!important;stroke:rgba(224,198,120,.29)!important}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{fill:rgba(72,86,156,.019)!important;stroke:rgba(121,142,211,.31)!important}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{fill:rgba(90,145,105,.016)!important;stroke:rgba(135,189,149,.28)!important}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{fill:rgba(132,94,166,.019)!important;stroke:rgba(178,135,208,.31)!important}
+.page--world-mode .world-map-district:hover path,
+.page--world-mode .world-map-district:focus-visible path{
+  stroke-width:1.4!important;
+  filter:brightness(1.5) saturate(1.15)!important;
+}
+.page--world-mode .world-map-district.is-context path{
+  stroke-width:1.35!important;
+  filter:brightness(1.48) saturate(1.12)!important;
+}
+.page--world-mode .world-map-district.is-selected path{
+  stroke-width:1.8!important;
+  filter:brightness(1.85) saturate(1.2)!important;
+}
+.page--world-mode .world-map-district-label{
+  background:rgba(2,7,10,.43)!important;
+  border-color:rgba(224,237,242,.045)!important;
+}
