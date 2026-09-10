@@ -33,7 +33,7 @@ const locations = [
     chapter:'05', chapterLabel:'AFTER CURFEW'
   },
   {
-    id:'MAP-05', title:'ECLIPSE HUB', short:'ECLIPSE HUB', affiliation:'ECLIPSE', role:'SHADOW GRID / OLD TRANSIT', x:22, y:73, district:'OLD TRANSIT',
+    id:'MAP-05', title:'ECLIPSE HUB', short:'ECLIPSE HUB', affiliation:'ECLIPSE', role:'SHADOW GRID / OLD TRANSIT', x:30.5, y:66.5, district:'OLD TRANSIT',
     image:'./images/world/eclipse-headquarters.png',
     body:'A covert operations hub embedded in Vesper’s older transit infrastructure and the blind spots HALO no longer treats as central.',
     stats:[['DISTRICT','OLD TRANSIT'],['ACCESS','COVERT'],['SYSTEM','ECLIPSE'],['STATE','HIDDEN']],
@@ -45,7 +45,7 @@ const districts = [
   {
     id:'DST-01', title:'CROWN DISTRICT', affiliation:'HALO', role:'GOVERNANCE / HIGH-CLEARANCE CIVIC CORE',
     shape:'M 570 148 L 570 152 L 579 182 L 590 229 L 594 256 L 595 278 L 594 279 L 594 292 L 591 305 L 580 329 L 571 342 L 566 352 L 567 363 L 574 370 L 588 379 L 614 391 L 636 399 L 699 442 L 745 476 L 774 493 L 805 504 L 846 511 L 872 512 L 888 509 L 900 505 L 925 492 L 1001 441 L 1051 412 L 1089 394 L 1088 346 L 1086 332 L 1078 306 L 1068 290 L 1055 277 L 1040 267 L 1024 259 L 987 246 L 938 235 L 908 231 L 874 230 L 842 225 L 827 224 L 820 222 L 768 215 L 734 208 L 704 200 L 678 190 L 660 181 L 625 158 L 608 149 L 596 146 L 582 146 Z',
-    labelX:11.36, labelY:45.7,
+    labelX:49.5, labelY:43.5,
     image:'./images/world/halo-headquarters.png',
     body:'Vesper’s administrative center. Council offices, HALO Headquarters and the Core sit inside the city’s most continuously monitored district, where security and civic prestige are designed to look identical.',
     stats:[['FUNCTION','GOVERNANCE'],['HALO DENSITY','MAXIMUM'],['NETWORK COVERAGE','CONTINUOUS'],['STORY NODES','HALO HQ / CORE']],
