@@ -55,7 +55,7 @@ const districts = [
     id:'DST-02', title:'MERIDIAN WARD', affiliation:'CIVIC', role:'TRANSIT / COMMERCE / ORDINARY VESPER',
     shape:'M 586 255 L 580 219 L 570 178 L 556 129 L 547 103 L 547 98 L 544 98 L 516 108 L 421 136 L 238 185 L 171 207 L 134 224 L 112 239 L 102 249 L 92 263 L 86 274 L 86 279 L 137 295 L 202 320 L 283 356 L 455 438 L 497 455 L 513 460 L 525 462 L 525 458 L 532 437 L 545 406 L 553 381 L 558 355 L 557 348 L 573 325 L 582 305 L 586 287 Z',
     labelX:28.11, labelY:27.63,
-    image:'./images/landing/vesper-city.png',
+    image:'./images/world/meridian-ward.png',
     body:'The city’s busiest everyday layer: transfer stations, retail concourses, offices and vertical housing. HALO is everywhere here, but mostly as convenience — access gates, route prediction and seamless identity verification.',
     stats:[['FUNCTION','TRANSIT / COMMERCE'],['HALO DENSITY','HIGH'],['NETWORK COVERAGE','DENSE'],['SOCIAL CHARACTER','ORDINARY / MOBILE']]
   },
@@ -63,7 +63,7 @@ const districts = [
     id:'DST-03', title:'BORDER DISTRICT', affiliation:'CONTESTED', role:'TRANSITION ZONE / MIXED INFRASTRUCTURE',
     shape:'M 82 285 L 82 299 L 83 300 L 82 347 L 85 371 L 61 487 L 62 501 L 75 527 L 162 562 L 244 597 L 249 597 L 256 592 L 279 581 L 295 582 L 304 572 L 308 572 L 323 586 L 332 584 L 333 583 L 333 566 L 337 528 L 346 474 L 355 443 L 372 408 L 290 368 L 211 333 L 127 299 L 93 287 Z',
     labelX:13, labelY:47,
-    image:'./images/tracks/01b-first-contact/hero.png',
+    image:'./images/world/border-distric.png',
     body:'A transition belt where newer monitored development meets older streets, service routes and freight infrastructure. Coverage is strong on main corridors and inconsistent in the spaces between them — exactly the kind of ambiguity HALO dislikes.',
     stats:[['FUNCTION','TRANSITION / FREIGHT'],['HALO DENSITY','VARIABLE'],['NETWORK COVERAGE','PATCHED'],['STORY EVENT','FIRST CONTACT']],
     chapter:'01B', chapterLabel:'FIRST CONTACT'
@@ -81,7 +81,7 @@ const districts = [
     id:'DST-05', title:'OLD TRANSIT', affiliation:'ECLIPSE', role:'DECOMMISSIONED INFRASTRUCTURE / SHADOW GRID',
     shape:'M 380 413 L 362 451 L 351 487 L 343 540 L 341 588 L 330 594 L 323 595 L 316 591 L 308 583 L 305 583 L 301 588 L 295 591 L 283 588 L 259 601 L 259 603 L 272 609 L 288 619 L 371 682 L 404 705 L 430 721 L 466 741 L 506 761 L 519 770 L 529 775 L 546 779 L 571 782 L 589 721 L 590 706 L 587 689 L 582 671 L 573 663 L 545 630 L 527 603 L 508 568 L 500 536 L 500 507 L 507 466 L 450 444 L 383 413 Z',
     labelX:25.72, labelY:61.11,
-    image:'./images/world/eclipse-headquarters.png',
+    image:'./images/world/old-transit.png',
     body:'Disused platforms, maintenance corridors, utility rooms and service tunnels left behind by successive transit rebuilds. The district is not abandoned; it is simply low-priority enough for coverage to become fragmented and exploitable.',
     stats:[['FUNCTION','LEGACY INFRASTRUCTURE'],['HALO DENSITY','LOW'],['NETWORK COVERAGE','FRAGMENTED'],['STORY NODE','ECLIPSE HUB']],
     chapter:'02', chapterLabel:'NO SAINT'
@@ -90,7 +90,7 @@ const districts = [
     id:'DST-06', title:'LOWER GRID', affiliation:'CIVIC', role:'RESIDENTIAL / UTILITIES / SERVICE CITY',
     shape:'M 514 469 L 507 513 L 507 538 L 513 559 L 532 594 L 547 618 L 567 644 L 591 670 L 597 706 L 597 721 L 592 743 L 579 782 L 627 790 L 641 795 L 658 806 L 670 809 L 700 809 L 701 808 L 724 807 L 787 799 L 925 797 L 926 796 L 955 796 L 956 795 L 1002 794 L 1003 793 L 1024 793 L 1025 792 L 1090 790 L 1091 789 L 1118 789 L 1119 788 L 1220 786 L 1221 785 L 1267 785 L 1273 783 L 1280 756 L 1303 693 L 1305 683 L 1261 667 L 1245 663 L 1223 662 L 1209 658 L 1130 624 L 1113 593 L 1101 575 L 1036 498 L 1007 507 L 984 518 L 970 527 L 935 554 L 915 566 L 893 572 L 871 572 L 870 571 L 856 572 L 855 571 L 814 569 L 784 565 L 759 559 L 736 550 L 720 541 L 699 526 L 655 489 L 623 467 L 547 429 L 543 430 L 535 453 L 531 471 L 527 472 L 523 469 L 518 468 Z',
     labelX:46.95, labelY:77.05,
-    image:'./images/landing/vesper-city.png',
+    image:'./images/world/lower-grid.png',
     body:'Dense residential blocks and utility infrastructure supporting the more polished city above. HALO coverage is reliable on primary streets and public systems, but upgrades have reached the deeper service layers unevenly.',
     stats:[['FUNCTION','RESIDENTIAL / UTILITIES'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','UNEVEN'],['SOCIAL CHARACTER','DENSE / PRACTICAL']]
   },
@@ -98,7 +98,7 @@ const districts = [
     id:'DST-07', title:'GLASSLINE', affiliation:'HALO', role:'HIGH-INTEGRATION / CORPORATE RESIDENTIAL',
     shape:'M 1111 92 L 1111 95 L 1116 106 L 1116 118 L 1106 141 L 1106 167 L 1110 194 L 1106 195 L 1092 222 L 1079 256 L 1070 275 L 1070 278 L 1085 300 L 1092 319 L 1094 332 L 1095 362 L 1099 402 L 1107 448 L 1088 453 L 1076 459 L 1058 472 L 1041 489 L 1041 492 L 1109 569 L 1123 591 L 1136 617 L 1166 632 L 1197 645 L 1226 653 L 1251 655 L 1317 678 L 1317 682 L 1311 694 L 1288 758 L 1282 783 L 1517 780 L 1528 778 L 1591 728 L 1606 713 L 1620 692 L 1615 632 L 1613 622 L 1613 612 L 1602 511 L 1593 397 L 1588 392 L 1478 246 L 1447 211 L 1405 170 L 1314 125 L 1288 114 L 1261 105 L 1232 100 L 1199 100 L 1198 101 L 1169 100 L 1137 96 L 1118 92 Z',
     labelX:75.66, labelY:34.01,
-    image:'./images/landing/vesper-city.png',
+    image:'./images/world/glassline.png',
     body:'A high-income vertical district where HALO integration is nearly frictionless: buildings recognize residents, routes adapt automatically and civic services arrive before they are requested. Control feels least visible where the system works best.',
     stats:[['FUNCTION','CORPORATE / RESIDENTIAL'],['HALO DENSITY','VERY HIGH'],['NETWORK COVERAGE','NEAR-TOTAL'],['PUBLIC IDEAL','FRICTIONLESS LIFE']]
   }
