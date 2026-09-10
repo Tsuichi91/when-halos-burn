@@ -523,3 +523,36 @@
   background:rgba(2,7,10,.43)!important;
   border-color:rgba(224,237,242,.045)!important;
 }
+
+
+/* PAINT.NET MASTER GEOMETRY PRESENTATION */
+.page--world-mode .world-map-district path{
+  vector-effect:non-scaling-stroke;
+  stroke-width:1.45!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{fill:rgba(96,190,224,.040)!important;stroke:rgba(150,220,242,.70)!important}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{fill:rgba(64,166,158,.038)!important;stroke:rgba(113,207,196,.66)!important}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{fill:rgba(183,91,63,.044)!important;stroke:rgba(226,145,114,.72)!important}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{fill:rgba(184,155,73,.036)!important;stroke:rgba(224,198,120,.68)!important}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{fill:rgba(72,86,156,.043)!important;stroke:rgba(121,142,211,.70)!important}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{fill:rgba(90,145,105,.038)!important;stroke:rgba(135,189,149,.66)!important}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{fill:rgba(132,94,166,.042)!important;stroke:rgba(178,135,208,.70)!important}
+
+.page--world-mode .world-map-district:hover path,
+.page--world-mode .world-map-district:focus-visible path{
+  stroke-width:2!important;
+  filter:brightness(1.18) saturate(1.08)!important;
+}
+.page--world-mode .world-map-district.is-context path{
+  stroke-width:1.9!important;
+  filter:brightness(1.16) saturate(1.06)!important;
+}
+.page--world-mode .world-map-district.is-selected path{
+  stroke-width:2.3!important;
+  filter:brightness(1.28) saturate(1.10)!important;
+}
+.page--world-mode .world-map-district-label{
+  opacity:.86!important;
+  background:rgba(2,7,10,.52)!important;
+  border-color:rgba(224,237,242,.08)!important;
+}
