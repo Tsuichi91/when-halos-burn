@@ -31,3 +31,56 @@
   color:rgba(222,235,240,.58);
   padding:4px 6px;
 }
+
+
+/* CONTEXTUAL TRANSIT OVERLAY */
+.page--world-mode .world-transit{
+  z-index:3!important;
+}
+.page--world-mode .world-transit-route{
+  opacity:.12;
+  transition:opacity .2s ease, filter .2s ease;
+}
+.page--world-mode .world-transit-route .world-transit__line{
+  stroke:rgba(203,226,234,.26)!important;
+  stroke-width:1.3!important;
+}
+.page--world-mode .world-transit-route circle{
+  fill:#061016!important;
+  stroke:rgba(214,234,240,.28)!important;
+  stroke-width:1!important;
+  vector-effect:non-scaling-stroke;
+}
+.page--world-mode .world-transit-route--old .world-transit__line,
+.page--world-mode .world-transit-route--ridge .world-transit__line{
+  stroke-dasharray:7 7;
+}
+.page--world-mode .world-transit-route.is-context{
+  opacity:.92;
+  filter:drop-shadow(0 0 6px rgba(177,215,228,.16));
+}
+.page--world-mode .world-transit-route.is-context .world-transit__line{
+  stroke:rgba(215,237,244,.64)!important;
+  stroke-width:2.1!important;
+}
+.page--world-mode .world-transit-route.is-context circle{
+  stroke:rgba(235,247,250,.72)!important;
+}
+.page--world-mode .world-transit__blind{
+  opacity:.08!important;
+}
+.page--world-mode .world-transit__labels{
+  z-index:6!important;
+}
+.page--world-mode .world-transit-label{
+  opacity:0;
+  transition:opacity .2s ease;
+  pointer-events:none;
+}
+.page--world-mode .world-transit-label.is-context{
+  opacity:.88;
+}
+@media(prefers-reduced-motion:reduce){
+  .page--world-mode .world-transit-route,
+  .page--world-mode .world-transit-label{transition:none}
+}
