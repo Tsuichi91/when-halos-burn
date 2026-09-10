@@ -1,4 +1,5 @@
 import './styles/world-map-workspace.css'
+import './styles/world-map-visual-polish.css'
 
 const root = document.querySelector('#world-app')
 const desktopMap = window.matchMedia('(min-width: 1051px)')
