@@ -3,15 +3,17 @@
 
 @media (min-width: 1051px) {
   .world-map-shell {
-    height: clamp(560px, calc(100svh - 110px), 760px);
+    height: clamp(500px, calc((100vw - 440px) * .566), 780px);
     min-height: 0;
     overflow: hidden;
     align-items: stretch;
+    grid-template-columns: minmax(0,1.72fr) minmax(350px,.56fr);
   }
 
   .world-map-canvas {
     height: 100%;
     min-height: 0;
+    aspect-ratio: 1640 / 928;
   }
 
   .world-map-panel {
@@ -51,7 +53,8 @@
 /* Mid-size desktop: preserve the complete map before allowing the panel to dominate width. */
 @media (min-width: 1051px) and (max-width: 1280px) {
   .world-map-shell {
-    grid-template-columns: minmax(0,1.42fr) minmax(340px,.58fr);
+    grid-template-columns: minmax(0,1.62fr) minmax(340px,.58fr);
+    height: clamp(500px, calc((100vw - 400px) * .566), 640px);
   }
 
   .world-map-panel {
