@@ -5,35 +5,35 @@ const root = document.querySelector('#world-app')
 
 const locations = [
   {
-    id:'MAP-01', title:'HALO HEADQUARTERS', short:'HALO HQ', affiliation:'HALO', role:'CIVIC AUTHORITY / CONTROL GRID', x:64, y:30, district:'CROWN DISTRICT',
+    id:'MAP-01', title:'HALO HEADQUARTERS', short:'HALO HQ', affiliation:'HALO', role:'CIVIC AUTHORITY / CONTROL GRID', x:52, y:39, district:'CROWN DISTRICT',
     image:'./images/world/halo-headquarters.png',
     body:'The public face of HALO’s security architecture: visible, ordered and central to Vesper’s civic authority.',
     stats:[['DISTRICT','CROWN DISTRICT'],['ACCESS','CONTROLLED'],['SYSTEM','HALO'],['STATE','ACTIVE']],
     chapter:'03', chapterLabel:'HOLD THE LINE'
   },
   {
-    id:'MAP-02', title:'HALO CORE', short:'CORE', affiliation:'HALO', role:'SEALED ARCHIVE / CENTRAL SYSTEM', x:70, y:43, district:'CROWN DISTRICT',
+    id:'MAP-02', title:'HALO CORE', short:'CORE', affiliation:'HALO', role:'SEALED ARCHIVE / CENTRAL SYSTEM', x:58, y:45, district:'CROWN DISTRICT',
     image:'./images/archive/locations/halo-core.png',
     body:'The sealed institutional heart of HALO. The complete Blackout archive survives here behind controlled access.',
     stats:[['DISTRICT','CROWN DISTRICT'],['ACCESS','CORE / RESTRICTED'],['SYSTEM','HALO'],['STATE','SEALED → RELEASED']],
     chapter:'12', chapterLabel:'WHEN HALOS BURN'
   },
   {
-    id:'MAP-03', title:'BORDER DISTRICT', short:'BORDER', affiliation:'CIVIC', role:'FIRST CONTACT / CONTACT ZONE', x:40, y:54, district:'BORDER DISTRICT',
+    id:'MAP-03', title:'BORDER DISTRICT', short:'BORDER', affiliation:'CIVIC', role:'FIRST CONTACT / CONTACT ZONE', x:16, y:54, district:'BORDER DISTRICT',
     image:'./images/tracks/01b-first-contact/hero.png',
     body:'The district where Jiwon and Taeyun first meet in 2164 and the story’s clean Hero/Villain line immediately begins to fail.',
     stats:[['DISTRICT','BORDER DISTRICT'],['ACCESS','PUBLIC / VARIABLE'],['SYSTEM','MIXED'],['STATE','CONTESTED']],
     chapter:'01B', chapterLabel:'FIRST CONTACT'
   },
   {
-    id:'MAP-04', title:'THE OBSERVATORY', short:'OBSERVATORY', affiliation:'NEUTRAL', role:'NEUTRAL GROUND / RECURRING LOCATION', x:79, y:18, district:'NORTH RIDGE',
+    id:'MAP-04', title:'THE OBSERVATORY', short:'OBSERVATORY', affiliation:'NEUTRAL', role:'NEUTRAL GROUND / RECURRING LOCATION', x:50, y:13, district:'NORTH RIDGE',
     image:'./images/archive/locations/observatory.png',
     body:'A space outside either faction’s full control. Repeated voluntary meetings turn it from neutral ground into shared memory.',
     stats:[['DISTRICT','NORTH RIDGE'],['ACCESS','LIMITED PUBLIC'],['SYSTEM','LEGACY CIVIC'],['STATE','NEUTRAL']],
     chapter:'05', chapterLabel:'AFTER CURFEW'
   },
   {
-    id:'MAP-05', title:'ECLIPSE HUB', short:'ECLIPSE HUB', affiliation:'ECLIPSE', role:'SHADOW GRID / OLD TRANSIT', x:27, y:74, district:'OLD TRANSIT',
+    id:'MAP-05', title:'ECLIPSE HUB', short:'ECLIPSE HUB', affiliation:'ECLIPSE', role:'SHADOW GRID / OLD TRANSIT', x:22, y:73, district:'OLD TRANSIT',
     image:'./images/world/eclipse-headquarters.png',
     body:'A covert operations hub embedded in Vesper’s older transit infrastructure and the blind spots HALO no longer treats as central.',
     stats:[['DISTRICT','OLD TRANSIT'],['ACCESS','COVERT'],['SYSTEM','ECLIPSE'],['STATE','HIDDEN']],
@@ -43,47 +43,47 @@ const locations = [
 
 const districts = [
   {
-    id:'DST-01', title:'CROWN DISTRICT', affiliation:'HALO', role:'GOVERNANCE / HIGH-CLEARANCE CIVIC CORE', shape:'M520 146 C580 132 650 138 710 150 C770 163 815 185 835 225 C853 264 840 310 806 342 C765 380 705 392 635 382 C575 373 532 348 510 310 C492 276 494 228 506 188 C510 170 514 156 520 146 Z', labelX:68, labelY:34,
+    id:'DST-01', title:'CROWN DISTRICT', affiliation:'HALO', role:'GOVERNANCE / HIGH-CLEARANCE CIVIC CORE', shape:'M430 180 C470 155 525 145 585 155 C635 166 676 194 695 230 C710 260 706 301 689 331 C668 367 629 386 581 389 C526 391 479 374 449 343 C421 314 408 278 411 238 C414 215 420 195 430 180 Z', labelX:56, labelY:47,
     image:'./images/world/halo-headquarters.png',
     body:'Vesper’s administrative center. Council offices, HALO Headquarters and the Core sit inside the city’s most continuously monitored district, where security and civic prestige are designed to look identical.',
     stats:[['FUNCTION','GOVERNANCE'],['HALO DENSITY','MAXIMUM'],['NETWORK COVERAGE','CONTINUOUS'],['STORY NODES','HALO HQ / CORE']],
     chapter:'12', chapterLabel:'WHEN HALOS BURN'
   },
   {
-    id:'DST-02', title:'MERIDIAN WARD', affiliation:'CIVIC', role:'TRANSIT / COMMERCE / ORDINARY VESPER', shape:'M112 30 C230 16 380 25 520 62 C535 110 532 155 512 197 C470 226 420 242 352 248 C270 255 195 247 140 220 C110 190 95 148 96 105 C98 72 103 48 112 30 Z', labelX:34, labelY:18,
+    id:'DST-02', title:'MERIDIAN WARD', affiliation:'CIVIC', role:'TRANSIT / COMMERCE / ORDINARY VESPER', shape:'M70 70 C140 42 235 40 332 55 C387 64 423 82 443 111 C449 150 443 193 422 226 C391 256 347 273 291 279 C224 284 159 276 112 253 C80 228 63 194 59 154 C58 120 61 92 70 70 Z', labelX:25, labelY:27,
     image:'./images/landing/vesper-city.png',
     body:'The city’s busiest everyday layer: transfer stations, retail concourses, offices and vertical housing. HALO is everywhere here, but mostly as convenience — access gates, route prediction and seamless identity verification.',
     stats:[['FUNCTION','TRANSIT / COMMERCE'],['HALO DENSITY','HIGH'],['NETWORK COVERAGE','DENSE'],['SOCIAL CHARACTER','ORDINARY / MOBILE']]
   },
   {
-    id:'DST-03', title:'BORDER DISTRICT', affiliation:'CONTESTED', role:'TRANSITION ZONE / MIXED INFRASTRUCTURE', shape:'M140 240 C235 232 335 236 430 245 C470 248 495 251 510 258 C518 307 519 348 505 392 C490 416 464 427 420 432 C335 441 245 430 170 403 C145 382 128 350 125 318 C124 286 130 260 140 240 Z', labelX:34, labelY:54,
+    id:'DST-03', title:'BORDER DISTRICT', affiliation:'CONTESTED', role:'TRANSITION ZONE / MIXED INFRASTRUCTURE', shape:'M44 223 C92 215 145 218 190 234 C225 247 250 269 265 302 C266 337 252 367 226 390 C195 411 153 419 108 411 C76 403 53 386 39 359 C31 329 32 296 35 267 C37 248 39 235 44 223 Z', labelX:15, labelY:53,
     image:'./images/tracks/01b-first-contact/hero.png',
     body:'A transition belt where newer monitored development meets older streets, service routes and freight infrastructure. Coverage is strong on main corridors and inconsistent in the spaces between them — exactly the kind of ambiguity HALO dislikes.',
     stats:[['FUNCTION','TRANSITION / FREIGHT'],['HALO DENSITY','VARIABLE'],['NETWORK COVERAGE','PATCHED'],['STORY EVENT','FIRST CONTACT']],
     chapter:'01B', chapterLabel:'FIRST CONTACT'
   },
   {
-    id:'DST-04', title:'NORTH RIDGE', affiliation:'NEUTRAL', role:'RESEARCH / CIVIC OVERLOOK / LEGACY NETWORK', shape:'M560 0 L1000 0 L1000 150 C940 150 895 158 850 165 C792 174 735 165 682 148 C630 132 595 112 574 88 C568 60 563 30 560 0 Z', labelX:80, labelY:9,
+    id:'DST-04', title:'NORTH RIDGE', affiliation:'NEUTRAL', role:'RESEARCH / CIVIC OVERLOOK / LEGACY NETWORK', shape:'M335 20 C408 8 493 10 572 24 C625 34 667 49 696 70 C681 101 653 124 617 142 C575 158 525 164 470 158 C417 151 372 137 340 114 C325 86 324 54 335 20 Z', labelX:50, labelY:13,
     image:'./images/archive/locations/observatory.png',
     body:'An elevated, lower-density civic and research district built before Vesper’s newest network standards. Its older systems are still monitored, but less seamlessly, leaving pockets of privacy without turning the area into a lawless blind spot.',
     stats:[['FUNCTION','RESEARCH / OVERLOOK'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','LEGACY / PARTIAL'],['STORY NODE','OBSERVATORY']],
     chapter:'05', chapterLabel:'AFTER CURFEW'
   },
   {
-    id:'DST-05', title:'OLD TRANSIT', affiliation:'ECLIPSE', role:'DECOMMISSIONED INFRASTRUCTURE / SHADOW GRID', shape:'M0 360 C50 347 100 347 140 365 C171 386 192 413 205 448 C221 490 236 548 250 620 L0 620 Z', labelX:16, labelY:82,
+    id:'DST-05', title:'OLD TRANSIT', affiliation:'ECLIPSE', role:'DECOMMISSIONED INFRASTRUCTURE / SHADOW GRID', shape:'M18 337 C67 319 117 320 158 337 C195 353 226 377 249 410 C260 446 264 487 260 540 L45 540 C27 501 17 459 12 418 C9 385 10 357 18 337 Z', labelX:17, labelY:76,
     image:'./images/world/eclipse-headquarters.png',
     body:'Disused platforms, maintenance corridors, utility rooms and service tunnels left behind by successive transit rebuilds. The district is not abandoned; it is simply low-priority enough for coverage to become fragmented and exploitable.',
     stats:[['FUNCTION','LEGACY INFRASTRUCTURE'],['HALO DENSITY','LOW'],['NETWORK COVERAGE','FRAGMENTED'],['STORY NODE','ECLIPSE HUB']],
     chapter:'02', chapterLabel:'NO SAINT'
   },
   {
-    id:'DST-06', title:'LOWER GRID', affiliation:'CIVIC', role:'RESIDENTIAL / UTILITIES / SERVICE CITY', shape:'M168 403 C250 430 335 442 420 432 C485 424 550 407 610 395 C662 384 715 382 770 392 C748 470 742 548 760 620 L250 620 C237 552 222 495 205 448 C194 420 182 410 168 403 Z', labelX:53, labelY:80,
+    id:'DST-06', title:'LOWER GRID', affiliation:'CIVIC', role:'RESIDENTIAL / UTILITIES / SERVICE CITY', shape:'M242 349 C299 344 360 347 417 359 C469 370 521 388 566 413 C589 448 597 489 596 541 L255 541 C259 503 257 467 249 433 C242 402 237 374 242 349 Z', labelX:44, labelY:77,
     image:'./images/landing/vesper-city.png',
     body:'Dense residential blocks and utility infrastructure supporting the more polished city above. HALO coverage is reliable on primary streets and public systems, but upgrades have reached the deeper service layers unevenly.',
     stats:[['FUNCTION','RESIDENTIAL / UTILITIES'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','UNEVEN'],['SOCIAL CHARACTER','DENSE / PRACTICAL']]
   },
   {
-    id:'DST-07', title:'GLASSLINE', affiliation:'HALO', role:'HIGH-INTEGRATION / CORPORATE RESIDENTIAL', shape:'M835 150 C890 145 945 146 1000 150 L1000 620 L760 620 C742 548 748 470 770 392 C782 354 806 342 825 315 C846 284 854 250 848 215 C845 188 840 166 835 150 Z', labelX:88, labelY:58,
+    id:'DST-07', title:'GLASSLINE', affiliation:'HALO', role:'HIGH-INTEGRATION / CORPORATE RESIDENTIAL', shape:'M673 92 C727 73 789 70 847 82 C896 93 928 118 944 153 C951 191 947 231 935 272 C920 318 906 357 902 403 C898 446 903 489 915 541 L658 541 C646 499 641 456 648 415 C655 369 672 333 688 299 C705 264 711 225 704 188 C698 150 686 119 673 92 Z', labelX:79, labelY:43,
     image:'./images/landing/vesper-city.png',
     body:'A high-income vertical district where HALO integration is nearly frictionless: buildings recognize residents, routes adapt automatically and civic services arrive before they are requested. Control feels least visible where the system works best.',
     stats:[['FUNCTION','CORPORATE / RESIDENTIAL'],['HALO DENSITY','VERY HIGH'],['NETWORK COVERAGE','NEAR-TOTAL'],['PUBLIC IDEAL','FRICTIONLESS LIFE']]
@@ -114,102 +114,7 @@ const locationMarkers = () => locations.map((node) => `
   </button>`).join('')
 
 const cityMapBaseMarkup = () => `
-  <svg class="world-map-citybase" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
-    <g class="world-city-water">
-      <path class="world-city-water__body" d="M468 -20 C482 72 461 142 476 205 C494 279 533 333 526 410 C518 495 487 555 503 640 L584 640 C562 553 594 495 596 410 C599 326 558 266 544 203 C531 140 548 72 533 -20 Z"/>
-      <path class="world-city-water__edge" d="M468 -20 C482 72 461 142 476 205 C494 279 533 333 526 410 C518 495 487 555 503 640"/>
-      <path class="world-city-water__edge" d="M533 -20 C548 72 531 140 544 203 C558 266 599 326 596 410 C594 495 562 553 584 640"/>
-    </g>
-
-    <g class="world-city-green world-city-green--ridge">
-      <path d="M615 18 C700 10 805 20 905 50 C862 80 820 103 758 112 C700 119 648 105 602 78 Z"/>
-      <path class="world-city-contour" d="M635 37 C715 28 785 37 866 59"/>
-      <path class="world-city-contour" d="M651 58 C727 49 784 55 833 74"/>
-    </g>
-    <g class="world-city-green world-city-green--south">
-      <path d="M603 515 C650 493 706 490 744 505 C733 546 731 582 738 614 L612 614 C603 580 600 548 603 515 Z"/>
-    </g>
-
-    <g class="world-city-blocks world-city-blocks--meridian">
-      <path d="M128 55 L202 48 L214 96 L141 105 Z"/><path d="M224 44 L302 43 L308 91 L232 93 Z"/>
-      <path d="M329 46 L409 52 L405 101 L327 96 Z"/><path d="M421 58 L493 73 L485 119 L417 106 Z"/>
-      <path d="M119 121 L196 116 L205 164 L128 171 Z"/><path d="M222 111 L298 108 L305 161 L230 165 Z"/>
-      <path d="M329 115 L395 117 L399 171 L330 169 Z"/><path d="M414 124 L482 136 L477 184 L414 176 Z"/>
-      <path d="M145 187 L217 183 L229 222 L158 226 Z"/><path d="M246 184 L317 182 L324 229 L253 231 Z"/>
-      <path d="M345 185 L406 187 L412 231 L351 234 Z"/><path d="M430 192 L486 197 L470 225 L426 229 Z"/>
-    </g>
-
-    <g class="world-city-blocks world-city-blocks--border">
-      <path d="M155 260 L232 256 L240 304 L164 309 Z"/><path d="M258 259 L332 260 L337 306 L265 307 Z"/>
-      <path d="M357 262 L430 266 L429 309 L358 307 Z"/><path d="M448 269 L496 276 L499 315 L447 311 Z"/>
-      <path d="M147 329 L218 324 L229 368 L160 376 Z"/><path d="M244 326 L320 324 L326 375 L251 377 Z"/>
-      <path d="M350 328 L420 329 L421 378 L352 380 Z"/><path d="M443 329 L500 326 L497 378 L444 382 Z"/>
-      <path d="M183 390 L258 389 L270 418 L202 414 Z"/><path d="M291 389 L369 390 L372 425 L300 426 Z"/>
-    </g>
-
-    <g class="world-city-blocks world-city-blocks--crown">
-      <path d="M548 176 L611 166 L619 207 L557 218 Z"/><path d="M732 166 L796 181 L788 220 L726 207 Z"/>
-      <path d="M531 235 L590 230 L593 271 L531 276 Z"/><path d="M754 231 L820 239 L814 281 L751 273 Z"/>
-      <path d="M540 301 L601 299 L606 345 L549 347 Z"/><path d="M728 304 L793 298 L799 338 L739 347 Z"/>
-      <path d="M616 350 L661 355 L658 378 L617 373 Z"/><path d="M687 352 L729 347 L734 370 L692 378 Z"/>
-    </g>
-
-    <g class="world-city-blocks world-city-blocks--glassline">
-      <path d="M867 178 L903 174 L910 257 L874 264 Z"/><path d="M925 170 L968 168 L972 249 L931 255 Z"/>
-      <path d="M851 287 L893 281 L900 369 L858 376 Z"/><path d="M917 277 L962 273 L968 367 L923 372 Z"/>
-      <path d="M842 400 L888 396 L895 493 L848 499 Z"/><path d="M913 393 L964 391 L970 487 L919 492 Z"/>
-      <path d="M837 520 L884 516 L889 605 L840 609 Z"/><path d="M911 515 L966 513 L970 606 L915 608 Z"/>
-    </g>
-
-    <g class="world-city-blocks world-city-blocks--lower">
-      <path d="M274 454 L331 452 L336 490 L278 493 Z"/><path d="M352 450 L409 447 L412 486 L356 488 Z"/>
-      <path d="M432 444 L489 437 L493 479 L437 485 Z"/><path d="M528 426 L580 417 L585 462 L534 470 Z"/>
-      <path d="M285 510 L345 508 L349 548 L288 550 Z"/><path d="M369 505 L426 501 L430 544 L373 547 Z"/>
-      <path d="M451 498 L505 491 L510 536 L456 541 Z"/><path d="M548 482 L599 473 L605 521 L553 529 Z"/>
-      <path d="M302 566 L361 563 L365 606 L306 608 Z"/><path d="M386 559 L444 555 L448 604 L390 607 Z"/>
-      <path d="M472 548 L529 541 L534 599 L477 604 Z"/><path d="M568 536 L619 529 L623 594 L573 600 Z"/>
-    </g>
-
-    <g class="world-city-industrial">
-      <path d="M32 401 L102 385 L119 438 L48 455 Z"/><path d="M119 389 L174 386 L189 435 L136 441 Z"/>
-      <path d="M38 478 L112 463 L127 512 L55 530 Z"/><path d="M137 463 L193 465 L204 515 L150 513 Z"/>
-      <path d="M54 548 L117 535 L128 591 L67 604 Z"/>
-    </g>
-
-    <g class="world-city-streets world-city-streets--secondary">
-      <path d="M96 106 C205 96 335 97 512 120"/><path d="M118 178 C244 169 355 173 504 197"/>
-      <path d="M128 246 C250 238 371 239 507 252"/><path d="M126 318 C239 313 369 315 509 320"/>
-      <path d="M148 387 C275 381 382 384 500 391"/><path d="M245 432 C250 492 251 555 250 620"/>
-      <path d="M332 432 C337 494 337 556 337 620"/><path d="M420 430 C423 491 424 556 425 620"/>
-      <path d="M610 394 C611 466 610 541 612 620"/><path d="M690 385 C689 460 691 540 696 620"/>
-      <path d="M829 161 C823 274 812 385 805 620"/><path d="M906 154 C902 280 899 420 898 620"/>
-      <path d="M561 150 C590 192 610 235 611 296"/><path d="M748 151 C735 190 728 228 731 274"/>
-      <path d="M610 74 C705 95 790 110 875 115"/><path d="M663 120 C747 135 827 141 936 136"/>
-    </g>
-
-    <g class="world-city-streets world-city-streets--primary">
-      <path d="M36 282 C185 270 302 282 392 330 C477 376 565 381 650 350 C744 316 824 282 990 282"/>
-      <path d="M186 620 C215 526 285 451 378 373 C443 319 475 251 458 179 C446 128 394 98 286 93"/>
-      <path d="M381 373 C510 391 607 365 689 321 C759 283 835 266 990 276"/>
-      <path d="M688 321 C748 274 792 226 823 167 C855 108 903 70 990 56"/>
-      <path d="M514 214 C566 214 608 213 651 209 C699 205 748 205 817 215"/>
-    </g>
-
-    <g class="world-city-bridges">
-      <path d="M456 180 L545 177"/><path d="M468 280 L565 278"/><path d="M500 374 L592 372"/><path d="M509 492 L587 493"/>
-    </g>
-
-    <g class="world-city-rail">
-      <path d="M18 500 C82 474 136 462 205 471"/><path d="M20 510 C84 484 139 472 208 481"/>
-      <path d="M31 531 C92 507 147 496 214 503"/><path d="M35 542 C97 519 151 507 217 514"/>
-    </g>
-
-    <g class="world-city-civic">
-      <circle cx="683" cy="257" r="57"/><circle cx="683" cy="257" r="38"/>
-      <path d="M683 200 L683 314"/><path d="M626 257 L740 257"/>
-      <path class="world-city-civic__plaza" d="M647 221 L719 221 L719 293 L647 293 Z"/>
-    </g>
-  </svg>
+  <img class="world-map-basemap" src="./images/world/vesper-city-basemap.png" alt="" aria-hidden="true" draggable="false" />
 `
 
 const mapMarkup = () => `
@@ -222,7 +127,7 @@ const mapMarkup = () => `
     <div class="world-map-shell">
       <div class="world-map-canvas" data-world-map-canvas>
         <div class="world-map-canvas__grid" aria-hidden="true"></div>
-        <svg class="world-map-canvas__districts" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-label="Vesper City districts">
+        <svg class="world-map-canvas__districts" viewBox="0 0 1000 566" preserveAspectRatio="none" aria-label="Vesper City districts">
           ${districtMarkup()}
         </svg>
         ${cityMapBaseMarkup()}
