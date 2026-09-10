@@ -584,3 +584,14 @@
   stroke-width:2.45!important;
   filter:brightness(1.26) saturate(1.10)!important;
 }
+
+
+/* BORDER NODE VISUAL CLEANUP */
+.page--world-mode .world-map-marker[data-map-node="MAP-03"] i,
+.page--world-mode .world-map-marker[data-map-node="MAP-03"] .world-map-marker__pulse{
+  display:none!important;
+}
+.page--world-mode .world-map-marker[data-map-node="MAP-03"] strong{
+  left:8px!important;
+  top:11px!important;
+}
