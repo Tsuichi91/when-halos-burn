@@ -44,8 +44,8 @@ const locations = [
 const districts = [
   {
     id:'DST-01', title:'CROWN DISTRICT', affiliation:'HALO', role:'GOVERNANCE / HIGH-CLEARANCE CIVIC CORE',
-    shape:'M430 175 L520 180 L620 170 L680 220 L700 300 L650 370 L560 390 L480 380 L400 350 L360 310 L390 275 L420 230 Z',
-    labelX:52, labelY:57,
+    shape:'M81 284 L83 300 L82 347 L85 372 L61 487 L62 502 L75 528 L246 599 L280 582 L296 583 L305 573 L308 573 L323 587 L333 585 L338 528 L347 475 L356 444 L373 408 L219 336 L125 298 Z',
+    labelX:11.36, labelY:45.7,
     image:'./images/world/halo-headquarters.png',
     body:'Vesper’s administrative center. Council offices, HALO Headquarters and the Core sit inside the city’s most continuously monitored district, where security and civic prestige are designed to look identical.',
     stats:[['FUNCTION','GOVERNANCE'],['HALO DENSITY','MAXIMUM'],['NETWORK COVERAGE','CONTINUOUS'],['STORY NODES','HALO HQ / CORE']],
@@ -53,8 +53,8 @@ const districts = [
   },
   {
     id:'DST-02', title:'MERIDIAN WARD', affiliation:'CIVIC', role:'TRANSIT / COMMERCE / ORDINARY VESPER',
-    shape:'M50 80 L330 25 L340 110 L370 150 L430 175 L420 230 L390 275 L360 310 L300 285 L220 270 L140 250 L60 240 Z',
-    labelX:24, labelY:28,
+    shape:'M587 256 L572 182 L547 98 L453 127 L266 177 L174 206 L134 224 L112 239 L92 263 L86 274 L86 280 L140 297 L195 318 L281 356 L462 442 L506 459 L526 463 L534 435 L552 389 L559 355 L558 349 L574 326 L583 306 L587 288 Z',
+    labelX:28.11, labelY:27.63,
     image:'./images/landing/vesper-city.png',
     body:'The city’s busiest everyday layer: transfer stations, retail concourses, offices and vertical housing. HALO is everywhere here, but mostly as convenience — access gates, route prediction and seamless identity verification.',
     stats:[['FUNCTION','TRANSIT / COMMERCE'],['HALO DENSITY','HIGH'],['NETWORK COVERAGE','DENSE'],['SOCIAL CHARACTER','ORDINARY / MOBILE']]
@@ -70,8 +70,8 @@ const districts = [
   },
   {
     id:'DST-04', title:'NORTH RIDGE', affiliation:'NEUTRAL', role:'RESEARCH / CIVIC OVERLOOK / LEGACY NETWORK',
-    shape:'M330 25 L680 25 L665 95 L650 135 L620 170 L520 180 L430 175 L370 150 L340 110 Z',
-    labelX:42, labelY:8,
+    shape:'M554 97 L567 142 L580 139 L598 139 L612 143 L661 174 L696 191 L733 202 L775 210 L868 222 L929 227 L978 235 L1037 257 L1062 274 L1066 271 L1081 229 L1102 187 L1098 164 L1098 141 L1109 115 L1109 107 L1099 90 L998 72 L846 40 L807 36 L761 38 L717 49 L688 59 L675 68 L666 82 L653 89 L622 94 Z',
+    labelX:47.25, labelY:11.16,
     image:'./images/archive/locations/observatory.png',
     body:'An elevated, lower-density civic and research district built before Vesper’s newest network standards. Its older systems are still monitored, but less seamlessly, leaving pockets of privacy without turning the area into a lawless blind spot.',
     stats:[['FUNCTION','RESEARCH / OVERLOOK'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','LEGACY / PARTIAL'],['STORY NODE','OBSERVATORY']],
@@ -79,8 +79,8 @@ const districts = [
   },
   {
     id:'DST-05', title:'OLD TRANSIT', affiliation:'ECLIPSE', role:'DECOMMISSIONED INFRASTRUCTURE / SHADOW GRID',
-    shape:'M60 360 L130 390 L200 410 L260 420 L300 470 L300 540 L120 500 L40 420 Z',
-    labelX:12, labelY:72,
+    shape:'M380 413 L359 459 L351 487 L343 541 L341 588 L328 595 L323 595 L306 582 L300 589 L295 591 L283 588 L257 602 L257 604 L274 611 L291 622 L378 688 L444 730 L527 775 L572 783 L590 722 L591 707 L583 671 L543 626 L509 568 L502 543 L500 524 L508 467 L439 439 L384 413 Z',
+    labelX:25.72, labelY:61.11,
     image:'./images/world/eclipse-headquarters.png',
     body:'Disused platforms, maintenance corridors, utility rooms and service tunnels left behind by successive transit rebuilds. The district is not abandoned; it is simply low-priority enough for coverage to become fragmented and exploitable.',
     stats:[['FUNCTION','LEGACY INFRASTRUCTURE'],['HALO DENSITY','LOW'],['NETWORK COVERAGE','FRAGMENTED'],['STORY NODE','ECLIPSE HUB']],
@@ -88,16 +88,16 @@ const districts = [
   },
   {
     id:'DST-06', title:'LOWER GRID', affiliation:'CIVIC', role:'RESIDENTIAL / UTILITIES / SERVICE CITY',
-    shape:'M360 310 L400 350 L480 380 L560 390 L650 370 L740 400 L820 430 L930 440 L880 520 L720 540 L300 540 L300 470 L260 420 L310 400 L360 360 Z',
-    labelX:48, labelY:79,
+    shape:'M514 469 L507 513 L507 538 L512 557 L532 595 L550 623 L591 671 L597 706 L597 722 L579 783 L627 791 L643 797 L658 807 L670 810 L701 810 L787 800 L924 798 L1118 789 L1264 786 L1274 784 L1306 683 L1258 666 L1245 663 L1223 662 L1207 657 L1131 624 L1102 575 L1037 498 L1007 507 L986 517 L935 554 L913 567 L893 572 L856 572 L785 565 L741 552 L704 529 L652 486 L627 469 L544 428 L531 471 L528 472 L519 468 Z',
+    labelX:46.95, labelY:77.05,
     image:'./images/landing/vesper-city.png',
     body:'Dense residential blocks and utility infrastructure supporting the more polished city above. HALO coverage is reliable on primary streets and public systems, but upgrades have reached the deeper service layers unevenly.',
     stats:[['FUNCTION','RESIDENTIAL / UTILITIES'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','UNEVEN'],['SOCIAL CHARACTER','DENSE / PRACTICAL']]
   },
   {
     id:'DST-07', title:'GLASSLINE', affiliation:'HALO', role:'HIGH-INTEGRATION / CORPORATE RESIDENTIAL',
-    shape:'M680 25 L940 90 L960 180 L950 280 L930 440 L820 430 L740 400 L650 370 L700 300 L680 220 L620 170 L650 135 L665 95 Z',
-    labelX:82, labelY:43,
+    shape:'M1110 91 L1116 106 L1116 118 L1106 142 L1106 167 L1110 194 L1106 195 L1093 220 L1070 276 L1070 279 L1084 299 L1092 320 L1099 403 L1107 448 L1088 453 L1070 463 L1042 488 L1041 493 L1106 566 L1119 585 L1136 618 L1200 647 L1227 654 L1255 657 L1317 679 L1296 734 L1282 784 L1515 781 L1529 779 L1592 729 L1607 714 L1621 693 L1594 397 L1479 246 L1446 209 L1406 170 L1315 125 L1265 106 L1232 100 L1169 100 Z',
+    labelX:75.66, labelY:34.01,
     image:'./images/landing/vesper-city.png',
     body:'A high-income vertical district where HALO integration is nearly frictionless: buildings recognize residents, routes adapt automatically and civic services arrive before they are requested. Control feels least visible where the system works best.',
     stats:[['FUNCTION','CORPORATE / RESIDENTIAL'],['HALO DENSITY','VERY HIGH'],['NETWORK COVERAGE','NEAR-TOTAL'],['PUBLIC IDEAL','FRICTIONLESS LIFE']]
@@ -141,7 +141,7 @@ const mapMarkup = () => `
     <div class="world-map-shell">
       <div class="world-map-canvas" data-world-map-canvas>
         <div class="world-map-canvas__grid" aria-hidden="true"></div>
-        <svg class="world-map-canvas__districts" viewBox="0 0 1000 566" preserveAspectRatio="none" aria-label="Vesper City districts">
+        <svg class="world-map-canvas__districts" viewBox="0 0 1672 941" preserveAspectRatio="none" aria-label="Vesper City districts">
           ${districtMarkup()}
         </svg>
         ${cityMapBaseMarkup()}
