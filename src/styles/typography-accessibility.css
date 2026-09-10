@@ -1,0 +1,429 @@
+/* WHEN HALOS BURN — Typography Accessibility Pass
+   Raises microcopy and control readability without changing display hierarchy. */
+
+:root {
+  --whb-type-micro: .625rem;      /* 10px at the default 16px root */
+  --whb-type-meta: .66rem;        /* 10.56px */
+  --whb-type-ui: .70rem;          /* 11.2px */
+  --whb-type-secondary: .76rem;   /* 12.16px */
+  --whb-type-body-small: .80rem;  /* 12.8px */
+}
+
+/* LANDING — retain the game HUD, but stop treating readable copy as decoration. */
+.page--landing :is(
+  .game-boot__content span,
+  .game-boot__content small,
+  .game-hud__identity span,
+  .game-hud__identity small,
+  .game-hud__city span,
+  .game-side > span:not(.game-side__faction),
+  .game-side small,
+  .game-vertical span,
+  .game-menu-header span,
+  .game-confirm span,
+  .game-context > span,
+  .game-hud__catalog span,
+  .game-select-cue span,
+  .game-hud__status span,
+  .game-loading-route > span
+) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .17em !important;
+}
+
+.page--landing :is(
+  .game-side__faction,
+  .game-title__kicker,
+  .game-title__statement,
+  .game-mode__index,
+  .game-mode__copy small,
+  .game-context > p
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .18em !important;
+}
+
+/* STORY INTRO — the cinematic opening still reads as sparse UI, not microscopic UI. */
+.page--story-experience :is(
+  .story-chrome__chapter,
+  .story-chrome__nav,
+  .scene-kicker,
+  .scroll-cue span,
+  .world-facts dt
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .20em !important;
+}
+
+.page--story-experience .world-facts dd {
+  font-size: var(--whb-type-secondary) !important;
+  letter-spacing: .08em !important;
+}
+
+.page--story-experience .campaign-boot :is(span,p) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .18em !important;
+}
+
+/* STORY HOME */
+.story-home__halo-mark::after {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .22em !important;
+}
+.story-home__identity-copy {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .22em !important;
+}
+.story-home__nav a,
+.story-home__nav button {
+  font-size: var(--whb-type-ui) !important;
+  letter-spacing: .18em !important;
+}
+.story-home__city,
+.story-home__continue-meta,
+.story-home__hero-edge,
+.story-home__chapters-head span,
+.story-home__chapters-head button {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .20em !important;
+}
+.story-home__eyebrow,
+.story-home__tagline,
+.story-home__continue {
+  font-size: var(--whb-type-ui) !important;
+  letter-spacing: .22em !important;
+}
+.story-home-card__copy small,
+.story-home-card__footer,
+.story-home-card__footer button {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .18em !important;
+}
+.story-home__mobile-dock a,
+.story-home__mobile-dock button {
+  font-size: .58rem !important;
+  letter-spacing: .12em !important;
+}
+
+/* CHAPTER DETAIL */
+.page--chapter-detail :is(
+  .chapter-topbar__identity b,
+  .chapter-topbar__nav,
+  .chapter-topbar__city,
+  .chapter-hero__back,
+  .chapter-hero__title p,
+  .chapter-hero__edge,
+  .chapter-command__meta dt,
+  .chapter-panel__eyebrow,
+  .chapter-overview__question span,
+  .chapter-panel blockquote span,
+  .chapter-scenes__card small
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .20em !important;
+}
+.page--chapter-detail .chapter-command__meta dd {
+  font-size: var(--whb-type-secondary) !important;
+  letter-spacing: .10em !important;
+}
+.page--chapter-detail .chapter-command__start strong,
+.page--chapter-detail .chapter-tabs button {
+  font-size: var(--whb-type-ui) !important;
+  letter-spacing: .18em !important;
+}
+.page--chapter-detail .chapter-mobile-dock :is(a,button,span) {
+  font-size: .58rem !important;
+  letter-spacing: .12em !important;
+}
+
+/* ARCHIVE — labels, metadata and controls; large dossier/record titles remain untouched. */
+.page--archive-mode :is(
+  .archive-topbar__identity b,
+  .archive-topbar__nav,
+  .archive-topbar__city,
+  .archive-hero__copy p,
+  .archive-hero__status span,
+  .archive-sidebar__head span,
+  .archive-toolbar > div > span,
+  .archive-search span,
+  .archive-toolbar > span,
+  .archive-subhead,
+  .archive-featured__blackout span,
+  .archive-featured__system span,
+  .archive-record__copy > span,
+  .archive-record__copy small,
+  .archive-chapter__head,
+  .archive-chapter__foot,
+  .archive-chapter__copy small
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .19em !important;
+}
+.page--archive-mode .archive-sidebar button {
+  font-size: var(--whb-type-ui) !important;
+  letter-spacing: .17em !important;
+}
+.page--archive-mode .archive-sidebar__foot,
+.page--archive-mode .archive-featured__blackout strong,
+.page--archive-mode .archive-featured__system small,
+.page--archive-mode .archive-record__copy i {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+.page--archive-mode .archive-hero__status strong {
+  font-size: var(--whb-type-secondary) !important;
+  letter-spacing: .17em !important;
+}
+.page--archive-mode .archive-mode :is(dt,small)[class*="meta"],
+.page--archive-mode .archive-mode [class*="__meta"] :is(span,small,dt),
+.page--archive-mode .archive-mode [class*="__status"] :is(span,small) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+.page--archive-mode .archive-mobile-dock :is(a,span) {
+  font-size: .58rem !important;
+  letter-spacing: .12em !important;
+}
+
+/* LOADERS — informative loading copy should remain readable. */
+:is(.archive-loader,.world-loader,.extras-loader) :is(
+  [class$="__eyebrow"],
+  [class$="__status"],
+  [class$="__meta"] span
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .18em !important;
+}
+
+/* WORLD BASE */
+.page--world-mode :is(
+  .world-topbar__identity b,
+  .world-topbar__nav a,
+  .world-topbar__nav span,
+  .world-topbar__city span,
+  .world-hero__copy > p,
+  .world-index > span,
+  .world-index a,
+  .world-intro-copy > span,
+  .world-layer__copy > span,
+  .world-system__copy > span,
+  .world-line__halo span,
+  .world-line__eclipse span,
+  .world-line__copy span,
+  .world-locations__head span,
+  .world-place__head,
+  .world-place__copy small,
+  .world-footer
+) {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .18em !important;
+}
+.page--world-mode .world-hero__actions :is(a,button),
+.page--world-mode .world-exit :is(a,button),
+.page--world-mode .world-locations__footer a {
+  font-size: var(--whb-type-ui) !important;
+  letter-spacing: .17em !important;
+}
+.page--world-mode .world-hero__facts dt,
+.page--world-mode :is(.world-layer__copy,.world-system__copy) dt,
+.page--world-mode .world-place__copy i {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .15em !important;
+}
+.page--world-mode .world-hero__facts dd,
+.page--world-mode :is(.world-layer__copy,.world-system__copy) dd {
+  font-size: var(--whb-type-secondary) !important;
+  letter-spacing: .08em !important;
+}
+.page--world-mode .world-hero__edge span {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+
+/* WORLD MAP */
+.page--world-mode .world-map-section__head span,
+.page--world-mode .world-map-panel__meta span,
+.page--world-mode .world-map-panel > small,
+.page--world-mode .world-map-canvas__legend {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .17em !important;
+}
+.page--world-mode .world-map-marker strong,
+.page--world-mode .world-map-panel__filters button,
+.page--world-mode .world-map-panel__actions a,
+.page--world-mode .world-map-panel__list button strong {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .15em !important;
+}
+.page--world-mode .world-map-marker small,
+.page--world-mode .world-map-panel__list button span {
+  font-size: .56rem !important;
+  letter-spacing: .13em !important;
+}
+
+/* WORLD CIVIC LIFE / BLACKOUT LEGACY */
+.page--world-mode :is(
+  .world-civic__head span,
+  .world-blackout__head span,
+  .world-civic__thesis span,
+  .world-civic-card__head span,
+  .world-civic-card__head small,
+  .world-civic-card > strong,
+  .world-blackout__year small,
+  .world-blackout__effects span
+) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+.page--world-mode :is(.world-blackout__memory,.world-blackout__aftermath) dt {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .14em !important;
+}
+.page--world-mode :is(.world-blackout__memory,.world-blackout__aftermath) dd,
+.page--world-mode .world-blackout__effects strong {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .11em !important;
+}
+.page--world-mode :is(
+  .world-civic-card p,
+  .world-blackout__effects p
+) {
+  font-size: var(--whb-type-secondary) !important;
+}
+
+/* WORLD SYSTEM ARCHITECTURE */
+.page--world-mode :is(
+  .world-architecture__head span,
+  .world-structure__head span,
+  .world-structure__logic span,
+  .world-architecture__thesis span,
+  .world-structure-card > span,
+  .world-structure-card small
+) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+.page--world-mode .world-structure__logic strong {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .12em !important;
+}
+.page--world-mode .world-structure-card p,
+.page--world-mode .world-structure__logic p {
+  font-size: var(--whb-type-secondary) !important;
+}
+
+/* WORLD TRANSIT — route names stay more restrained to avoid map clutter. */
+.page--world-mode .world-transit-label {
+  font-size: .50rem !important;
+  letter-spacing: .11em !important;
+}
+.page--world-mode .world-transit-strip span {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .14em !important;
+}
+.page--world-mode .world-transit-strip strong {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .10em !important;
+}
+.page--world-mode .world-transit-strip p {
+  font-size: var(--whb-type-secondary) !important;
+}
+.page--world-mode .world-mobile-dock span {
+  font-size: .58rem !important;
+  letter-spacing: .11em !important;
+}
+
+/* EXTRAS — concept-book microcopy. */
+.page--extras-mode :is(
+  .extras-topbar__identity b,
+  .extras-topbar__nav a,
+  .extras-topbar__edition span,
+  .extras-hero__copy > p,
+  .extras-hero__folio span,
+  .extras-index > span,
+  .extras-index a,
+  .extras-section__head span,
+  .extras-frame__meta small,
+  .extras-frame__meta i,
+  .extras-frame__open,
+  .extras-sound-arc > span,
+  .extras-sound-arc small,
+  .extras-act-grid span,
+  .extras-act-grid small,
+  .extras-pairs__head span,
+  .extras-pairs > article > div span,
+  .extras-pairs > article section small,
+  .extras-motif-grid article > span,
+  .extras-motif-grid article > small,
+  .extras-spoiler > span,
+  .extras-story-notes span,
+  .extras-credits__hero > span,
+  .extras-credits__hero p,
+  .extras-credits__grid dt
+) {
+  font-size: var(--whb-type-micro) !important;
+  letter-spacing: .16em !important;
+}
+.page--extras-mode .extras-hero__copy a,
+.page--extras-mode .extras-spoiler button,
+.page--extras-mode .extras-sound-arc strong {
+  font-size: var(--whb-type-meta) !important;
+  letter-spacing: .15em !important;
+}
+.page--extras-mode :is(
+  .extras-frame > p,
+  .extras-act-grid p,
+  .extras-pairs > article section p,
+  .extras-motif-grid p,
+  .extras-story-notes p
+) {
+  font-size: var(--whb-type-secondary) !important;
+}
+.page--extras-mode .extras-mobile-dock span {
+  font-size: .58rem !important;
+  letter-spacing: .11em !important;
+}
+
+/* Tablet/mobile: keep the gains, but trim tracking so compact UI does not overflow. */
+@media (max-width: 760px) {
+  :root {
+    --whb-type-micro: .60rem;
+    --whb-type-meta: .625rem;
+    --whb-type-ui: .66rem;
+    --whb-type-secondary: .74rem;
+    --whb-type-body-small: .78rem;
+  }
+
+  .story-home__nav a,
+  .story-home__nav button,
+  .page--chapter-detail .chapter-topbar__nav,
+  .page--archive-mode .archive-topbar__nav,
+  .page--world-mode .world-topbar__nav,
+  .page--extras-mode .extras-topbar__nav {
+    letter-spacing: .14em !important;
+  }
+
+  .page--world-mode .world-transit-label {
+    font-size: .46rem !important;
+    letter-spacing: .08em !important;
+  }
+
+  .page--world-mode .world-map-marker strong {
+    font-size: .58rem !important;
+    letter-spacing: .10em !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .story-home__mobile-dock a,
+  .story-home__mobile-dock button,
+  .page--chapter-detail .chapter-mobile-dock :is(a,button,span),
+  .page--archive-mode .archive-mobile-dock :is(a,span),
+  .page--world-mode .world-mobile-dock span,
+  .page--extras-mode .extras-mobile-dock span {
+    font-size: .56rem !important;
+  }
+
+  /* Existing World CSS intentionally hides route labels here; do not re-enable them. */
+  .page--world-mode .world-transit-label { display: none !important; }
+}
