@@ -11,8 +11,25 @@
     <title>World — WHEN HALOS BURN</title>
   </head>
   <body class="page page--world-mode">
+    <section class="world-loader" data-world-loader aria-label="Loading World Mode">
+      <div class="world-loader__grid" aria-hidden="true"></div>
+      <div class="world-loader__routes" aria-hidden="true"></div>
+      <div class="world-loader__scan" aria-hidden="true"></div>
+      <div class="world-loader__vignette" aria-hidden="true"></div>
+      <div class="world-loader__shell">
+        <div class="world-loader__mapmark" aria-hidden="true"><i></i><b></b></div>
+        <span class="world-loader__eyebrow">VESPER CITY // CARTOGRAPHIC NETWORK</span>
+        <h1>WORLD</h1>
+        <p class="world-loader__status" data-world-loader-status>CONNECTING CITY NETWORK</p>
+        <div class="world-loader__bar" data-world-loader-bar aria-hidden="true"><i></i></div>
+        <div class="world-loader__meta" aria-hidden="true"><span>CITY GRID / VSP-2164</span><span>NETWORK / ACTIVE</span></div>
+      </div>
+    </section>
+
     <main id="world-app" class="world-mode"></main>
     <script type="module" src="/src/progressive-images.js"></script>
+    <script type="module" src="/src/world-loader.js"></script>
     <script type="module" src="/src/world.js"></script>
+    <script type="module" src="/src/world-map.js"></script>
   </body>
 </html>
