@@ -3,7 +3,7 @@ import './styles/world-map-workspace.css'
 const root = document.querySelector('#world-app')
 const desktopMap = window.matchMedia('(min-width: 1051px)')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-const MAP_ASPECT = 1640 / 928
+const MAP_ASPECT = 1672 / 941
 
 const getPanel = () => root?.querySelector('.world-map-panel')
 
