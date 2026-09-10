@@ -1,4 +1,4 @@
-.world-map-canvas__districts{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}.world-map-district{opacity:.72;pointer-events:auto;cursor:pointer;transition:opacity .22s ease}.world-map-district polygon{fill:rgba(211,229,236,.026);stroke:rgba(204,225,233,.105);stroke-width:1.1;vector-effect:non-scaling-stroke;transition:fill .22s ease,stroke .22s ease,opacity .22s ease}.world-map-district[data-affiliation="HALO"] polygon{fill:rgba(185,215,226,.034);stroke:rgba(191,219,229,.13)}.world-map-district[data-affiliation="ECLIPSE"] polygon{fill:rgba(102,157,177,.045);stroke:rgba(126,177,195,.14)}.world-map-district[data-affiliation="NEUTRAL"] polygon{fill:rgba(215,203,170,.026);stroke:rgba(214,203,174,.12)}.world-map-district[data-affiliation="CONTESTED"] polygon{fill:rgba(197,176,154,.034);stroke:rgba(201,181,159,.13)}.world-map-district:hover polygon,.world-map-district:focus-visible polygon{fill:rgba(204,229,237,.06);stroke:rgba(226,239,243,.28)}.world-map-district:focus-visible{outline:none}.world-map-district.is-context polygon{fill:rgba(195,222,231,.055);stroke:rgba(221,238,243,.24)}.world-map-district.is-selected polygon{fill:rgba(188,222,233,.095);stroke:rgba(235,245,248,.56)}.world-map-district[data-affiliation="ECLIPSE"].is-selected polygon{fill:rgba(105,166,187,.12);stroke:rgba(164,204,218,.52)}.world-map-district[data-affiliation="NEUTRAL"].is-selected polygon{fill:rgba(204,193,159,.09);stroke:rgba(224,215,188,.48)}.world-map-district[data-affiliation="CONTESTED"].is-selected polygon{fill:rgba(195,158,129,.09);stroke:rgba(222,194,172,.46)}
+.world-map-canvas__districts{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}.world-map-district{opacity:.72;pointer-events:auto;cursor:pointer;transition:opacity .22s ease}.world-map-district path{fill:rgba(211,229,236,.026);stroke:rgba(204,225,233,.105);stroke-width:1.1;vector-effect:non-scaling-stroke;transition:fill .22s ease,stroke .22s ease,opacity .22s ease}.world-map-district[data-affiliation="HALO"] path{fill:rgba(185,215,226,.034);stroke:rgba(191,219,229,.13)}.world-map-district[data-affiliation="ECLIPSE"] path{fill:rgba(102,157,177,.045);stroke:rgba(126,177,195,.14)}.world-map-district[data-affiliation="NEUTRAL"] path{fill:rgba(215,203,170,.026);stroke:rgba(214,203,174,.12)}.world-map-district[data-affiliation="CONTESTED"] path{fill:rgba(197,176,154,.034);stroke:rgba(201,181,159,.13)}.world-map-district:hover path,.world-map-district:focus-visible path{fill:rgba(204,229,237,.06);stroke:rgba(226,239,243,.28)}.world-map-district:focus-visible{outline:none}.world-map-district.is-context path{fill:rgba(195,222,231,.055);stroke:rgba(221,238,243,.24)}.world-map-district.is-selected path{fill:rgba(188,222,233,.095);stroke:rgba(235,245,248,.56)}.world-map-district[data-affiliation="ECLIPSE"].is-selected path{fill:rgba(105,166,187,.12);stroke:rgba(164,204,218,.52)}.world-map-district[data-affiliation="NEUTRAL"].is-selected path{fill:rgba(204,193,159,.09);stroke:rgba(224,215,188,.48)}.world-map-district[data-affiliation="CONTESTED"].is-selected path{fill:rgba(195,158,129,.09);stroke:rgba(222,194,172,.46)}
 .world-map-district-label{--dx:var(--x);--dy:var(--y);position:absolute;left:var(--dx);top:var(--dy);z-index:2;display:grid;gap:2px;pointer-events:none;transform:translate(-50%,-50%);opacity:.46;transition:opacity .22s ease}.world-map-district-label strong{white-space:nowrap;font-size:.27rem;letter-spacing:.2em;font-weight:400;color:rgba(224,236,240,.58)}.world-map-district-label small{font-size:.22rem;letter-spacing:.18em;color:rgba(194,211,218,.32)}.world-map-district-label.is-context{opacity:.72}.world-map-district-label.is-selected{opacity:.96}.world-map-marker{z-index:5!important;min-width:52px!important;min-height:52px!important}.world-map-marker::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:transparent}.world-map-marker.is-context i{border-color:rgba(235,245,248,.78);box-shadow:0 0 0 6px rgba(190,226,237,.06)}.world-map-marker.is-context strong{color:rgba(242,248,250,.86)}.world-map-marker.is-filtered-out{opacity:.08!important;pointer-events:none!important}
 .world-map-panel__mode{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(228,240,244,.08)}.world-map-panel__mode span{font-size:.27rem;letter-spacing:.2em;color:rgba(193,211,218,.34)}.world-map-panel__mode strong{font-size:.29rem;letter-spacing:.17em;font-weight:400;color:rgba(235,244,247,.68)}.world-map-panel__filters{margin-top:12px}.world-map-panel__stats{display:grid;grid-template-columns:1fr 1fr;margin:20px 0 0;border-top:1px solid rgba(228,240,244,.08);border-left:1px solid rgba(228,240,244,.08)}.world-map-panel__stats>div{min-height:58px;padding:10px 11px;border-right:1px solid rgba(228,240,244,.08);border-bottom:1px solid rgba(228,240,244,.08)}.world-map-panel__stats dt{font-size:.24rem;letter-spacing:.18em;color:rgba(190,208,214,.32)}.world-map-panel__stats dd{margin:6px 0 0;font-size:.34rem;line-height:1.45;letter-spacing:.11em;color:rgba(231,240,243,.62)}
 .world-map-panel__directory{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}.world-map-panel__directory>div{min-width:0;border-top:1px solid rgba(228,240,244,.08)}.world-map-panel__directory>div>span{display:block;padding:11px 0 9px;font-size:.25rem;letter-spacing:.2em;color:rgba(194,211,218,.3)}.world-map-panel__directory button{width:100%;min-height:44px;display:grid;grid-template-columns:54px 1fr;align-items:center;text-align:left;padding:0 8px;border:0;border-bottom:1px solid rgba(228,240,244,.065);background:transparent;color:rgba(212,225,230,.42);cursor:pointer}.world-map-panel__directory button b{font-size:.24rem;letter-spacing:.15em;font-weight:400;color:rgba(190,208,214,.34)}.world-map-panel__directory button strong{font-size:.29rem;line-height:1.35;letter-spacing:.13em;font-weight:400}.world-map-panel__directory button:hover,.world-map-panel__directory button:focus-visible,.world-map-panel__directory button.is-selected{color:rgba(240,247,249,.84);outline:none;background:rgba(228,240,244,.018)}.world-map-panel__directory button[hidden]{display:none}.world-map-panel__actions a[hidden]{display:none}
@@ -6,7 +6,7 @@
 @media(max-width:1050px){.world-map-panel__mode,.world-map-panel__filters,.world-map-panel__stats{grid-column:1}.world-map-panel__directory{grid-column:2;grid-row:2/11;margin-top:0;grid-template-columns:1fr}.world-map-district-label strong{font-size:.25rem}}
 @media(max-width:760px){.world-map-panel__mode,.world-map-panel__filters,.world-map-panel__stats,.world-map-panel__directory{grid-column:1;grid-row:auto}.world-map-panel__directory{grid-template-columns:1fr 1fr;margin-top:20px}.world-map-district-label strong{font-size:.24rem}.world-map-district-label small{display:none}.world-map-marker{min-width:48px!important;min-height:48px!important}.world-map-canvas__legend>span:first-child{display:none}}
 @media(max-width:520px){.world-map-panel__stats,.world-map-panel__directory{grid-template-columns:1fr}.world-map-district-label strong{max-width:78px;white-space:normal;text-align:center;line-height:1.3}.world-map-district-label{opacity:.38}.world-map-marker strong{font-size:.28rem}}
-@media(prefers-reduced-motion:reduce){.world-map-district,.world-map-district polygon,.world-map-district-label{transition:none}}
+@media(prefers-reduced-motion:reduce){.world-map-district,.world-map-district path,.world-map-district-label{transition:none}}
 
 
 /* DIRECT MAP READABILITY + DISTRICT COLOR PASS */
@@ -100,40 +100,40 @@
 .page--world-mode .world-map-district{
   opacity:1!important;
 }
-.page--world-mode .world-map-district polygon{
+.page--world-mode .world-map-district path{
   fill:rgba(103,145,162,.10)!important;
   stroke:rgba(163,198,211,.28)!important;
 }
-.page--world-mode .world-map-district[data-affiliation="HALO"] polygon{
+.page--world-mode .world-map-district[data-affiliation="HALO"] path{
   fill:rgba(99,177,214,.16)!important;
   stroke:rgba(151,211,234,.38)!important;
 }
-.page--world-mode .world-map-district[data-affiliation="CIVIC"] polygon{
+.page--world-mode .world-map-district[data-affiliation="CIVIC"] path{
   fill:rgba(74,137,160,.14)!important;
   stroke:rgba(133,190,210,.34)!important;
 }
-.page--world-mode .world-map-district[data-affiliation="ECLIPSE"] polygon{
+.page--world-mode .world-map-district[data-affiliation="ECLIPSE"] path{
   fill:rgba(48,96,128,.19)!important;
   stroke:rgba(104,165,192,.39)!important;
 }
-.page--world-mode .world-map-district[data-affiliation="NEUTRAL"] polygon{
+.page--world-mode .world-map-district[data-affiliation="NEUTRAL"] path{
   fill:rgba(184,160,88,.14)!important;
   stroke:rgba(222,202,137,.36)!important;
 }
-.page--world-mode .world-map-district[data-affiliation="CONTESTED"] polygon{
+.page--world-mode .world-map-district[data-affiliation="CONTESTED"] path{
   fill:rgba(173,87,67,.16)!important;
   stroke:rgba(222,139,112,.39)!important;
 }
-.page--world-mode .world-map-district:hover polygon,
-.page--world-mode .world-map-district:focus-visible polygon{
+.page--world-mode .world-map-district:hover path,
+.page--world-mode .world-map-district:focus-visible path{
   filter:brightness(1.28)!important;
   stroke-width:1.5!important;
 }
-.page--world-mode .world-map-district.is-context polygon{
+.page--world-mode .world-map-district.is-context path{
   filter:brightness(1.18)!important;
   stroke-width:1.45!important;
 }
-.page--world-mode .world-map-district.is-selected polygon{
+.page--world-mode .world-map-district.is-selected path{
   filter:brightness(1.45)!important;
   stroke:rgba(244,250,252,.80)!important;
   stroke-width:1.8!important;
@@ -161,42 +161,167 @@
 
 
 /* SEVEN DISTINCT DISTRICT PALETTE */
-.page--world-mode .world-map-district[data-district-id="DST-01"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{
   fill:rgba(96,190,224,.17)!important;
   stroke:rgba(150,220,242,.42)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-02"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{
   fill:rgba(64,166,158,.16)!important;
   stroke:rgba(113,207,196,.39)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-03"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{
   fill:rgba(183,91,63,.18)!important;
   stroke:rgba(226,145,114,.42)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-04"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{
   fill:rgba(184,155,73,.17)!important;
   stroke:rgba(224,198,120,.40)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-05"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{
   fill:rgba(72,86,156,.19)!important;
   stroke:rgba(121,142,211,.41)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-06"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{
   fill:rgba(90,145,105,.17)!important;
   stroke:rgba(135,189,149,.38)!important;
 }
-.page--world-mode .world-map-district[data-district-id="DST-07"] polygon{
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{
   fill:rgba(132,94,166,.18)!important;
   stroke:rgba(178,135,208,.41)!important;
 }
 
 /* Preserve the seven-color identity when a district is contextual or selected. */
-.page--world-mode .world-map-district.is-context polygon{
+.page--world-mode .world-map-district.is-context path{
   opacity:1!important;
   filter:brightness(1.22) saturate(1.08)!important;
 }
-.page--world-mode .world-map-district.is-selected polygon{
+.page--world-mode .world-map-district.is-selected path{
   opacity:1!important;
   filter:brightness(1.50) saturate(1.12)!important;
   stroke-width:1.9!important;
+}
+
+
+/* REALISTIC VESPER CITY BASE MAP */
+.page--world-mode .world-map-canvas__grid{
+  opacity:.32!important;
+}
+.page--world-mode .world-map-district path{
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+.world-map-citybase{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+.world-city-water__body{
+  fill:rgba(6,20,29,.90);
+  stroke:none;
+}
+.world-city-water__edge{
+  fill:none;
+  stroke:rgba(122,174,194,.22);
+  stroke-width:1.2;
+  vector-effect:non-scaling-stroke;
+}
+.world-city-blocks path,
+.world-city-industrial path{
+  vector-effect:non-scaling-stroke;
+  stroke-width:.8;
+}
+.world-city-blocks path{
+  fill:rgba(198,218,225,.045);
+  stroke:rgba(194,218,226,.075);
+}
+.world-city-blocks--meridian path{
+  fill:rgba(193,216,223,.052);
+}
+.world-city-blocks--border path{
+  fill:rgba(189,206,212,.042);
+}
+.world-city-blocks--crown path{
+  fill:rgba(211,229,235,.07);
+  stroke:rgba(210,230,237,.11);
+}
+.world-city-blocks--glassline path{
+  fill:rgba(209,225,232,.068);
+  stroke:rgba(213,231,237,.105);
+}
+.world-city-blocks--lower path{
+  fill:rgba(177,199,207,.043);
+}
+.world-city-industrial path{
+  fill:rgba(150,171,178,.05);
+  stroke:rgba(169,191,199,.085);
+}
+.world-city-green path{
+  fill:rgba(76,106,91,.09);
+  stroke:rgba(133,163,143,.10);
+  stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}
+.world-city-green .world-city-contour{
+  fill:none;
+  stroke:rgba(155,181,163,.10);
+  stroke-dasharray:3 7;
+}
+.world-city-streets path{
+  fill:none;
+  vector-effect:non-scaling-stroke;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.world-city-streets--secondary path{
+  stroke:rgba(190,211,219,.075);
+  stroke-width:.8;
+}
+.world-city-streets--primary path{
+  stroke:rgba(205,225,232,.18);
+  stroke-width:2.2;
+}
+.world-city-bridges path{
+  fill:none;
+  stroke:rgba(219,234,239,.28);
+  stroke-width:3.1;
+  vector-effect:non-scaling-stroke;
+}
+.world-city-rail path{
+  fill:none;
+  stroke:rgba(166,192,202,.13);
+  stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}
+.world-city-civic circle,
+.world-city-civic>path:not(.world-city-civic__plaza){
+  fill:none;
+  stroke:rgba(218,235,241,.16);
+  stroke-width:1.2;
+  vector-effect:non-scaling-stroke;
+}
+.world-city-civic__plaza{
+  fill:rgba(218,235,241,.025);
+  stroke:rgba(218,235,241,.14);
+  stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}
+
+/* Keep district color as a readable planning overlay, not the map itself. */
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{fill:rgba(96,190,224,.105)!important}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{fill:rgba(64,166,158,.10)!important}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{fill:rgba(183,91,63,.115)!important}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{fill:rgba(184,155,73,.10)!important}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{fill:rgba(72,86,156,.115)!important}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{fill:rgba(90,145,105,.10)!important}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{fill:rgba(132,94,166,.105)!important}
+
+.page--world-mode .world-map-district-label{
+  z-index:4!important;
+}
+.page--world-mode .world-map-marker{
+  z-index:6!important;
 }
