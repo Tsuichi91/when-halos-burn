@@ -387,3 +387,109 @@
 .page--world-mode .world-map-canvas{
   background:#020609!important;
 }
+
+
+/* FINAL CLEAN OVERLAY PARTITION */
+.page--world-mode .world-map-canvas{
+  isolation:isolate;
+}
+.page--world-mode .world-map-basemap{
+  z-index:0!important;
+  filter:saturate(.86) brightness(.84) contrast(1.04)!important;
+}
+.page--world-mode .world-map-canvas__grid{
+  z-index:1!important;
+  opacity:.08!important;
+}
+.page--world-mode .world-map-canvas__districts{
+  z-index:2!important;
+}
+
+/* The basemap is the city. District color is only a thin administrative overlay. */
+.page--world-mode .world-map-district{
+  opacity:1!important;
+}
+.page--world-mode .world-map-district path{
+  stroke-width:1.15!important;
+  stroke-linejoin:round!important;
+  stroke-linecap:round!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{fill:rgba(96,190,224,.032)!important;stroke:rgba(150,220,242,.55)!important}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{fill:rgba(64,166,158,.030)!important;stroke:rgba(113,207,196,.50)!important}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{fill:rgba(183,91,63,.034)!important;stroke:rgba(226,145,114,.55)!important}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{fill:rgba(184,155,73,.028)!important;stroke:rgba(224,198,120,.50)!important}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{fill:rgba(72,86,156,.032)!important;stroke:rgba(121,142,211,.52)!important}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{fill:rgba(90,145,105,.028)!important;stroke:rgba(135,189,149,.48)!important}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{fill:rgba(132,94,166,.032)!important;stroke:rgba(178,135,208,.52)!important}
+
+.page--world-mode .world-map-district:hover path,
+.page--world-mode .world-map-district:focus-visible path{
+  filter:brightness(1.35) saturate(1.12)!important;
+  stroke-width:1.6!important;
+}
+.page--world-mode .world-map-district.is-context path{
+  fill-opacity:1!important;
+  filter:brightness(1.35) saturate(1.10)!important;
+  stroke-width:1.55!important;
+}
+.page--world-mode .world-map-district.is-selected path{
+  filter:brightness(1.65) saturate(1.18)!important;
+  stroke-width:2!important;
+}
+
+/* Map labels carry only names; IDs live in the dossier/directory. */
+.page--world-mode .world-map-district-label{
+  z-index:5!important;
+  transform:translate(-50%,-50%);
+  padding:3px 6px;
+  border:1px solid rgba(224,237,242,.07);
+  background:rgba(2,7,10,.58);
+  opacity:.76!important;
+  pointer-events:none;
+}
+.page--world-mode .world-map-district-label strong{
+  font-size:.64rem!important;
+  line-height:1.15!important;
+  letter-spacing:.08em!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.92)!important;
+}
+.page--world-mode .world-map-district-label small{
+  display:none!important;
+}
+.page--world-mode .world-map-marker{
+  z-index:7!important;
+}
+.page--world-mode .world-map-marker strong{
+  top:11px!important;
+  left:38px!important;
+  padding:2px 4px;
+  background:rgba(2,7,10,.66);
+  border:1px solid rgba(224,237,242,.06);
+  font-size:.68rem!important;
+  line-height:1.1!important;
+  letter-spacing:.07em!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.95);
+}
+.page--world-mode .world-map-marker small{
+  display:none!important;
+}
+.page--world-mode .world-map-canvas__legend{
+  z-index:8!important;
+  padding:5px 7px;
+  background:rgba(2,7,10,.58);
+  border:1px solid rgba(224,237,242,.06);
+}
+
+/* Keep the record panel visually separate from the map at all times. */
+.page--world-mode .world-map-panel{
+  position:relative;
+  z-index:20;
+  min-width:0;
+  overflow-x:hidden!important;
+  background:#04090c!important;
+  border-left:1px solid rgba(228,240,244,.12);
+  box-shadow:-18px 0 32px rgba(0,0,0,.26);
+}
+.page--world-mode .world-map-panel__art{
+  max-width:100%;
+}
