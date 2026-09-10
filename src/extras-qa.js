@@ -1,3 +1,5 @@
+import './styles/typography-accessibility.css'
+
 const root = document.querySelector('#extras-app')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 let previousFrame = null
