@@ -121,7 +121,7 @@ const buildStoryHome = () => {
           </article>
 
           <article class="story-home-card story-home-card--01b" data-episode-card="01B">
-            <img src="./images/tracks/hero.png" alt="" aria-hidden="true" />
+            <img src="./images/tracks/01b-first-contact/hero.png" alt="" aria-hidden="true" />
             <div class="story-home-card__wash" aria-hidden="true"></div>
             <div class="story-home-card__inner">
               <span class="story-home-card__number">02</span>
