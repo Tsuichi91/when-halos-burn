@@ -1,3 +1,5 @@
+import './styles/typography-accessibility.css'
+
 const installQaStyles = () => {
   if (document.querySelector('[data-qa-navigation-style]')) return
   const style = document.createElement('style')
