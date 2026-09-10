@@ -556,3 +556,31 @@
   background:rgba(2,7,10,.52)!important;
   border-color:rgba(224,237,242,.08)!important;
 }
+
+
+/* MASK-DERIVED FINAL DISTRICT VISIBILITY */
+.page--world-mode .world-map-district path{
+  vector-effect:non-scaling-stroke;
+  stroke-width:1.65!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{fill:rgba(96,190,224,.052)!important;stroke:rgba(150,220,242,.78)!important}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{fill:rgba(64,166,158,.050)!important;stroke:rgba(113,207,196,.75)!important}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{fill:rgba(183,91,63,.058)!important;stroke:rgba(226,145,114,.80)!important}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{fill:rgba(184,155,73,.048)!important;stroke:rgba(224,198,120,.76)!important}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{fill:rgba(72,86,156,.056)!important;stroke:rgba(121,142,211,.79)!important}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{fill:rgba(90,145,105,.050)!important;stroke:rgba(135,189,149,.75)!important}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{fill:rgba(132,94,166,.055)!important;stroke:rgba(178,135,208,.79)!important}
+
+.page--world-mode .world-map-district:hover path,
+.page--world-mode .world-map-district:focus-visible path{
+  stroke-width:2.15!important;
+  filter:brightness(1.16) saturate(1.08)!important;
+}
+.page--world-mode .world-map-district.is-context path{
+  stroke-width:2.05!important;
+  filter:brightness(1.15) saturate(1.06)!important;
+}
+.page--world-mode .world-map-district.is-selected path{
+  stroke-width:2.45!important;
+  filter:brightness(1.26) saturate(1.10)!important;
+}
