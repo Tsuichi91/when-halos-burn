@@ -3,17 +3,19 @@
 
 @media (min-width: 1051px) {
   .world-map-shell {
-    height: clamp(500px, calc((100vw - 440px) * .566), 780px);
+    height: var(--map-workspace-height, 620px);
     min-height: 0;
     overflow: hidden;
     align-items: stretch;
-    grid-template-columns: minmax(0,1.72fr) minmax(350px,.56fr);
+    grid-template-columns: minmax(0,72%) minmax(320px,28%);
   }
 
   .world-map-canvas {
     height: 100%;
     min-height: 0;
-    aspect-ratio: 1640 / 928;
+    min-width: 0;
+    aspect-ratio: auto;
+    overflow: hidden;
   }
 
   .world-map-panel {
@@ -53,8 +55,7 @@
 /* Mid-size desktop: preserve the complete map before allowing the panel to dominate width. */
 @media (min-width: 1051px) and (max-width: 1280px) {
   .world-map-shell {
-    grid-template-columns: minmax(0,1.62fr) minmax(340px,.58fr);
-    height: clamp(500px, calc((100vw - 400px) * .566), 640px);
+    grid-template-columns: minmax(0,70%) minmax(320px,30%);
   }
 
   .world-map-panel {
@@ -79,5 +80,25 @@
     min-height: 0;
     overflow: visible;
     scrollbar-gutter: auto;
+  }
+}
+
+
+/* Map and dossier must never overlap visually. */
+@media (min-width:1051px){
+  .world-map-shell{
+    position:relative;
+    width:100%;
+  }
+  .world-map-canvas{
+    position:relative;
+    z-index:1;
+  }
+  .world-map-panel{
+    position:relative;
+    z-index:20;
+    width:auto;
+    min-width:0;
+    max-width:none;
   }
 }
