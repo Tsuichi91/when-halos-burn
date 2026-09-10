@@ -3,20 +3,20 @@ import './styles/world-transit.css'
 const root = document.querySelector('#world-app')
 
 const transitMarkup = `
-  <svg class="world-transit" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+  <svg class="world-transit" viewBox="0 0 1000 566" preserveAspectRatio="none" aria-hidden="true">
     <g class="world-transit__active">
-      <path class="world-transit__line world-transit__line--meridian" d="M186 610 C215 526 285 451 378 373 C443 319 475 251 458 179 C446 128 394 98 286 93" />
-      <path class="world-transit__line world-transit__line--crown" d="M378 373 C510 391 607 365 689 321 C759 283 835 266 970 276" />
-      <circle cx="378" cy="373" r="6"/><circle cx="286" cy="93" r="5"/><circle cx="689" cy="321" r="5"/><circle cx="900" cy="272" r="5"/>
+      <path class="world-transit__line world-transit__line--meridian" d="M165 520 C205 449 275 392 358 337 C423 294 458 239 448 184 C440 140 409 112 350 95" />
+      <path class="world-transit__line world-transit__line--crown" d="M358 337 C454 358 548 350 626 317 C702 284 781 267 918 280" />
+      <circle cx="358" cy="337" r="6"/><circle cx="350" cy="95" r="5"/><circle cx="626" cy="317" r="5"/><circle cx="868" cy="277" r="5"/>
     </g>
     <g class="world-transit__legacy">
-      <path class="world-transit__line world-transit__line--old" d="M42 525 C108 501 171 491 238 500 C323 512 386 529 474 500 C567 469 624 443 690 430" />
-      <path class="world-transit__line world-transit__line--ridge" d="M689 321 C748 274 792 226 823 167 C855 108 903 70 970 58" />
-      <circle cx="42" cy="525" r="5"/><circle cx="238" cy="500" r="5"/><circle cx="823" cy="167" r="5"/>
+      <path class="world-transit__line world-transit__line--old" d="M38 470 C103 446 169 441 230 454 C292 467 340 480 402 467" />
+      <path class="world-transit__line world-transit__line--ridge" d="M626 317 C596 251 565 199 539 151 C522 118 512 88 510 54" />
+      <circle cx="38" cy="470" r="5"/><circle cx="230" cy="454" r="5"/><circle cx="510" cy="54" r="5"/>
     </g>
     <g class="world-transit__blind">
-      <path d="M30 552 C88 528 143 520 190 536 C221 547 237 571 226 603" />
-      <path d="M760 112 C808 88 858 88 904 111" />
+      <path d="M24 494 C82 474 137 471 184 486 C211 496 228 512 235 535" />
+      <path d="M455 78 C492 62 531 60 570 69" />
     </g>
   </svg>
   <div class="world-transit__labels" aria-hidden="true">
@@ -43,7 +43,7 @@ const initialize = () => {
     const shell = root.querySelector('.world-map-shell')
     if (!canvas || !shell || root.querySelector('.world-transit')) return false
 
-    const cityBase = canvas.querySelector('.world-map-citybase')
+    const cityBase = canvas.querySelector('.world-map-basemap')
     if (cityBase) cityBase.insertAdjacentHTML('afterend', transitMarkup)
     else canvas.insertAdjacentHTML('beforeend', transitMarkup)
 
