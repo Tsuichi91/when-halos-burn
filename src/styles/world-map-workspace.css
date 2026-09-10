@@ -1,0 +1,80 @@
+/* WHEN HALOS BURN — Vesper City Map Workspace
+   Keeps the cartographic layer fully visible while the record panel scrolls independently. */
+
+@media (min-width: 1051px) {
+  .world-map-shell {
+    height: clamp(560px, calc(100svh - 110px), 760px);
+    min-height: 0;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  .world-map-canvas {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .world-map-panel {
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-content: start;
+    scroll-padding-top: 18px;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(203,225,233,.28) rgba(230,240,244,.025);
+  }
+
+  .world-map-panel::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .world-map-panel::-webkit-scrollbar-track {
+    background: rgba(230,240,244,.025);
+  }
+
+  .world-map-panel::-webkit-scrollbar-thumb {
+    border: 2px solid #04090c;
+    background: rgba(203,225,233,.24);
+  }
+
+  .world-map-panel__directory {
+    padding-bottom: 18px;
+  }
+
+  .world-map-panel__directory button {
+    min-height: 40px;
+  }
+}
+
+/* Mid-size desktop: preserve the complete map before allowing the panel to dominate width. */
+@media (min-width: 1051px) and (max-width: 1280px) {
+  .world-map-shell {
+    grid-template-columns: minmax(0,1.42fr) minmax(340px,.58fr);
+  }
+
+  .world-map-panel {
+    padding: 20px;
+  }
+
+  .world-map-panel__art {
+    height: 165px;
+  }
+}
+
+/* Tablet/mobile keep the existing stacked reading flow; no nested scrolling. */
+@media (max-width: 1050px) {
+  .world-map-shell {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .world-map-panel {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    scrollbar-gutter: auto;
+  }
+}
