@@ -325,3 +325,65 @@
 .page--world-mode .world-map-marker{
   z-index:6!important;
 }
+
+
+/* FINAL IMAGE-BASED VESPER BASEMAP */
+.page--world-mode .world-map-basemap{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  user-select:none;
+  pointer-events:none;
+  filter:saturate(.82) brightness(.78) contrast(1.06);
+}
+.page--world-mode .world-map-canvas__grid{
+  z-index:1!important;
+  opacity:.16!important;
+  background-size:56px 56px,56px 56px,14px 14px,14px 14px!important;
+}
+.page--world-mode .world-map-canvas__districts{
+  z-index:2!important;
+}
+
+/* District color now behaves like a cartographic overlay over the real basemap. */
+.page--world-mode .world-map-district[data-district-id="DST-01"] path{
+  fill:rgba(96,190,224,.070)!important;
+  stroke:rgba(150,220,242,.44)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-02"] path{
+  fill:rgba(64,166,158,.064)!important;
+  stroke:rgba(113,207,196,.40)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-03"] path{
+  fill:rgba(183,91,63,.075)!important;
+  stroke:rgba(226,145,114,.44)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-04"] path{
+  fill:rgba(184,155,73,.062)!important;
+  stroke:rgba(224,198,120,.40)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-05"] path{
+  fill:rgba(72,86,156,.072)!important;
+  stroke:rgba(121,142,211,.42)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-06"] path{
+  fill:rgba(90,145,105,.062)!important;
+  stroke:rgba(135,189,149,.38)!important;
+}
+.page--world-mode .world-map-district[data-district-id="DST-07"] path{
+  fill:rgba(132,94,166,.070)!important;
+  stroke:rgba(178,135,208,.42)!important;
+}
+.page--world-mode .world-map-district.is-context path{
+  filter:brightness(1.30) saturate(1.10)!important;
+}
+.page--world-mode .world-map-district.is-selected path{
+  filter:brightness(1.70) saturate(1.18)!important;
+  stroke-width:2!important;
+}
+.page--world-mode .world-map-canvas{
+  background:#020609!important;
+}
