@@ -170,26 +170,6 @@ const mapMarkup = () => `
     </div>
   </section>`
 
-const getTransitContext = (item) => {
-  if (!item) return ''
-  const key = selectedType === 'location' ? item.id : item.title
-  const routes = {
-    'MAP-01':'crown',
-    'MAP-02':'crown',
-    'MAP-03':'',
-    'MAP-04':'ridge',
-    'MAP-05':'old',
-    'CROWN DISTRICT':'crown',
-    'MERIDIAN WARD':'meridian',
-    'BORDER DISTRICT':'',
-    'NORTH RIDGE':'ridge',
-    'OLD TRANSIT':'old',
-    'LOWER GRID':'old',
-    'GLASSLINE':'crown'
-  }
-  return routes[key] || ''
-}
-
 const syncContext = () => {
   const item = selectedItem()
   const districtTitle = selectedType === 'location' ? item.district : item.title
@@ -209,10 +189,6 @@ const syncContext = () => {
     node.classList.toggle('is-selected', selectedType === 'location' && node.dataset.mapNode === item.id)
     node.classList.toggle('is-context', selectedType === 'district' && data?.district === item.title)
   })
-
-  const transitContext = getTransitContext(item)
-  root.dataset.mapTransitContext = transitContext
-  root.dispatchEvent(new CustomEvent('world-map-context', { detail:{ transitContext } }))
 }
 
 const syncPanel = (focusMap = false) => {
