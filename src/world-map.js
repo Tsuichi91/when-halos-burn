@@ -137,7 +137,6 @@ const mapMarkup = () => `
         ${locationMarkers()}
         <div class="world-map-canvas__legend">
           <span><i class="world-map-key world-map-key--district"></i>DISTRICT <i class="world-map-key world-map-key--node"></i>LOCATION NODE</span>
-          <span>7 DISTRICTS / 5 STORY NODES / SCHEMATIC / NOT TO SCALE</span>
         </div>
       </div>
 
