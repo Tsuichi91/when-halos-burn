@@ -1,0 +1,160 @@
+/* WHEN HALOS BURN — City Map visual/readability polish */
+
+/* Remove the redundant schematic count line from inside the map. */
+.world-map-canvas__legend{
+  justify-content:flex-start!important;
+}
+.world-map-canvas__legend>span:last-child{
+  display:none!important;
+}
+
+/* Make the map itself readable at normal desktop viewing distance. */
+.page--world-mode .world-map-panel__mode span,
+.page--world-mode .world-map-panel__directory>div>span{
+  font-size:.68rem!important;
+  letter-spacing:.14em!important;
+  color:rgba(209,226,232,.58)!important;
+}
+.page--world-mode .world-map-panel__mode strong{
+  font-size:.72rem!important;
+  letter-spacing:.13em!important;
+}
+.page--world-mode .world-map-panel__filters button{
+  font-size:.68rem!important;
+  letter-spacing:.12em!important;
+  min-height:38px;
+  padding-inline:12px;
+}
+.page--world-mode .world-map-panel__meta span,
+.page--world-mode .world-map-panel>small{
+  font-size:.66rem!important;
+  letter-spacing:.13em!important;
+}
+.page--world-mode .world-map-panel__stats dt{
+  font-size:.58rem!important;
+  letter-spacing:.12em!important;
+  color:rgba(197,216,223,.48)!important;
+}
+.page--world-mode .world-map-panel__stats dd{
+  font-size:.68rem!important;
+  letter-spacing:.08em!important;
+  color:rgba(235,243,246,.75)!important;
+}
+.page--world-mode .world-map-panel__actions a{
+  font-size:.68rem!important;
+  letter-spacing:.12em!important;
+}
+.page--world-mode .world-map-panel__directory button{
+  min-height:52px;
+  grid-template-columns:62px 1fr;
+  padding-inline:10px;
+}
+.page--world-mode .world-map-panel__directory button b{
+  font-size:.60rem!important;
+  letter-spacing:.10em!important;
+  color:rgba(198,216,223,.50)!important;
+}
+.page--world-mode .world-map-panel__directory button strong{
+  font-size:.72rem!important;
+  line-height:1.35!important;
+  letter-spacing:.08em!important;
+  color:rgba(225,236,240,.66);
+}
+.page--world-mode .world-map-panel__directory button:hover strong,
+.page--world-mode .world-map-panel__directory button:focus-visible strong,
+.page--world-mode .world-map-panel__directory button.is-selected strong{
+  color:rgba(248,251,252,.95);
+}
+
+.page--world-mode .world-map-marker strong{
+  font-size:.68rem!important;
+  letter-spacing:.10em!important;
+}
+.page--world-mode .world-map-marker small{
+  font-size:.52rem!important;
+  letter-spacing:.09em!important;
+}
+.page--world-mode .world-map-district-label strong{
+  font-size:.60rem!important;
+  letter-spacing:.10em!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.85);
+}
+.page--world-mode .world-map-district-label small{
+  font-size:.48rem!important;
+  letter-spacing:.09em!important;
+}
+.page--world-mode .world-map-canvas__legend{
+  font-size:.62rem!important;
+  letter-spacing:.12em!important;
+  color:rgba(207,224,230,.55)!important;
+}
+
+/* Semantic district color families — restrained enough to stay cinematic. */
+.page--world-mode .world-map-district{
+  opacity:.94;
+}
+.page--world-mode .world-map-district polygon{
+  fill:rgba(126,160,174,.065);
+  stroke:rgba(168,199,211,.22);
+}
+.page--world-mode .world-map-district[data-affiliation="HALO"] polygon{
+  fill:rgba(118,184,216,.115);
+  stroke:rgba(159,211,232,.31);
+}
+.page--world-mode .world-map-district[data-affiliation="CIVIC"] polygon{
+  fill:rgba(92,145,164,.095);
+  stroke:rgba(142,190,207,.25);
+}
+.page--world-mode .world-map-district[data-affiliation="ECLIPSE"] polygon{
+  fill:rgba(63,108,136,.145);
+  stroke:rgba(111,164,188,.31);
+}
+.page--world-mode .world-map-district[data-affiliation="NEUTRAL"] polygon{
+  fill:rgba(183,164,105,.10);
+  stroke:rgba(215,198,145,.27);
+}
+.page--world-mode .world-map-district[data-affiliation="CONTESTED"] polygon{
+  fill:rgba(166,96,78,.12);
+  stroke:rgba(211,145,122,.30);
+}
+
+.page--world-mode .world-map-district:hover polygon,
+.page--world-mode .world-map-district:focus-visible polygon{
+  filter:brightness(1.35);
+  stroke-width:1.5;
+}
+.page--world-mode .world-map-district.is-context polygon{
+  filter:brightness(1.22);
+  stroke-width:1.45;
+}
+.page--world-mode .world-map-district.is-selected polygon{
+  filter:brightness(1.48);
+  stroke:rgba(239,248,250,.70);
+  stroke-width:1.7;
+}
+.page--world-mode .world-map-district-label{
+  opacity:.68;
+}
+.page--world-mode .world-map-district-label.is-context{
+  opacity:.90;
+}
+.page--world-mode .world-map-district-label.is-selected{
+  opacity:1;
+}
+
+@media(max-width:1050px){
+  .page--world-mode .world-map-panel__directory button strong{font-size:.70rem!important}
+  .page--world-mode .world-map-district-label strong{font-size:.56rem!important}
+}
+
+@media(max-width:760px){
+  .page--world-mode .world-map-panel__directory>div>span{font-size:.64rem!important}
+  .page--world-mode .world-map-panel__directory button b{font-size:.57rem!important}
+  .page--world-mode .world-map-panel__directory button strong{font-size:.68rem!important}
+  .page--world-mode .world-map-district-label strong{font-size:.54rem!important}
+  .page--world-mode .world-map-canvas__legend>span:first-child{display:none!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .page--world-mode .world-map-district polygon{filter:none!important}
+}
