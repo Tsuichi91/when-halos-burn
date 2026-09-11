@@ -1,6 +1,7 @@
 import './styles/site.css'
 import './styles/chapter-detail.css'
 import './styles/chapter-player.css'
+import './styles/chapter-lyrics.css'
 import './styles/chapter-sequence.css'
 import { chapters, chapterOrder, getChapterHref } from './chapter-data.js'
 
@@ -39,6 +40,103 @@ const formatDuration = (seconds) => {
   const minutes = Math.floor(seconds / 60)
   const remainder = Math.floor(seconds % 60)
   return `${minutes}:${String(remainder).padStart(2, '0')}`
+}
+
+
+const readUInt32BE = (bytes, offset) => (
+  ((bytes[offset] << 24) >>> 0) +
+  (bytes[offset + 1] << 16) +
+  (bytes[offset + 2] << 8) +
+  bytes[offset + 3]
+)
+
+const findAscii = (bytes, value) => {
+  const target = [...value].map((character) => character.charCodeAt(0))
+  outer: for (let index = 0; index <= bytes.length - target.length; index += 1) {
+    for (let offset = 0; offset < target.length; offset += 1) {
+      if (bytes[index + offset] !== target[offset]) continue outer
+    }
+    return index
+  }
+  return -1
+}
+
+const findEncodedTerminator = (bytes, start, encoding) => {
+  if (encoding === 1 || encoding === 2) {
+    for (let index = start; index + 1 < bytes.length; index += 2) {
+      if (bytes[index] === 0 && bytes[index + 1] === 0) return index
+    }
+    return -1
+  }
+  return bytes.indexOf(0, start)
+}
+
+const decodeId3Text = (bytes, encoding) => {
+  if (!bytes?.length) return ''
+  const labels = { 0:'windows-1252', 1:'utf-16', 2:'utf-16be', 3:'utf-8' }
+  try {
+    return new TextDecoder(labels[encoding] || 'utf-8').decode(bytes).replace(/^\uFEFF/, '')
+  } catch {
+    return new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, '')
+  }
+}
+
+const extractUsltLyrics = (arrayBuffer) => {
+  const bytes = new Uint8Array(arrayBuffer)
+  const frame = findAscii(bytes, 'USLT')
+  if (frame < 0 || frame + 10 >= bytes.length) return ''
+
+  const size = readUInt32BE(bytes, frame + 4)
+  const payloadStart = frame + 10
+  const payloadEnd = Math.min(payloadStart + size, bytes.length)
+  const payload = bytes.slice(payloadStart, payloadEnd)
+  if (payload.length < 5) return ''
+
+  const encoding = payload[0]
+  const descriptorStart = 4
+  const terminator = findEncodedTerminator(payload, descriptorStart, encoding)
+  if (terminator < 0) return ''
+
+  const lyricStart = terminator + ((encoding === 1 || encoding === 2) ? 2 : 1)
+  return decodeId3Text(payload.slice(lyricStart), encoding).replace(/\u0000+$/g, '')
+}
+
+const cleanEmbeddedLyrics = (text) => {
+  const lines = String(text || '').replace(/\r\n?/g, '\n').split('\n')
+  const cleaned = lines.map((line) => /^\s*\[[^\]]*\]\s*$/.test(line) ? '' : line.trimEnd())
+  return cleaned.join('\n').replace(/\n\s*\n(?:\s*\n)+/g, '\n\n').trim()
+}
+
+const escapeLyricsHtml = (value) => String(value)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#039;')
+
+const renderLyricsMarkup = (text) => text
+  .split(/\n\s*\n/)
+  .map((stanza) => stanza.trim())
+  .filter(Boolean)
+  .map((stanza) => `<p class="chapter-lyrics__stanza">${escapeLyricsHtml(stanza).replace(/\n/g, '<br />')}</p>`)
+  .join('')
+
+const fetchEmbeddedLyrics = async (url) => {
+  const read = async (range) => {
+    const response = await fetch(url, { headers: range ? { Range: range } : undefined })
+    if (!response.ok) throw new Error(`Lyrics request failed: ${response.status}`)
+    return response.arrayBuffer()
+  }
+
+  let buffer = await read('bytes=0-131071')
+  let lyrics = extractUsltLyrics(buffer)
+
+  if (!lyrics) {
+    buffer = await read(null)
+    lyrics = extractUsltLyrics(buffer)
+  }
+
+  return cleanEmbeddedLyrics(lyrics)
 }
 
 const sceneCards = chapter.scenes.map(([number, label, copy]) => `
@@ -134,9 +232,17 @@ root.innerHTML = `
         <div class="chapter-scenes">${sceneCards}</div>
       </section>
 
-      <section class="chapter-panel chapter-panel--empty" role="tabpanel" data-panel="lyrics" hidden>
-        <span>LYRICS / ${chapter.code}</span><h2>LYRICS NOT LOADED</h2>
-        <p>The final lyric text has not been added to this chapter screen yet.</p>
+      <section class="chapter-panel chapter-panel--lyrics" role="tabpanel" data-panel="lyrics" hidden>
+        <header class="chapter-lyrics__head">
+          <div>
+            <p class="chapter-panel__eyebrow">FINAL MASTER LYRIC</p>
+            <h2>${chapter.title}</h2>
+          </div>
+          <span>${chapter.code} / EMBEDDED LYRIC MASTER</span>
+        </header>
+        <div class="chapter-lyrics" data-lyrics-body aria-live="polite">
+          <p class="chapter-lyrics__loading">LOADING LYRIC MASTER…</p>
+        </div>
       </section>
 
       <section class="chapter-panel" role="tabpanel" data-panel="visuals" hidden>
@@ -179,6 +285,7 @@ tabs.forEach((tab) => tab.addEventListener('click', () => {
     panel.classList.toggle('is-active', active)
     panel.hidden = !active
   })
+  if (key === 'lyrics') loadLyrics()
 }))
 
 const statusEl = root.querySelector('[data-chapter-status]')
@@ -192,6 +299,27 @@ const currentEl = root.querySelector('[data-player-current]')
 const playerDurationEl = root.querySelector('[data-player-duration]')
 const playerState = root.querySelector('[data-player-state]')
 const audio = root.querySelector('[data-player-audio]')
+const lyricsBody = root.querySelector('[data-lyrics-body]')
+let lyricsPromise = null
+
+const loadLyrics = () => {
+  if (!lyricsBody || lyricsBody.dataset.loaded === 'true') return Promise.resolve()
+  if (lyricsPromise) return lyricsPromise
+
+  lyricsPromise = fetchEmbeddedLyrics(chapter.audio)
+    .then((lyrics) => {
+      if (!lyrics) throw new Error('No embedded USLT lyrics found')
+      lyricsBody.innerHTML = renderLyricsMarkup(lyrics)
+      lyricsBody.dataset.loaded = 'true'
+    })
+    .catch(() => {
+      lyricsBody.innerHTML = '<p class="chapter-lyrics__error">LYRIC MASTER COULD NOT BE LOADED.</p>'
+      lyricsBody.dataset.loaded = 'error'
+    })
+    .finally(() => { lyricsPromise = null })
+
+  return lyricsPromise
+}
 
 const refreshStatus = () => { if (statusEl) statusEl.textContent = getStatus() }
 const markStarted = () => {
