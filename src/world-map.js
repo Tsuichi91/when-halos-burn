@@ -46,7 +46,7 @@ const districts = [
     id:'DST-01', title:'CROWN DISTRICT', affiliation:'HALO', role:'GOVERNANCE / HIGH-CLEARANCE CIVIC CORE',
     shape:'M 570 148 L 570 152 L 579 182 L 590 229 L 594 256 L 595 278 L 594 279 L 594 292 L 591 305 L 580 329 L 571 342 L 566 352 L 567 363 L 574 370 L 588 379 L 614 391 L 636 399 L 699 442 L 745 476 L 774 493 L 805 504 L 846 511 L 872 512 L 888 509 L 900 505 L 925 492 L 1001 441 L 1051 412 L 1089 394 L 1088 346 L 1086 332 L 1078 306 L 1068 290 L 1055 277 L 1040 267 L 1024 259 L 987 246 L 938 235 L 908 231 L 874 230 L 842 225 L 827 224 L 820 222 L 768 215 L 734 208 L 704 200 L 678 190 L 660 181 L 625 158 L 608 149 L 596 146 L 582 146 Z',
     labelX:49.5, labelY:43.5,
-    image:'./images/world/halo-headquarters.png',
+    image:'./images/world/crown-district.png',
     body:'Vesper’s administrative center. Council offices, HALO Headquarters and the Core sit inside the city’s most continuously monitored district, where security and civic prestige are designed to look identical.',
     stats:[['FUNCTION','GOVERNANCE'],['HALO DENSITY','MAXIMUM'],['NETWORK COVERAGE','CONTINUOUS'],['STORY NODES','HALO HQ / CORE']],
     chapter:'12', chapterLabel:'WHEN HALOS BURN'
@@ -72,7 +72,7 @@ const districts = [
     id:'DST-04', title:'NORTH RIDGE', affiliation:'NEUTRAL', role:'RESEARCH / CIVIC OVERLOOK / LEGACY NETWORK',
     shape:'M 555 97 L 556 105 L 567 140 L 573 140 L 579 138 L 597 138 L 609 141 L 625 149 L 645 163 L 670 178 L 701 192 L 737 202 L 775 209 L 835 217 L 843 217 L 850 219 L 937 227 L 982 235 L 1032 254 L 1046 261 L 1062 273 L 1064 273 L 1067 262 L 1083 221 L 1101 186 L 1101 180 L 1097 163 L 1097 141 L 1100 131 L 1108 115 L 1108 106 L 1099 90 L 1071 86 L 998 72 L 993 70 L 988 70 L 885 47 L 879 47 L 839 39 L 808 37 L 807 36 L 761 38 L 698 55 L 678 65 L 670 77 L 662 85 L 649 90 L 608 95 Z',
     labelX:47.25, labelY:11.16,
-    image:'./images/archive/locations/observatory.png',
+    image:'./images/world/north-ridge.png',
     body:'An elevated, lower-density civic and research district built before Vesper’s newest network standards. Its older systems are still monitored, but less seamlessly, leaving pockets of privacy without turning the area into a lawless blind spot.',
     stats:[['FUNCTION','RESEARCH / OVERLOOK'],['HALO DENSITY','MODERATE'],['NETWORK COVERAGE','LEGACY / PARTIAL'],['STORY NODE','OBSERVATORY']],
     chapter:'05', chapterLabel:'AFTER CURFEW'
