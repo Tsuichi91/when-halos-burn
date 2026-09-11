@@ -4,6 +4,7 @@ import './styles/chapter-player.css'
 import './styles/chapter-lyrics.css'
 import './styles/chapter-sequence.css'
 import { chapters, chapterOrder, getChapterHref } from './chapter-data.js'
+import { getLyricsSyncUrl, isCompleteLyricsSync } from './lyrics-sync-utils.js'
 
 const completionStorageKey = 'whb-story-complete-v1'
 const startedStorageKey = 'whb-story-started-v1'
@@ -120,6 +121,23 @@ const renderLyricsMarkup = (text) => text
   .filter(Boolean)
   .map((stanza) => `<p class="chapter-lyrics__stanza">${escapeLyricsHtml(stanza).replace(/\n/g, '<br />')}</p>`)
   .join('')
+
+const renderSyncedLyricsMarkup = (lines) => {
+  let markup = ''
+  let openStanza = false
+
+  lines.forEach((line, index) => {
+    if (!openStanza || line.breakBefore) {
+      if (openStanza) markup += '</p>'
+      markup += '<p class="chapter-lyrics__stanza chapter-lyrics__stanza--synced">'
+      openStanza = true
+    }
+    markup += `<span class="chapter-lyrics__line" data-lyric-index="${index}">${escapeLyricsHtml(line.text)}</span>`
+  })
+
+  if (openStanza) markup += '</p>'
+  return markup
+}
 
 const fetchEmbeddedLyrics = async (url) => {
   const read = async (range) => {
@@ -238,7 +256,7 @@ root.innerHTML = `
             <p class="chapter-panel__eyebrow">FINAL MASTER LYRIC</p>
             <h2>${chapter.title}</h2>
           </div>
-          <span>${chapter.code} / EMBEDDED LYRIC MASTER</span>
+          <span data-lyrics-sync-state>${chapter.code} / EMBEDDED LYRIC MASTER</span>
         </header>
         <div class="chapter-lyrics" data-lyrics-body aria-live="polite">
           <p class="chapter-lyrics__loading">LOADING LYRIC MASTER…</p>
@@ -300,21 +318,50 @@ const playerDurationEl = root.querySelector('[data-player-duration]')
 const playerState = root.querySelector('[data-player-state]')
 const audio = root.querySelector('[data-player-audio]')
 const lyricsBody = root.querySelector('[data-lyrics-body]')
+const lyricsSyncState = root.querySelector('[data-lyrics-sync-state]')
 let lyricsPromise = null
+let syncedLyrics = []
+let activeLyricIndex = -1
 
 const loadLyrics = () => {
   if (!lyricsBody || lyricsBody.dataset.loaded === 'true') return Promise.resolve()
   if (lyricsPromise) return lyricsPromise
 
-  lyricsPromise = fetchEmbeddedLyrics(chapter.audio)
-    .then((lyrics) => {
-      if (!lyrics) throw new Error('No embedded USLT lyrics found')
-      lyricsBody.innerHTML = renderLyricsMarkup(lyrics)
+  lyricsPromise = (async () => {
+    let syncData = null
+    try {
+      const syncResponse = await fetch(getLyricsSyncUrl(chapter), { cache:'no-store' })
+      if (syncResponse.ok) syncData = await syncResponse.json()
+    } catch { /* unsynced fallback */ }
+
+    if (isCompleteLyricsSync(syncData, chapter.code)) {
+      syncedLyrics = syncData.lines.map((line) => ({
+        time: Number(line.time),
+        text: String(line.text || ''),
+        breakBefore: Boolean(line.breakBefore)
+      }))
+      lyricsBody.innerHTML = renderSyncedLyricsMarkup(syncedLyrics)
       lyricsBody.dataset.loaded = 'true'
-    })
+      lyricsBody.dataset.synced = 'true'
+      if (lyricsSyncState) lyricsSyncState.textContent = `${chapter.code} / SYNCED LYRIC MASTER`
+      refreshSyncedLyrics()
+      return
+    }
+
+    const lyrics = await fetchEmbeddedLyrics(chapter.audio)
+    if (!lyrics) throw new Error('No embedded USLT lyrics found')
+    syncedLyrics = []
+    activeLyricIndex = -1
+    lyricsBody.innerHTML = renderLyricsMarkup(lyrics)
+    lyricsBody.dataset.loaded = 'true'
+    lyricsBody.dataset.synced = 'false'
+    if (lyricsSyncState) lyricsSyncState.textContent = `${chapter.code} / EMBEDDED LYRIC MASTER`
+  })()
     .catch(() => {
       lyricsBody.innerHTML = '<p class="chapter-lyrics__error">LYRIC MASTER COULD NOT BE LOADED.</p>'
       lyricsBody.dataset.loaded = 'error'
+      syncedLyrics = []
+      activeLyricIndex = -1
     })
     .finally(() => { lyricsPromise = null })
 
@@ -337,11 +384,34 @@ const refreshCommand = () => {
   commandIcon.textContent = '▶'
   commandLabelEl.textContent = completed.has(chapter.code) ? 'REPLAY CHAPTER' : started.has(chapter.code) ? 'CONTINUE CHAPTER' : 'START CHAPTER'
 }
+const refreshSyncedLyrics = () => {
+  if (!audio || !syncedLyrics.length || !lyricsBody) return
+
+  let nextIndex = -1
+  for (let index = 0; index < syncedLyrics.length; index += 1) {
+    if (audio.currentTime + .025 >= syncedLyrics[index].time) nextIndex = index
+    else break
+  }
+
+  if (nextIndex === activeLyricIndex) return
+  activeLyricIndex = nextIndex
+
+  lyricsBody.querySelectorAll('[data-lyric-index]').forEach((line) => {
+    const index = Number(line.dataset.lyricIndex)
+    const current = index === activeLyricIndex
+    line.classList.toggle('is-current', current)
+    line.classList.toggle('is-past', index < activeLyricIndex)
+    if (current) line.setAttribute('aria-current', 'true')
+    else line.removeAttribute('aria-current')
+  })
+}
+
 const refreshPlayer = () => {
   if (!audio || !seek) return
   const duration = audio.duration
   if (Number.isFinite(duration) && duration > 0) seek.value = String(Math.round((audio.currentTime / duration) * 1000))
   if (currentEl) currentEl.textContent = formatDuration(audio.currentTime)
+  refreshSyncedLyrics()
 }
 
 const togglePlayback = async () => {

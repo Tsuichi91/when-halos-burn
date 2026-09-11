@@ -116,3 +116,51 @@
     font-size: .62rem;
   }
 }
+
+
+/* SYNCHRONIZED LYRIC PLAYBACK */
+.chapter-lyrics__stanza--synced {
+  display: grid;
+  gap: .22em;
+}
+
+.chapter-lyrics__line {
+  display: block;
+  position: relative;
+  padding-left: 0;
+  opacity: .54;
+  transition: opacity .28s ease, color .28s ease, transform .28s ease, padding-left .28s ease;
+}
+
+.chapter-lyrics__line.is-past {
+  opacity: .30;
+}
+
+.chapter-lyrics__line.is-current {
+  opacity: 1;
+  color: rgba(248,251,252,.98);
+  padding-left: 18px;
+  transform: translateX(2px);
+  text-shadow: 0 0 22px rgba(209,155,101,.12);
+}
+
+.chapter-lyrics__line.is-current::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .48em;
+  width: 7px;
+  height: 1px;
+  background: rgba(233,196,151,.86);
+  box-shadow: 0 0 12px rgba(209,155,101,.36);
+}
+
+.chapter-lyrics[data-synced='true'] {
+  scroll-margin-top: 110px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-lyrics__line {
+    transition: none !important;
+  }
+}

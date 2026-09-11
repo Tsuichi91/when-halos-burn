@@ -11,7 +11,8 @@ export default defineConfig(({ command }) => ({
         chapter: resolve(__dirname, 'chapter.html'),
         archive: resolve(__dirname, 'archive.html'),
         world: resolve(__dirname, 'world.html'),
-        extras: resolve(__dirname, 'extras.html')
+        extras: resolve(__dirname, 'extras.html'),
+        adminLyricsSync: resolve(__dirname, 'admin-lyrics-sync.html')
       }
     }
   }
