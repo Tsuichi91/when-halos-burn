@@ -1,0 +1,510 @@
+{
+  "version": 1,
+  "track": "01B",
+  "title": "FIRST CONTACT",
+  "source": "embedded-uslt",
+  "synced": true,
+  "updatedAt": "2026-09-13T06:12:34.015Z",
+  "lines": [
+    {
+      "time": 4.701,
+      "text": "Aegis.",
+      "breakBefore": false
+    },
+    {
+      "time": 10.207,
+      "text": "So that's the man",
+      "breakBefore": false
+    },
+    {
+      "time": 11.315,
+      "text": "they built a shield around.",
+      "breakBefore": false
+    },
+    {
+      "time": 12.78,
+      "text": "Clean uniform.",
+      "breakBefore": false
+    },
+    {
+      "time": 13.555,
+      "text": "Steady hands.",
+      "breakBefore": false
+    },
+    {
+      "time": 15.019,
+      "text": "Standing exactly",
+      "breakBefore": false
+    },
+    {
+      "time": 16.324,
+      "text": "where the file said you'd stand.",
+      "breakBefore": false
+    },
+    {
+      "time": 19.916,
+      "text": "I've read the reports.",
+      "breakBefore": false
+    },
+    {
+      "time": 21.058,
+      "text": "Seen the photographs.",
+      "breakBefore": false
+    },
+    {
+      "time": 22.214,
+      "text": "Learned the pattern.",
+      "breakBefore": false
+    },
+    {
+      "time": 23.449,
+      "text": "Duty first.",
+      "breakBefore": false
+    },
+    {
+      "time": 24.465,
+      "text": "Questions later.",
+      "breakBefore": false
+    },
+    {
+      "time": 28.088,
+      "text": "Easy.",
+      "breakBefore": false
+    },
+    {
+      "time": 30.14,
+      "text": "They gave me a name too.",
+      "breakBefore": true
+    },
+    {
+      "time": 31.319,
+      "text": "The Architect.",
+      "breakBefore": false
+    },
+    {
+      "time": 32.511,
+      "text": "Like one man drew the Blackout",
+      "breakBefore": false
+    },
+    {
+      "time": 33.74,
+      "text": "with his own two hands.",
+      "breakBefore": false
+    },
+    {
+      "time": 35.329,
+      "text": "Put my face beside the warning.",
+      "breakBefore": false
+    },
+    {
+      "time": 36.633,
+      "text": "Let the city fill the rest.",
+      "breakBefore": false
+    },
+    {
+      "time": 38.071,
+      "text": "Hero.",
+      "breakBefore": false
+    },
+    {
+      "time": 38.685,
+      "text": "Villain.",
+      "breakBefore": false
+    },
+    {
+      "time": 39.341,
+      "text": "Shield.",
+      "breakBefore": false
+    },
+    {
+      "time": 39.956,
+      "text": "Threat.",
+      "breakBefore": false
+    },
+    {
+      "time": 40.568,
+      "text": "Simple stories",
+      "breakBefore": false
+    },
+    {
+      "time": 42.258,
+      "text": "for complicated streets.",
+      "breakBefore": false
+    },
+    {
+      "time": 45.259,
+      "text": "And there you were,",
+      "breakBefore": true
+    },
+    {
+      "time": 46.039,
+      "text": "looking straight at me",
+      "breakBefore": false
+    },
+    {
+      "time": 47.141,
+      "text": "like the story",
+      "breakBefore": false
+    },
+    {
+      "time": 48.261,
+      "text": "had already told you",
+      "breakBefore": false
+    },
+    {
+      "time": 49.491,
+      "text": "how this ends.",
+      "breakBefore": false
+    },
+    {
+      "time": 50.511,
+      "text": "Across the line,",
+      "breakBefore": true
+    },
+    {
+      "time": 51.963,
+      "text": "you knew my name.",
+      "breakBefore": false
+    },
+    {
+      "time": 53.154,
+      "text": "I knew yours",
+      "breakBefore": false
+    },
+    {
+      "time": 54.331,
+      "text": "before you ever spoke it.",
+      "breakBefore": false
+    },
+    {
+      "time": 55.88,
+      "text": "Everything exactly",
+      "breakBefore": false
+    },
+    {
+      "time": 57.06,
+      "text": "where it should have been.",
+      "breakBefore": false
+    },
+    {
+      "time": 59.666,
+      "text": "Until it wasn't.",
+      "breakBefore": false
+    },
+    {
+      "time": 60.892,
+      "text": "Across the line,",
+      "breakBefore": false
+    },
+    {
+      "time": 62.151,
+      "text": "one second changed the frame.",
+      "breakBefore": false
+    },
+    {
+      "time": 63.901,
+      "text": "You turned away from me",
+      "breakBefore": false
+    },
+    {
+      "time": 65.129,
+      "text": "to save somebody",
+      "breakBefore": false
+    },
+    {
+      "time": 66.512,
+      "text": "you'd never even met.",
+      "breakBefore": false
+    },
+    {
+      "time": 68.519,
+      "text": "And left me",
+      "breakBefore": false
+    },
+    {
+      "time": 70.153,
+      "text": "every opening.",
+      "breakBefore": false
+    },
+    {
+      "time": 76.491,
+      "text": "Interesting.",
+      "breakBefore": true
+    },
+    {
+      "time": 81.602,
+      "text": "No hesitation.",
+      "breakBefore": true
+    },
+    {
+      "time": 82.983,
+      "text": "That's what the file",
+      "breakBefore": false
+    },
+    {
+      "time": 84.268,
+      "text": "forgot to mention.",
+      "breakBefore": false
+    },
+    {
+      "time": 85.325,
+      "text": "No glance back.",
+      "breakBefore": false
+    },
+    {
+      "time": 86.186,
+      "text": "No calculation.",
+      "breakBefore": false
+    },
+    {
+      "time": 87.252,
+      "text": "No question",
+      "breakBefore": false
+    },
+    {
+      "time": 88.434,
+      "text": "whether they were worth the risk.",
+      "breakBefore": false
+    },
+    {
+      "time": 88.907,
+      "text": "You just moved.",
+      "breakBefore": false
+    },
+    {
+      "time": 91.013,
+      "text": "And suddenly",
+      "breakBefore": false
+    },
+    {
+      "time": 91.744,
+      "text": "the cleanest piece",
+      "breakBefore": false
+    },
+    {
+      "time": 92.638,
+      "text": "on Halo's board",
+      "breakBefore": false
+    },
+    {
+      "time": 93.492,
+      "text": "looked less like an order",
+      "breakBefore": false
+    },
+    {
+      "time": 94.795,
+      "text": "and more like a man.",
+      "breakBefore": false
+    },
+    {
+      "time": 96.71,
+      "text": "I could have taken",
+      "breakBefore": true
+    },
+    {
+      "time": 96.994,
+      "text": "what you gave me.",
+      "breakBefore": false
+    },
+    {
+      "time": 98.106,
+      "text": "One step.",
+      "breakBefore": false
+    },
+    {
+      "time": 98.918,
+      "text": "One strike.",
+      "breakBefore": false
+    },
+    {
+      "time": 99.489,
+      "text": "One ending.",
+      "breakBefore": false
+    },
+    {
+      "time": 101.161,
+      "text": "Instead—",
+      "breakBefore": false
+    },
+    {
+      "time": 102.106,
+      "text": "I watched.",
+      "breakBefore": false
+    },
+    {
+      "time": 102.971,
+      "text": "Across the line,",
+      "breakBefore": true
+    },
+    {
+      "time": 104.209,
+      "text": "you knew my name.",
+      "breakBefore": false
+    },
+    {
+      "time": 105.548,
+      "text": "I knew every reason",
+      "breakBefore": false
+    },
+    {
+      "time": 106.706,
+      "text": "you were meant to hate it.",
+      "breakBefore": false
+    },
+    {
+      "time": 108.414,
+      "text": "Everything exactly",
+      "breakBefore": false
+    },
+    {
+      "time": 109.294,
+      "text": "where it should have been.",
+      "breakBefore": false
+    },
+    {
+      "time": 111.636,
+      "text": "Until it wasn't.",
+      "breakBefore": false
+    },
+    {
+      "time": 113.224,
+      "text": "Across the line,",
+      "breakBefore": false
+    },
+    {
+      "time": 114.819,
+      "text": "you gave me one mistake.",
+      "breakBefore": false
+    },
+    {
+      "time": 116.535,
+      "text": "A perfect chance",
+      "breakBefore": false
+    },
+    {
+      "time": 117.676,
+      "text": "to prove the city right.",
+      "breakBefore": false
+    },
+    {
+      "time": 119.569,
+      "text": "I let it pass.",
+      "breakBefore": false
+    },
+    {
+      "time": 120.963,
+      "text": "Now tell me—",
+      "breakBefore": false
+    },
+    {
+      "time": 122.345,
+      "text": "which one of us",
+      "breakBefore": false
+    },
+    {
+      "time": 123.199,
+      "text": "just broke the pattern?",
+      "breakBefore": false
+    },
+    {
+      "time": 129.659,
+      "text": "Maybe they taught you",
+      "breakBefore": true
+    },
+    {
+      "time": 130.799,
+      "text": "what I am.",
+      "breakBefore": false
+    },
+    {
+      "time": 132.274,
+      "text": "Maybe I already knew",
+      "breakBefore": false
+    },
+    {
+      "time": 134.901,
+      "text": "what you were supposed to be.",
+      "breakBefore": false
+    },
+    {
+      "time": 139.917,
+      "text": "That's the problem",
+      "breakBefore": false
+    },
+    {
+      "time": 140.491,
+      "text": "with a perfect record.",
+      "breakBefore": false
+    },
+    {
+      "time": 141.73,
+      "text": "One wrong detail—",
+      "breakBefore": false
+    },
+    {
+      "time": 143.154,
+      "text": "and suddenly",
+      "breakBefore": false
+    },
+    {
+      "time": 144.224,
+      "text": "you read the whole thing twice.",
+      "breakBefore": false
+    },
+    {
+      "time": 147.332,
+      "text": "Aegis.",
+      "breakBefore": true
+    },
+    {
+      "time": 149.857,
+      "text": "The Shield of Vesper.",
+      "breakBefore": false
+    },
+    {
+      "time": 151.044,
+      "text": "Still standing",
+      "breakBefore": false
+    },
+    {
+      "time": 151.82,
+      "text": "where they told you to stand.",
+      "breakBefore": false
+    },
+    {
+      "time": 153.329,
+      "text": "For now.",
+      "breakBefore": false
+    },
+    {
+      "time": 154.875,
+      "text": "And me?",
+      "breakBefore": true
+    },
+    {
+      "time": 156.163,
+      "text": "The Architect of the Blackout.",
+      "breakBefore": false
+    },
+    {
+      "time": 158.006,
+      "text": "Still exactly",
+      "breakBefore": false
+    },
+    {
+      "time": 160.162,
+      "text": "where they need me.",
+      "breakBefore": false
+    },
+    {
+      "time": 166.2,
+      "text": "For now.",
+      "breakBefore": true
+    },
+    {
+      "time": 171.268,
+      "text": "Interesting.",
+      "breakBefore": true
+    }
+  ]
+}
